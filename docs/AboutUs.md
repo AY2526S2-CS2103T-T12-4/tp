@@ -9,6 +9,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+### Kyra Choo
+
+<img src="images/yellowbrickkode.png" width="200px">
+
+[[github](https://github.com/yellowbrickkode)]
+[[portfolio](team/yellowbrickkode.md)]
+
+* Role: Team Member
+
 ### Chia Ping Yi Alston
 
 <img src="images/achiack.png" width="200px">
@@ -26,6 +35,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/hahaahaahh.md)]
 
 * Role: Team Member
+
 ### Yida Wang
 
 <img src="images/wang-yida.png" width="200px">
@@ -36,15 +46,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Member
 * Responsibilities: TBC
 
-### Johnny Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)] [[portfolio](team/wang-yida)]
-
-* Role: Developer
-* Responsibilities: Data
-
 ### Celeste Phua
 
 <img src="images/select-e.png" width="200px">
@@ -53,13 +54,3 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[portfolio](team/select-e.md)]
 
 * Role: Team Member
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/wang-yida)]
-
-* Role: Developer
-* Responsibilities: UI
