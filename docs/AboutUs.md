@@ -9,51 +9,48 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Kyra Choo
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/yellowbrickkode.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/yellowbrickkode)]
+[[portfolio](team/yellowbrickkode.md)]
 
-* Role: Project Advisor
+* Role: Team Member
 
-### Jane Doe
+### Chia Ping Yi Alston
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/achiack.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/Achiack)]
+[[portfolio](team/achiack.md)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Member
 
-### Johnny Doe
+### Yueqian Hong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/hahaahaahh.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/hahaahaahh)]
+[[portfolio](team/hahaahaahh.md)]
 
-* Role: Developer
-* Responsibilities: Data
+* Role: Team Member
 
-### Jean Doe
+### Yida Wang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/wang-yida.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/WANG-YIDA)]
+[[portfolio](team/wang-yida.md)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Team Member
+* Responsibilities: TBC
 
-### James Doe
+### Celeste Phua
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/select-e.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/select-e)]
+[[portfolio](team/select-e.md)]
 
-* Role: Developer
-* Responsibilities: UI
+* Role: Team Member
