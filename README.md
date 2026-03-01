@@ -2,13 +2,10 @@
 
 ![Ui](docs/images/Ui.png)
 
-* This is **a sample project for Software Engineering (SE) students**.<br>
-  Example usages:
-  * as a starting point of a course project (as opposed to writing everything from scratch)
-  * as a case study
-* The project simulates an ongoing software project for a desktop application (called _AddressBook_) used for managing contact details.
-  * It is **written in OOP fashion**. It provides a **reasonably well-written** code base **bigger** (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
+* Food Bridge is an application that aims to help restaurant delivery workers organize and sort contacts and orders so that they can manage pickups and dropoffs more efficiently.
+  * The application allows users to identify customers with active orders in the same region, helping them group and organise deliveries more efficiently.
+* This project is an ongoing software project for a desktop application (called _Food Bridge_) used for managing contact details of customers for a food delivery service.
+  * It is **written in OOP fashion**. 
   * It comes with a **reasonable level of user and developer documentation**.
-* It is named `AddressBook Level 3` (`AB3` for short) because it was initially created as a part of a series of `AddressBook` projects (`Level 1`, `Level 2`, `Level 3` ...).
-* For the detailed documentation of this project, see the **[Address Book Product Website](https://se-education.org/addressbook-level3)**.
+* For the detailed documentation of this project, see our **[Product Website](https://ay2526s2-cs2103t-t12-4.github.io/tp/)**.
 * This project is a **part of the se-education.org** initiative. If you would like to contribute code to this project, see [se-education.org](https://se-education.org/#contributing-to-se-edu) for more info.
