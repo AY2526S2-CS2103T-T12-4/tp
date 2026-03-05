@@ -8,4 +8,3 @@
   * It is **written in OOP fashion**. 
   * It comes with a **reasonable level of user and developer documentation**.
 * For the detailed documentation of this project, see our **[Product Website](https://ay2526s2-cs2103t-t12-4.github.io/tp/)**.
-* This project is a **part of the se-education.org** initiative. If you would like to contribute code to this project, see [se-education.org](https://se-education.org/#contributing-to-se-edu) for more info.
