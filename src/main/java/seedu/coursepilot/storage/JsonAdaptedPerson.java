@@ -95,7 +95,7 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (matriculationNumber == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "matriculationNumber"));
         }
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
