@@ -9,6 +9,7 @@ import seedu.coursepilot.logic.commands.exceptions.CommandException;
 import seedu.coursepilot.logic.parser.exceptions.ParseException;
 import seedu.coursepilot.model.ReadOnlyAddressBook;
 import seedu.coursepilot.model.person.Student;
+import seedu.coursepilot.model.tutorial.Tutorial;
 
 /**
  * API of the Logic component
@@ -32,6 +33,12 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Student> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the tutorial list. */
+    ObservableList<Tutorial> getTutorialList();
+
+    /** Returns the current operating tutorial, if any. */
+    Tutorial getCurrentOperatingTutorial();
 
     /**
      * Returns the user prefs' address book file path.

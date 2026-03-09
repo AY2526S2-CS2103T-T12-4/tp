@@ -4,14 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.coursepilot.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.coursepilot.commons.core.GuiSettings;
 import seedu.coursepilot.commons.core.LogsCenter;
 import seedu.coursepilot.model.person.Student;
+import seedu.coursepilot.model.tutorial.Tutorial;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +25,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
+    private final ObservableList<Tutorial> tutorialList;
+    private Tutorial currentOperatingTutorial;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +39,12 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getPersonList());
+        tutorialList = FXCollections.observableArrayList(
+                new Tutorial("CS2103T-W13", "Monday", "10:00-11:00", 25),
+                new Tutorial("CS2103T-W14", "Wednesday", "12:00-13:00", 25),
+                new Tutorial("CS2103T-W15", "Friday", "14:00-15:00", 25)
+        );
+        currentOperatingTutorial = null;
     }
 
     public ModelManager() {
@@ -123,6 +134,27 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Tutorial> getTutorialList() {
+        return FXCollections.unmodifiableObservableList(tutorialList);
+    }
+
+    @Override
+    public Optional<Tutorial> getCurrentOperatingTutorial() {
+        return Optional.ofNullable(currentOperatingTutorial);
+    }
+
+    @Override
+    public void setCurrentOperatingTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        currentOperatingTutorial = tutorial;
+    }
+
+    @Override
+    public void clearCurrentOperatingTutorial() {
+        currentOperatingTutorial = null;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
@@ -142,7 +174,10 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredStudents.equals(otherModelManager.filteredStudents);
+                && filteredStudents.equals(otherModelManager.filteredStudents)
+                && tutorialList.equals(otherModelManager.tutorialList)
+                && Optional.ofNullable(currentOperatingTutorial)
+                    .equals(Optional.ofNullable(otherModelManager.currentOperatingTutorial));
     }
 
 }

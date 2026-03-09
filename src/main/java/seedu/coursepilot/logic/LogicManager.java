@@ -16,6 +16,7 @@ import seedu.coursepilot.logic.parser.exceptions.ParseException;
 import seedu.coursepilot.model.Model;
 import seedu.coursepilot.model.ReadOnlyAddressBook;
 import seedu.coursepilot.model.person.Student;
+import seedu.coursepilot.model.tutorial.Tutorial;
 import seedu.coursepilot.storage.Storage;
 
 /**
@@ -69,6 +70,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Student> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Tutorial> getTutorialList() {
+        return model.getTutorialList();
+    }
+
+    @Override
+    public Tutorial getCurrentOperatingTutorial() {
+        return model.getCurrentOperatingTutorial().orElse(null);
     }
 
     @Override

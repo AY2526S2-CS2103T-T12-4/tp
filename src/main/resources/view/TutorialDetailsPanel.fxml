@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" spacing="0.0">
+  <TableView fx:id="tutorialDetailsTable" columnResizePolicy="CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS" VBox.vgrow="ALWAYS">
+    <columns>
+      <TableColumn fx:id="tutorialCodeColumn" text="Tutorials" />
+      <TableColumn fx:id="dayColumn" text="Day" />
+      <TableColumn fx:id="timeSlotColumn" text="Time Slot" />
+      <TableColumn fx:id="capacityColumn" text="Capacity" />
+    </columns>
+  </TableView>
+</VBox>
