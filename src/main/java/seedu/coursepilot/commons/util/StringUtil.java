@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 
+import seedu.coursepilot.logic.parser.Prefix;
+
 /**
  * Helper functions for handling strings.
  */
@@ -38,8 +40,47 @@ public class StringUtil {
                 .anyMatch(preppedWord::equalsIgnoreCase);
     }
 
-    public static boolean startsWithInteger(String value, String prefix) {
-        return value.startsWith(prefix);
+        /**
+     * Returns true if the {@code sentence} contains the {@code word}.
+     *   Ignores case.
+     *   <br>examples:<pre>
+     *       containsWordIgnoreCase("ABc def", "abc") == true
+     *       containsWordIgnoreCase("ABc def", "DEF") == true
+     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       </pre>
+     * @param sentence cannot be null
+     * @param partWord cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean containsPartWordIgnoreCase(String value, String partWord) {
+        requireNonNull(value);
+        requireNonNull(partWord);
+
+        String preppedValue = value.trim();
+        String preppedWord = partWord.trim();
+        checkArgument(preppedValue.split("\\s+").length == 1, "Value parameter should be an email");
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+
+        return preppedValue.contains(preppedWord);
+    }
+
+    /**
+     * Returns true if the {@code value} starts with {@code prefix}.
+     *   Ignores cases.
+     * @param value cannot be null
+     * @param prefix cannot be null, cannot be empty, must be a single prefix
+     */
+    public static boolean startsWithString(String value, String prefix) {
+        requireNonNull(value);
+        requireNonNull(prefix);
+
+        String preppedValue = value.trim();
+        String preppedPrefix = prefix.trim();
+        checkArgument(preppedValue.split("\\s+").length == 1, "Value parameter should be a phone number");
+        checkArgument(!preppedPrefix.isEmpty(), "Prefix parameter cannot be empty");
+        checkArgument(preppedPrefix.split("\\s+").length == 1, "Prefix parameter should be a number");
+
+        return preppedValue.startsWith(preppedPrefix);
     }
 
     /**
