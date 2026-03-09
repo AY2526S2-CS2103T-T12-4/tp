@@ -1,7 +1,7 @@
-package seedu.address.model.tutorial;
+package seedu.coursepilot.model.tutorial;
 
 /**
- * Represents a tutorial in the address book.
+ * Represents a tutorial in the course pilot.
  */
 public abstract class Tutorial {
 
@@ -17,30 +17,5 @@ public abstract class Tutorial {
     public Tutorial(String timeSlot, int capacity) {
         this.timeSlot = timeSlot;
         this.capacity = capacity;
-    }
-
-    /**
-     * Returns the type of the tutorial.
-     *
-     * @return the tutorial type
-     */
-    public abstract String getTutorialType();
-
-    /**
-     * Returns the time slot of the tutorial.
-     *
-     * @return
-     */
-    public String getTimeSlot() {
-        return timeSlot;
-    }
-
-    /**
-     * Returns the capacity of the tutorial.
-     *
-     * @return
-     */
-    public int getCapacity() {
-        return capacity;
     }
 }
