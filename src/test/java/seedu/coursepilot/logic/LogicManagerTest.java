@@ -66,8 +66,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        String listTutorialCommand = ListCommand.COMMAND_WORD + " -tutorial";
+        expectedModel.clearCurrentOperatingTutorial();
+
+        assertCommandSuccess(listTutorialCommand,
+                ListCommand.MESSAGE_SUCCESS_TUTORIAL,
+                expectedModel);
     }
 
     @Test

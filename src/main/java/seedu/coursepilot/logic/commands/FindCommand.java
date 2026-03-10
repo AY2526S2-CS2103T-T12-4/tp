@@ -6,6 +6,7 @@ import seedu.coursepilot.commons.util.ToStringBuilder;
 import seedu.coursepilot.logic.Messages;
 import seedu.coursepilot.model.Model;
 import seedu.coursepilot.model.person.NameContainsKeywordsPredicate;
+import seedu.coursepilot.model.tutorial.Tutorial;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -30,6 +31,15 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
+
+        // update current operating tutorial
+        String tutorialKeyword = predicate.getKeywords().get(0);
+        Tutorial tutorial = model.getTutorialList().stream()
+            .filter(tut -> tut.getTutorialCode().contains(tutorialKeyword))
+            .findFirst()
+            .orElse(model.getTutorialList().get(0));
+        model.setCurrentOperatingTutorial(tutorial);
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
