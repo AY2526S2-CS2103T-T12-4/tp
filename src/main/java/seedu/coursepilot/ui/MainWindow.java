@@ -32,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private TutorialListPanel tutorialListPanel;
+    private TutorialCodeListPanel tutorialCodeListPanel;
     private TutorialDetailsPanel tutorialDetailsPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -111,19 +111,29 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    private void setPersonListPanelVisible(boolean visible) {
+        this.personListPanel.getRoot().setVisible(visible);
+        this.personListPanel.getRoot().setManaged(visible);
+    }
+
+    private void setTutorialDetailsPanelVisible(boolean visible) {
+        this.tutorialDetailsPanel.getRoot().setVisible(visible);
+        this.tutorialDetailsPanel.getRoot().setManaged(visible);
+    }
+
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        tutorialListPanel = new TutorialListPanel(logic.getTutorialList());
-        tutorialListPanelPlaceholder.getChildren().add(tutorialListPanel.getRoot());
+        tutorialCodeListPanel = new TutorialCodeListPanel(logic.getTutorialList());
+        tutorialListPanelPlaceholder.getChildren().add(tutorialCodeListPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        setPersonListPanelVisible(false);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         tutorialDetailsPanel = new TutorialDetailsPanel(logic.getTutorialList());
-        tutorialDetailsPanel.getRoot().setVisible(false);
-        tutorialDetailsPanel.getRoot().setManaged(false);
+        setTutorialDetailsPanelVisible(true);
         personListPanelPlaceholder.getChildren().add(tutorialDetailsPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -183,15 +193,11 @@ public class MainWindow extends UiPart<Stage> {
     private void updateCenterPanel(String commandText) {
         String trimmedCommand = commandText.trim();
         if (trimmedCommand.equals("list -tutorial")) {
-            personListPanel.getRoot().setVisible(false);
-            personListPanel.getRoot().setManaged(false);
-            tutorialDetailsPanel.getRoot().setVisible(true);
-            tutorialDetailsPanel.getRoot().setManaged(true);
+            setPersonListPanelVisible(false);
+            setTutorialDetailsPanelVisible(true);
         } else if (trimmedCommand.equals("list -student")) {
-            tutorialDetailsPanel.getRoot().setVisible(false);
-            tutorialDetailsPanel.getRoot().setManaged(false);
-            personListPanel.getRoot().setVisible(true);
-            personListPanel.getRoot().setManaged(true);
+            setTutorialDetailsPanelVisible(false);
+            setPersonListPanelVisible(true);
         }
     }
 

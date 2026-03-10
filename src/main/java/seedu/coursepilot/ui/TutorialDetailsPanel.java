@@ -17,9 +17,6 @@ public class TutorialDetailsPanel extends UiPart<Region> {
     private TableView<Tutorial> tutorialDetailsTable;
 
     @FXML
-    private TableColumn<Tutorial, String> tutorialCodeColumn;
-
-    @FXML
     private TableColumn<Tutorial, String> dayColumn;
 
     @FXML
@@ -30,14 +27,14 @@ public class TutorialDetailsPanel extends UiPart<Region> {
 
     public TutorialDetailsPanel(ObservableList<Tutorial> tutorials) {
         super(FXML);
-        tutorialCodeColumn.setCellValueFactory(cellData ->
-                new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTutorialCode()));
         dayColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDay()));
         timeSlotColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTimeSlot()));
         capacityColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue().getCapacity()));
+
+        tutorialDetailsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tutorialDetailsTable.setItems(tutorials);
     }
 }
