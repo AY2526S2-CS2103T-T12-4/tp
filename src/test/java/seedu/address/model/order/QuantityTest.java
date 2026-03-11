@@ -1,11 +1,12 @@
 package seedu.address.model.order;
 
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class QuantityTest {
 
@@ -32,11 +33,11 @@ public class QuantityTest {
     void isValidQuantity() {
         assertTrue(Quantity.isValidQuantity("1"));
         assertTrue(Quantity.isValidQuantity("100"));
-        assertFalse(Quantity.isValidQuantity("0"));       // zero
-        assertFalse(Quantity.isValidQuantity("-1"));      // negative
-        assertFalse(Quantity.isValidQuantity("abc"));     // letters
-        assertFalse(Quantity.isValidQuantity("1.5"));     // decimal
-        assertFalse(Quantity.isValidQuantity(""));        // empty string
+        assertFalse(Quantity.isValidQuantity("0"));
+        assertFalse(Quantity.isValidQuantity("-1"));
+        assertFalse(Quantity.isValidQuantity("abc"));
+        assertFalse(Quantity.isValidQuantity("1.5"));
+        assertFalse(Quantity.isValidQuantity(""));
     }
 
     @Test

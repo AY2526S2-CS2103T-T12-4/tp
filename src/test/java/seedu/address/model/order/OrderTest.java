@@ -1,23 +1,24 @@
 package seedu.address.model.order;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.Assert.assertThrows;
-
 public class OrderTest {
 
-    Person person = new PersonBuilder().build();
+    private final Person person = new PersonBuilder().build();
     private final OrderId orderId = new OrderId("1");
     private final Product product = new Product("Laptop");
     private final Quantity quantity = new Quantity("2");
     private final Price price = new Price("1500");
     private final OrderStatus status = OrderStatus.PENDING;
-    private final OrderDate orderDate = new OrderDate(java.time.LocalDate.of(2026,3,11));
+    private final OrderDate orderDate = new OrderDate(java.time.LocalDate.of(2026, 3, 11));
 
     @Test
     void constructor_andGetters_success() {

@@ -1,9 +1,12 @@
 package seedu.address.model.order;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class OrderIdTest {
 
@@ -29,10 +32,10 @@ public class OrderIdTest {
     void isValidOrderId() {
         assertTrue(OrderId.isValidOrderId("1"));
         assertTrue(OrderId.isValidOrderId("123456"));
-        assertFalse(OrderId.isValidOrderId(""));       // empty string
-        assertFalse(OrderId.isValidOrderId("abc"));    // letters
-        assertFalse(OrderId.isValidOrderId("-1"));     // negative
-        assertFalse(OrderId.isValidOrderId("12a3"));   // mixed
+        assertFalse(OrderId.isValidOrderId(""));
+        assertFalse(OrderId.isValidOrderId("abc"));
+        assertFalse(OrderId.isValidOrderId("-1"));
+        assertFalse(OrderId.isValidOrderId("12a3"));
     }
 
     @Test
