@@ -107,11 +107,9 @@ public class ParserUtil {
     public static Region parseRegion(String region) throws ParseException {
         requireNonNull(region);
         String trimmedRegion = region.trim();
-        /*
         if (!Region.isValidRegion(trimmedRegion)) {
             throw new ParseException(Region.MESSAGE_CONSTRAINTS);
         }
-        */
         return new Region(trimmedRegion);
     }
 
