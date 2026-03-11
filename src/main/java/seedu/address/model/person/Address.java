@@ -53,15 +53,22 @@ public class Address {
 
     @Override
     public String toString() {
+        if (value.getValue() == null) {
+            return value.getKey();
+        }
         return value.getKey() + ", " + value.getValue();
     }
 
-    public String getAddress() {
+    public String getPostalCode() {
         return value.getKey();
     }
 
     public String getUnit() {
         return value.getValue();
+    }
+
+    public Pair<String, String> getAddress() {
+        return value;
     }
 
     @Override
@@ -76,7 +83,7 @@ public class Address {
         }
 
         Address otherAddress = (Address) other;
-        return value.getKey().equals(otherAddress.getAddress()) && value.getValue().equals(otherAddress.getUnit());
+        return value.getKey().equals(otherAddress.getPostalCode()) && value.getValue().equals(otherAddress.getUnit());
     }
 
     @Override
