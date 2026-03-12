@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Region;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,6 +94,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String region} into a {@code Region}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code region} is invalid.
+     */
+    public static Region parseRegion(String region) throws ParseException {
+        requireNonNull(region);
+        String trimmedRegion = region.trim();
+        if (!Region.isValidRegion(trimmedRegion)) {
+            throw new ParseException(Region.MESSAGE_CONSTRAINTS);
+        }
+        return new Region(trimmedRegion);
     }
 
     /**
