@@ -6,6 +6,7 @@
     "email" : "alice@example.com",
     "address" : "120111",
     "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -13,6 +14,7 @@
     "email" : "johnd@example.com",
     "address" : "311002",
     "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
@@ -20,6 +22,7 @@
     "email" : "heinz@example.com",
     "address" : "100001",
     "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -27,6 +30,7 @@
     "email" : "cornelia@example.com",
     "address" : "100010",
     "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
@@ -34,6 +38,7 @@
     "email" : "werner@example.com",
     "address" : "200001",
     "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -41,6 +46,7 @@
     "email" : "lydia@example.com",
     "address" : "300001",
     "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ ]
   }, {
     "name" : "George Best",
@@ -48,6 +54,7 @@
     "email" : "anna@example.com",
     "address" : "400001",
     "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ ]
   } ]
 }

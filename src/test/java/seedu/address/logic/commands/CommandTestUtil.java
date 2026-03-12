@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -37,6 +38,8 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "123003";
     public static final String VALID_REGION_AMY = "N";
     public static final String VALID_REGION_BOB = "E";
+    public static final String VALID_ORDER_AMY = "nasi lemak";
+    public static final String VALID_ORDER_BOB = "chicken rice";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -50,6 +53,8 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String REGION_DESC_AMY = " " + PREFIX_REGION + VALID_REGION_AMY;
     public static final String REGION_DESC_BOB = " " + PREFIX_REGION + VALID_REGION_BOB;
+    public static final String ORDER_DESC_AMY = " " + PREFIX_ORDERS + VALID_ORDER_AMY;
+    public static final String ORDER_DESC_BOB = " " + PREFIX_ORDERS + VALID_ORDER_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 

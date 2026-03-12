@@ -1,6 +1,8 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,24 +22,36 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("389729"), new Region("E"),
-                getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("556083"), new Region("NE"),
-                getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("560111"), new Region("N"),
-                getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("610436"), new Region("W"),
-                getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("520047"), new Region("E"),
-                getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("380045"), new Region("C"),
-                getTagSet("colleagues"))
+            new Person(new Name("Alex Yeoh"), new Phone("87438807"),
+                    new Email("alexyeoh@example.com"),
+                    new Address("389729"), new Region("E"),
+                    new ArrayList<>(List.of("chicken rice")),
+                    getTagSet("friends")),
+            new Person(new Name("Bernice Yu"), new Phone("99272758"),
+                    new Email("berniceyu@example.com"),
+                    new Address("556083"), new Region("N"),
+                    new ArrayList<>(List.of("mixed rice")),
+                    getTagSet("colleagues", "friends")),
+            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"),
+                    new Email("charlotte@example.com"),
+                    new Address("560111"), new Region("E"),
+                    new ArrayList<>(List.of("beef udon")),
+                    getTagSet("neighbours")),
+            new Person(new Name("David Li"), new Phone("91031282"),
+                    new Email("lidavid@example.com"),
+                    new Address("610436"), new Region("W"),
+                    new ArrayList<>(List.of("french fries")),
+                    getTagSet("family")),
+            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"),
+                    new Email("irfan@example.com"),
+                    new Address("520047"), new Region("C"),
+                    new ArrayList<>(List.of("icecream")),
+                    getTagSet("classmates")),
+            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"),
+                    new Email("royb@example.com"),
+                    new Address("380045"), new Region("NE"),
+                    new ArrayList<>(List.of("salad")),
+                    getTagSet("colleagues"))
         };
     }
 

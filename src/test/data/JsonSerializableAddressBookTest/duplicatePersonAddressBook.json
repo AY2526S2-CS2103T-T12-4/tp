@@ -5,12 +5,14 @@
     "email": "alice@example.com",
     "address": "120111",
     "region": "N",
+    "orders": [ "nasi lemak" ],
     "tags": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
     "address": "400001",
-    "region": "N"
+    "region": "N",
+    "orders": [ "nasi lemak" ]
   } ]
 }
