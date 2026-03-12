@@ -1,10 +1,12 @@
 package seedu.address.model.person;
 
-// enum Region {N, NE, W, E, C};
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Person's region in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidRegion(String)}
+ */
 public class Region {
     public static final String MESSAGE_CONSTRAINTS = "Regions should be one of: N, NE, W, E, C. They should not be blank.";
     public static final String VALIDATION_REGEX = "^(N|NE|W|E|C)$";
@@ -19,11 +21,16 @@ public class Region {
 
         public final String label;
 
-        private RegionType(String label) {
+        RegionType(String label) {
             this.label = label;
         }
     }
 
+    /**
+     * Constructs a {@code Region}.
+     *
+     * @param region A valid region.
+     */
     public Region(String region) {
         requireNonNull(region);
         checkArgument(isValidRegion(region), MESSAGE_CONSTRAINTS);
@@ -68,6 +75,5 @@ public class Region {
     public int hashCode() {
         return value.hashCode();
     }
-
 
 }

@@ -1,8 +1,9 @@
 package seedu.address.model.person;
 
-import javafx.util.Pair;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import javafx.util.Pair;
 
 /**
  * Represents a Person's address in the address book.
@@ -10,8 +11,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses should be entered as postal codes, and should not be blank.";
-    public static final String MESSAGE_CONSTRAINTS_UNIT = "Unit numbers should follow the convention #XX-XX or #XX-XXX.";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Addresses should be entered as postal codes, and should not be blank.";
+    public static final String MESSAGE_CONSTRAINTS_UNIT =
+            "Unit numbers should follow the convention #XX-XX or #XX-XXX.";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -33,6 +36,12 @@ public class Address {
         value = new Pair<>(address, "");
     }
 
+    /**
+     * Constructs an {@code Address} with a unit number.
+     *
+     * @param address A valid address.
+     * @param unit A valid unit number.
+     */
     public Address(String address, String unit) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
@@ -47,16 +56,20 @@ public class Address {
     public static boolean isValidAddress(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
+    /**
+     * Returns true if a given string is a valid unit number.
+     */
     public static boolean isValidUnit(String test) {
         return test.matches(VALIDATION_REGEX_UNIT);
     }
 
     @Override
     public String toString() {
-        if (value.getValue() == null) {
-            return value.getKey();
+        if (getUnit().isEmpty()) {
+            return getPostalCode();
         }
-        return value.getKey() + ", " + value.getValue();
+        return getPostalCode() + ", " + getUnit();
     }
 
     public String getPostalCode() {

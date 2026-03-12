@@ -28,8 +28,8 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street";
+    private static final String VALID_PHONE = "91234567";
+    private static final String VALID_ADDRESS = "123456";
     private static final String VALID_UNITNO = "#05-05";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -105,7 +105,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null,  null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null, ""));
     }
 
     @Test
@@ -115,14 +115,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
+        Address expectedAddress = new Address(VALID_ADDRESS, VALID_UNITNO);
         assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS, VALID_UNITNO));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
+        Address expectedAddress = new Address(VALID_ADDRESS, VALID_UNITNO);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace, VALID_UNITNO));
     }
 

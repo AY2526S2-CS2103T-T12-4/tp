@@ -4,50 +4,57 @@
     "name" : "Alice Pauline",
     "phone" : "94351253",
     "email" : "alice@example.com",
-    "address" : "640221, #08-111",
+    "address" : "120111",
     "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
-    "address" : "827640, #02-25",
-    "region" : "E",
+    "address" : "311002",
+    "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
-    "address" : "293723, #02-92",
-    "region" : "W",
+    "address" : "100001",
+    "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
-    "address" : "363927, #01-01",
-    "region" : "NE",
+    "address" : "100010",
+    "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
-    "phone" : "94821224",
+    "phone" : "94822240",
     "email" : "werner@example.com",
-    "address" : "465465",
-    "region" : "C",
+    "address" : "200001",
+    "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "phone" : "94812427",
+    "phone" : "94824270",
     "email" : "lydia@example.com",
-    "address" : "456546",
-    "region" : "C",
+    "address" : "300001",
+    "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ ]
   }, {
     "name" : "George Best",
-    "phone" : "94826442",
+    "phone" : "94824420",
     "email" : "anna@example.com",
-    "address" : "234324, #09-09",
-    "region" : "C",
+    "address" : "400001",
+    "region" : "N",
+    "orders" : [ "nasi lemak" ],
     "tags" : [ ]
   } ]
 }

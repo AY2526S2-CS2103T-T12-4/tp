@@ -27,17 +27,22 @@ public class AddressTest {
         // invalid addresses
         assertFalse(Address.isValidAddress("")); // empty string
         assertFalse(Address.isValidAddress(" ")); // spaces only
+        assertFalse(Address.isValidAddress("12345")); // 5 digits
+        assertFalse(Address.isValidAddress("1234567")); // 7 digits
+        assertFalse(Address.isValidAddress("abcdef")); // letters
 
         // valid addresses
-        assertTrue(Address.isValidAddress("555555"));
+        assertTrue(Address.isValidAddress("123456")); // 6 digit postal code
+        assertTrue(Address.isValidAddress("000000")); // all zeros
+        assertTrue(Address.isValidAddress("999999")); // all nines
     }
 
     @Test
     public void equals() {
-        Address address = new Address("000000");
+        Address address = new Address("123456");
 
         // same values -> returns true
-        assertTrue(address.equals(new Address("000000")));
+        assertTrue(address.equals(new Address("123456")));
 
         // same object -> returns true
         assertTrue(address.equals(address));
@@ -49,6 +54,6 @@ public class AddressTest {
         assertFalse(address.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(address.equals(new Address("111111")));
+        assertFalse(address.equals(new Address("654321")));
     }
 }

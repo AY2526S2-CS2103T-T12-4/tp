@@ -39,9 +39,9 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("region") String region, @JsonProperty("orders") List<String> orders,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("region") String region, @JsonProperty("orders") List<String> orders,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -106,25 +106,31 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address.substring(0,6))) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-
-        Address modelAddress;
-
+        final Address modelAddress;
         if (address.contains(", ")) {
-            String postalCode = address.substring(0,6);
-            String unitNo = address.substring(8);
-            if (!Address.isValidUnit(unitNo)) {
+            String postalCode = address.substring(0, 6);
+            String unit = address.substring(8);
+            if (!Address.isValidAddress(postalCode)) {
+                throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            }
+            if (!Address.isValidUnit(unit)) {
                 throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS_UNIT);
             }
-            modelAddress = new Address(postalCode, unitNo);
+            modelAddress = new Address(postalCode, unit);
         } else {
-            modelAddress = new Address(address.substring(0,6));
+            if (!Address.isValidAddress(address)) {
+                throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            }
+            modelAddress = new Address(address);
         }
 
+        if (region == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Region.class.getSimpleName()));
+        }
         if (!Region.isValidRegion(region)) {
             throw new IllegalValueException(Region.MESSAGE_CONSTRAINTS);
         }

@@ -3,14 +3,16 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
-    "address": "999999",
-    "region": "E",
+    "address": "120111",
+    "region": "N",
+    "orders": [ "nasi lemak" ],
     "tags": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
-    "address": "444444",
-    "region": "E"
+    "address": "400001",
+    "region": "N",
+    "orders": [ "nasi lemak" ]
   } ]
 }
