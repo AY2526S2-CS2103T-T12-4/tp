@@ -29,6 +29,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String unitNo;
     private final String region;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -38,12 +39,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("unitNo") String unitNo,
             @JsonProperty("region") String region,
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.unitNo = unitNo;
         this.region = region;
         if (tags != null) {
             this.tags.addAll(tags);
@@ -57,7 +60,8 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        address = source.getAddress().value;
+        address = source.getAddress().getPostalCode();
+        unitNo = source.getAddress().getUnit();
         region = source.getRegion().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -100,12 +104,21 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Address modelAddress;
+        if (unitNo != null && !unitNo.isBlank()) {
+            if (!Address.isValidUnit(unitNo)) {
+                throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS_UNIT);
+            }
+            modelAddress = new Address(address, unitNo);
+        } else {
+            modelAddress = new Address(address);
+        }
 
         if (region == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Region.class.getSimpleName()));
