@@ -1,16 +1,18 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalOrders.ALICE_ORDER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -106,5 +108,27 @@ public class JsonAddressBookStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveAddressBook(new AddressBook(), null));
+    }
+
+    @Test
+    public void saveAndReadOrders_success() throws Exception {
+        Path filePath = testFolder.resolve("TempAddressBookOrders.json");
+        AddressBook original = getTypicalAddressBook();
+
+        JsonAddressBookStorage storage = new JsonAddressBookStorage(filePath);
+
+        original.addOrder(ALICE_ORDER);
+
+        // write to file
+        storage.saveAddressBook(original);
+
+        // read back
+        Optional<ReadOnlyAddressBook> read = storage.readAddressBook();
+
+        assertTrue(read.isPresent());
+        assertEquals(1, read.get().getOrderList().size());
+
+        // cleanup
+        Files.deleteIfExists(filePath);
     }
 }
