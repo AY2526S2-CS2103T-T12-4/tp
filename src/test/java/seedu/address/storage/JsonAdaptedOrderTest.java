@@ -1,18 +1,28 @@
 package seedu.address.storage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import org.junit.jupiter.api.Test;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.order.*;
-import seedu.address.model.person.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderDate;
+import seedu.address.model.order.OrderId;
+import seedu.address.model.order.OrderStatus;
+import seedu.address.model.order.Price;
+import seedu.address.model.order.Product;
+import seedu.address.model.order.Quantity;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Region;
 
 public class JsonAdaptedOrderTest {
 
@@ -43,13 +53,6 @@ public class JsonAdaptedOrderTest {
         ab.addOrder(order);
 
         JsonSerializableAddressBook json = new JsonSerializableAddressBook(ab);
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        String jsonString = mapper.writeValueAsString(json);
-        System.out.println("Json:");
-        System.out.println(jsonString);
 
         AddressBook loaded = json.toModelType();
         assertEquals(1, loaded.getOrderList().size());

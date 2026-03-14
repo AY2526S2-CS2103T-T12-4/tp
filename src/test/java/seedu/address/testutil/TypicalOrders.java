@@ -1,17 +1,17 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.order.Order;
-import seedu.address.model.order.OrderStatus;
-import seedu.address.model.person.Person;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
-
+import seedu.address.model.AddressBook;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderStatus;
+import seedu.address.model.person.Person;
+/**
+ * A utility class containing a list of {@code Order} objects to be used in tests.
+ */
 public class TypicalOrders {
     private static final Person ALICE_PERSON = new PersonBuilder().withName("Alice Pauline").build();
     private static final Person BENSON_PERSON = new PersonBuilder().withName("Benson").build();

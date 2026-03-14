@@ -14,8 +14,19 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.model.order.*;
-import seedu.address.model.person.*;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderDate;
+import seedu.address.model.order.OrderId;
+import seedu.address.model.order.OrderStatus;
+import seedu.address.model.order.Price;
+import seedu.address.model.order.Product;
+import seedu.address.model.order.Quantity;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Region;
 import seedu.address.testutil.TypicalPersons;
 
 public class JsonSerializableAddressBookTest {

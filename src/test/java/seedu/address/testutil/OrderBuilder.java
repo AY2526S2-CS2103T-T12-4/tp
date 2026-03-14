@@ -1,15 +1,19 @@
 package seedu.address.testutil;
 
-import seedu.address.model.order.*;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
+import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderDate;
+import seedu.address.model.order.OrderId;
+import seedu.address.model.order.OrderStatus;
+import seedu.address.model.order.Price;
+import seedu.address.model.order.Product;
+import seedu.address.model.order.Quantity;
+import seedu.address.model.person.Person;
+
+/**
+ * A utility class to help with building Order objects.
+ */
 public class OrderBuilder {
 
     public static final String DEFAULT_ORDER_ID = "1";
