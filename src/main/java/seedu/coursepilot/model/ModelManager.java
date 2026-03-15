@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.coursepilot.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -182,6 +183,8 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredStudents.equals(otherModelManager.filteredStudents)
-                && tutorialList.equals(otherModelManager.tutorialList);
+                && tutorialList.equals(otherModelManager.tutorialList)
+                && Objects.equals(currentOperatingTutorial.get(),
+                        otherModelManager.currentOperatingTutorial.get());
     }
 }

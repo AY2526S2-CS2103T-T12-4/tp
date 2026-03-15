@@ -1,6 +1,5 @@
 package seedu.coursepilot.ui;
 
-import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,10 +36,8 @@ public class TutorialCodeListPanel extends UiPart<Region> {
 
         if (currentTutorial != null) {
             currentTutorial.addListener((obs, oldVal, newVal) -> {
-                Platform.runLater(() -> {
-                    tutorialCodeListView.getSelectionModel().select(newVal);
-                    tutorialCodeListView.scrollTo(newVal);
-                });
+                tutorialCodeListView.getSelectionModel().select(newVal);
+                tutorialCodeListView.scrollTo(newVal);
             });
         }
     }

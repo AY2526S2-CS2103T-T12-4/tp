@@ -103,7 +103,8 @@ public class Tutorial {
         return tutorialCode.equals(otherTutorial.tutorialCode)
             && day.equals(otherTutorial.day)
             && timeSlot.equals(otherTutorial.timeSlot)
-            && capacity == otherTutorial.capacity;
+            && capacity == otherTutorial.capacity
+            && students.equals(otherTutorial.students);
     }
 
     /**
@@ -111,6 +112,6 @@ public class Tutorial {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(tutorialCode, day, timeSlot, capacity);
+        return Objects.hash(tutorialCode, day, timeSlot, capacity, students);
     }
 }
