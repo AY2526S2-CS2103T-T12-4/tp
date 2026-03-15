@@ -1,5 +1,7 @@
 package seedu.coursepilot.ui;
 
+import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -26,11 +28,22 @@ public class TutorialCodeListPanel extends UiPart<Region> {
      * Creates a {@code TutorialListPanel} and populates the list view
      * with tutorial data.
      */
-    public TutorialCodeListPanel(ObservableList<Tutorial> tutorials) {
+    public TutorialCodeListPanel(ObservableList<Tutorial> tutorials, ObjectProperty<Tutorial> currentTutorial) {
         super(FXML);
         tutorialCodeColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTutorialCode()));
         tutorialCodeListView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tutorialCodeListView.setItems(tutorials);
+
+        // To be deleted
+        System.out.println("currentTutorial is: " + currentTutorial);
+        if (currentTutorial != null) {
+            currentTutorial.addListener((obs, oldVal, newVal) -> {
+                Platform.runLater(() -> {
+                    tutorialCodeListView.getSelectionModel().select(newVal);
+                    tutorialCodeListView.scrollTo(newVal);
+                });
+            });
+        }
     }
 }

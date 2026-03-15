@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -27,7 +29,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private final ObservableList<Tutorial> tutorialList;
-    private Tutorial currentOperatingTutorial;
+    private final ObjectProperty<Tutorial> currentOperatingTutorial = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,7 +45,7 @@ public class ModelManager implements Model {
 
         // Test data, need to connect to storage
         this.tutorialList = SampleDataUtil.getSampleTutorials();
-        currentOperatingTutorial = null;
+        currentOperatingTutorial.setValue(null);
     }
 
     public ModelManager() {
@@ -129,18 +131,24 @@ public class ModelManager implements Model {
 
     @Override
     public Optional<Tutorial> getCurrentOperatingTutorial() {
-        return Optional.ofNullable(currentOperatingTutorial);
+        return Optional.ofNullable(currentOperatingTutorial.get());
     }
 
     @Override
+    public ObjectProperty<Tutorial> getCurrentOperatingTutorialProperty() {
+        return currentOperatingTutorial;
+    }
+
     public void setCurrentOperatingTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
-        currentOperatingTutorial = tutorial;
+        currentOperatingTutorial.set(tutorial);
+        // To be deleted
+        System.out.println("ModelManager: property value is now " + currentOperatingTutorial.get().getTutorialCode());
     }
 
     @Override
     public void clearCurrentOperatingTutorial() {
-        currentOperatingTutorial = null;
+        currentOperatingTutorial.setValue(null);
     }
 
     //=========== Filtered Person List Accessors =============================================================
