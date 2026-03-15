@@ -1,6 +1,7 @@
 package seedu.coursepilot.logic.parser;
 
 import static seedu.coursepilot.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.coursepilot.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT_FLAG;
 
 import java.util.Arrays;
 
@@ -10,7 +11,6 @@ import seedu.coursepilot.model.person.EmailContainsKeywordsPredicate;
 import seedu.coursepilot.model.person.MatricNumberStartsWithKeywordsPredicate;
 import seedu.coursepilot.model.person.NameContainsKeywordsPredicate;
 import seedu.coursepilot.model.person.PhoneStartsWithKeywordsPredicate;
-import seedu.coursepilot.model.person.TutorialKeywordPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -32,8 +32,6 @@ public class FindCommandParser implements Parser<FindCommand> {
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         switch (nameKeywords[0]) {
-        case "/tutorial":
-            return new FindCommand(new TutorialKeywordPredicate(Arrays.asList(nameKeywords)));
         case "/phone":
             return new FindCommand(new PhoneStartsWithKeywordsPredicate(Arrays.asList(nameKeywords)));
         case "/email":
@@ -41,6 +39,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         case "/matric":
             return new FindCommand(new MatricNumberStartsWithKeywordsPredicate(Arrays.asList(nameKeywords)));
         default:
+            // Throws an exception if user tries any other unrecognized flags
+            if (nameKeywords[0].startsWith("/")) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT_FLAG, FindCommand.MESSAGE_USAGE_FLAG));
+            }
             return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         }
     }

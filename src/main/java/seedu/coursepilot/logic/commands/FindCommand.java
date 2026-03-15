@@ -8,8 +8,6 @@ import seedu.coursepilot.commons.util.ToStringBuilder;
 import seedu.coursepilot.logic.Messages;
 import seedu.coursepilot.model.Model;
 import seedu.coursepilot.model.person.Student;
-import seedu.coursepilot.model.person.TutorialKeywordPredicate;
-import seedu.coursepilot.model.tutorial.Tutorial;
 
 /**
  * Finds and lists all students in coursepilot whose name contains any of the argument keywords.
@@ -24,6 +22,11 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
+    public static final String MESSAGE_USAGE_FLAG = COMMAND_WORD + ": Finds all persons whose names contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " alice bob charlie";
+
     private final Predicate<Student> predicate;
 
     public FindCommand(Predicate<Student> predicate) {
@@ -34,20 +37,6 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
-
-        // Temporary fix to navigate tutorial slots
-        // TODO: Move this section to a Select Command
-        if (predicate instanceof TutorialKeywordPredicate) {
-            TutorialKeywordPredicate tutorialPredicate = (TutorialKeywordPredicate) predicate;
-            String tutorialKeyword = tutorialPredicate.getKeywords().get(1);
-            System.out.println("Tutorial keyword: " + tutorialKeyword);
-            Tutorial tutorial = model.getTutorialList().stream()
-                .filter(tut -> tut.getTutorialCode().contains(tutorialKeyword))
-                .findFirst()
-                .orElse(model.getTutorialList().get(0));
-            model.setCurrentOperatingTutorial(tutorial);
-        }
-
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
