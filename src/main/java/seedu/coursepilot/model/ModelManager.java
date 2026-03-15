@@ -142,8 +142,6 @@ public class ModelManager implements Model {
     public void setCurrentOperatingTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
         currentOperatingTutorial.set(tutorial);
-        // To be deleted
-        System.out.println("ModelManager: property value is now " + currentOperatingTutorial.get().getTutorialCode());
     }
 
     @Override

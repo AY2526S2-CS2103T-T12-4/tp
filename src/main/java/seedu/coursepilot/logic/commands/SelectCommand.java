@@ -43,8 +43,6 @@ public class SelectCommand extends Command {
         }
 
         model.setCurrentOperatingTutorial(tutorial);
-        // To be deleted
-        System.out.println("SelectCommand: set tutorial to " + tutorial.getTutorialCode());
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, tutorial.getTutorialCode()));
     }

@@ -35,8 +35,6 @@ public class TutorialCodeListPanel extends UiPart<Region> {
         tutorialCodeListView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tutorialCodeListView.setItems(tutorials);
 
-        // To be deleted
-        System.out.println("currentTutorial is: " + currentTutorial);
         if (currentTutorial != null) {
             currentTutorial.addListener((obs, oldVal, newVal) -> {
                 Platform.runLater(() -> {
