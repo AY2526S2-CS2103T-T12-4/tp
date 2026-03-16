@@ -8,14 +8,12 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.coursepilot.commons.core.GuiSettings;
 import seedu.coursepilot.commons.core.LogsCenter;
 import seedu.coursepilot.model.person.Student;
 import seedu.coursepilot.model.tutorial.Tutorial;
-import seedu.coursepilot.model.util.SampleDataUtil;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,7 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
-    private final ObservableList<Tutorial> tutorialList;
+    private final FilteredList<Tutorial> filteredTutorials;
     private Tutorial currentOperatingTutorial;
 
     /**
@@ -40,9 +38,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         this.filteredStudents = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredTutorials = new FilteredList<>(this.addressBook.getTutorialList());
 
-        // Test data, need to connect to storage
-        this.tutorialList = SampleDataUtil.getSampleTutorials();
         currentOperatingTutorial = null;
     }
 
@@ -102,10 +99,20 @@ public class ModelManager implements Model {
         requireNonNull(student);
         return addressBook.hasPerson(student);
     }
+    @Override
+    public boolean hasTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        return addressBook.hasTutorial(tutorial);
+    }
 
     @Override
     public void deletePerson(Student target) {
         addressBook.removePerson(target);
+    }
+
+    @Override
+    public void deleteTutorial(Tutorial tutorial) {
+        addressBook.removeTutorial(tutorial);
     }
 
     @Override
@@ -115,16 +122,29 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addTutorial(Tutorial tutorial) {
+        addressBook.addTutorial(tutorial);
+        updateFilteredTutorialList(PREDICATE_SHOW_ALL_TUTORIALS);
+    }
+
+
+    @Override
     public void setPerson(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
 
         addressBook.setPerson(target, editedStudent);
     }
 
+    @Override
+    public void setTutorial(Tutorial target, Tutorial editedTutorial) {
+        requireAllNonNull(target, editedTutorial);
+        addressBook.setTutorial(target, editedTutorial);
+    }
+
     //=========== CoursePilot ================================================================================
     @Override
     public ObservableList<Tutorial> getTutorialList() {
-        return FXCollections.unmodifiableObservableList(tutorialList);
+        return filteredTutorials;
     }
 
     @Override
@@ -154,11 +174,21 @@ public class ModelManager implements Model {
         return filteredStudents;
     }
 
+    @Override
+    public ObservableList<Tutorial> getFilteredTutorialList() {
+        return filteredTutorials;
+    }
 
     @Override
     public void updateFilteredPersonList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredTutorialList(Predicate<Tutorial> predicate) {
+        requireNonNull(predicate);
+        filteredTutorials.setPredicate(predicate);
     }
 
     @Override
@@ -176,7 +206,7 @@ public class ModelManager implements Model {
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredStudents.equals(otherModelManager.filteredStudents)
-                && tutorialList.equals(otherModelManager.tutorialList)
+                && filteredTutorials.equals(otherModelManager.filteredTutorials)
                 && Optional.ofNullable(currentOperatingTutorial)
                     .equals(Optional.ofNullable(otherModelManager.currentOperatingTutorial));
     }

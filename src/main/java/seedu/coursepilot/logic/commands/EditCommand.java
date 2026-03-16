@@ -7,6 +7,7 @@ import static seedu.coursepilot.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.coursepilot.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.coursepilot.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.coursepilot.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.coursepilot.model.Model.PREDICATE_SHOW_ALL_TUTORIALS;
 
 import java.util.Collections;
 import java.util.HashSet;

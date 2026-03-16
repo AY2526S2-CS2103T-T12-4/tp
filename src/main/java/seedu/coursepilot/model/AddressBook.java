@@ -8,7 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.coursepilot.commons.util.ToStringBuilder;
 import seedu.coursepilot.model.person.Student;
 import seedu.coursepilot.model.person.UniquePersonList;
-
+import seedu.coursepilot.model.tutorial.Tutorial;
+import seedu.coursepilot.model.tutorial.UniqueTutorialList;
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
@@ -26,6 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+    }
+
+    private final UniqueTutorialList tutorials;
+
+    {
+        tutorials = new UniqueTutorialList();
     }
 
     public AddressBook() {}
@@ -51,10 +58,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
+    public void setTutorials(List<Tutorial> tutorials) {
+        this.tutorials.setTutorials(tutorials);
+    }
+
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setTutorials(newData.getTutorialList());
     }
 
     //// person-level operations
@@ -67,6 +79,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(student);
     }
 
+    public boolean hasTutorial(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        return tutorials.contains(tutorial);
+    }
+
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
@@ -74,7 +91,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addPerson(Student p) {
         persons.add(p);
     }
-
+    public void addTutorial(Tutorial tutorial) {
+        tutorials.add(tutorial);
+    }
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
@@ -85,7 +104,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         persons.setPerson(target, editedStudent);
     }
-
+    public void setTutorial(Tutorial target, Tutorial editedTutorial) {
+        requireNonNull(editedTutorial);
+        tutorials.setTutorial(target, editedTutorial);
+    }
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
@@ -93,19 +115,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Student key) {
         persons.remove(key);
     }
-
+    public void removeTutorial(Tutorial key) {
+        tutorials.remove(key);
+    }
     //// util methods
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
+                .add("tutorials", tutorials)
                 .toString();
     }
 
     @Override
     public ObservableList<Student> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+    @Override
+    public ObservableList<Tutorial> getTutorialList() {
+        return tutorials.asUnmodifiableObservableList();
     }
 
     @Override
@@ -120,11 +149,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons)
+                && tutorials.equals(otherAddressBook.tutorials);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return persons.hashCode() + tutorials.hashCode();
     }
 }

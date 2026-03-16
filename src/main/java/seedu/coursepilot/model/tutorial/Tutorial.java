@@ -5,42 +5,35 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import seedu.coursepilot.model.person.Student;
 
 /**
  * Represents a tutorial in CoursePilot.
- * A tutorial has a code, scheduled day, time slot, a maximum capacity,
- * and a list of associated students.
+ * A tutorial has a code, scheduled day, time slot, a maximum capacity.
  */
 public class Tutorial {
     private final String tutorialCode;
     private final String day;
     private final String timeSlot;
     private final int capacity;
-    private final List<Student> students;
-
+    private final List<Student> students = new ArrayList<>();
     /**
      * Constructs a {@code Tutorial}.
      *
      * @param tutorialCode unique code identifying the tutorial
      * @param day the day the tutorial is held
      * @param timeSlot the time slot of the tutorial
-     * @param capacity maximum number of students allowed
-     * @param students students in this tutorial
      */
     public Tutorial(
-        String tutorialCode, String day, String timeSlot, int capacity, List<Student> students) {
+        String tutorialCode, String day, String timeSlot, int capacity) {
         requireNonNull(tutorialCode);
         requireNonNull(day);
         requireNonNull(timeSlot);
-        requireNonNull(students);
 
         this.tutorialCode = tutorialCode;
         this.day = day;
         this.timeSlot = timeSlot;
         this.capacity = capacity;
-        this.students = new ArrayList<>(students);
     }
 
     /**
@@ -86,6 +79,15 @@ public class Tutorial {
         return students.stream().anyMatch(student::isSamePerson);
     }
 
+    public void addStudent(Student student) {
+        this.students.add(student);
+    }
+
+    public boolean isSameTutorial(Tutorial other) {
+        if (other == this) return true;
+        return other != null && this.tutorialCode.equals(other.tutorialCode);
+    }
+
     /**
      * Returns true if both tutorials have the same fields.
      */
@@ -103,8 +105,7 @@ public class Tutorial {
         return tutorialCode.equals(otherTutorial.tutorialCode)
             && day.equals(otherTutorial.day)
             && timeSlot.equals(otherTutorial.timeSlot)
-            && capacity == otherTutorial.capacity
-            && students.equals(otherTutorial.students);
+            && capacity == otherTutorial.capacity;
     }
 
     /**
@@ -112,6 +113,6 @@ public class Tutorial {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(tutorialCode, day, timeSlot, capacity, students);
+        return Objects.hash(tutorialCode, day, timeSlot, capacity);
     }
 }

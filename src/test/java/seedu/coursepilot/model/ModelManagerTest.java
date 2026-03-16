@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.coursepilot.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.coursepilot.model.Model.PREDICATE_SHOW_ALL_TUTORIALS;
 import static seedu.coursepilot.testutil.Assert.assertThrows;
 import static seedu.coursepilot.testutil.TypicalPersons.ALICE;
 import static seedu.coursepilot.testutil.TypicalPersons.BENSON;
