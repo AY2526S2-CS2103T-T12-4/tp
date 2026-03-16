@@ -212,7 +212,7 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private abstract class ModelStubWithPerson extends ModelStub {
         private final Student student;
 
         ModelStubWithPerson(Student student) {
@@ -230,7 +230,7 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private abstract class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Student> personsAdded = new ArrayList<>();
 
         @Override
