@@ -45,9 +45,6 @@ public interface Logic {
     /** Returns the current operating tutorial, for JavaFX UI */
     ObjectProperty<Tutorial> getCurrentOperatingTutorialProperty();
 
-    /** Returns the current operating tutorial, for JavaFX UI */
-    ObjectProperty<Tutorial> getCurrentOperatingTutorialProperty();
-
     /**
      * Returns the user prefs' address book file path.
      */

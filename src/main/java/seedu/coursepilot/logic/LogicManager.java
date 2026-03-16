@@ -89,10 +89,7 @@ public class LogicManager implements Logic {
         return model.getCurrentOperatingTutorialProperty();
     }
 
-    @Override
-    public ObjectProperty<Tutorial> getCurrentOperatingTutorialProperty() {
-        return model.getCurrentOperatingTutorialProperty();
-    }
+
 
     @Override
     public Path getAddressBookFilePath() {
