@@ -41,10 +41,10 @@ public class FindCommand extends Command {
             TutorialKeywordPredicate tutorialPredicate = (TutorialKeywordPredicate) predicate;
             String tutorialKeyword = tutorialPredicate.getKeywords().get(1);
             System.out.println("Tutorial keyword: " + tutorialKeyword);
-            Tutorial tutorial = model.getTutorialList().stream()
+            Tutorial tutorial = model.getFilteredTutorialList().stream()
                 .filter(tut -> tut.getTutorialCode().contains(tutorialKeyword))
                 .findFirst()
-                .orElse(model.getTutorialList().get(0));
+                .orElse(model.getFilteredTutorialList().get(0));
             model.setCurrentOperatingTutorial(tutorial);
         }
 

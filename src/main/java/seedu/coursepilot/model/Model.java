@@ -4,11 +4,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.coursepilot.commons.core.GuiSettings;
 import seedu.coursepilot.model.person.Student;
 import seedu.coursepilot.model.tutorial.Tutorial;
-
+import javafx.beans.property.ObjectProperty;
 /**
  * The API of the Model component.
  */
@@ -89,11 +90,11 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Student> predicate);
     void updateFilteredTutorialList(Predicate<Tutorial> predicate);
-    /** Returns an unmodifiable view of the tutorial list. */
-    ObservableList<Tutorial> getTutorialList();
-
     /** Returns the current operating tutorial, if any. */
     Optional<Tutorial> getCurrentOperatingTutorial();
+
+    /** Returns the current operating tutorial, for JavaFX UI */
+    ObjectProperty<Tutorial> getCurrentOperatingTutorialProperty();
 
     /** Sets the current operating tutorial. */
     void setCurrentOperatingTutorial(Tutorial tutorial);

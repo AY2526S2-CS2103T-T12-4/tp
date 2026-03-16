@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.coursepilot.commons.core.GuiSettings;
@@ -25,7 +28,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Tutorial> filteredTutorials;
-    private Tutorial currentOperatingTutorial;
+    private final ObjectProperty<Tutorial> currentOperatingTutorial = new SimpleObjectProperty<>();
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,7 +44,7 @@ public class ModelManager implements Model {
         this.filteredStudents = new FilteredList<>(this.addressBook.getPersonList());
         this.filteredTutorials = new FilteredList<>(this.addressBook.getTutorialList());
 
-        currentOperatingTutorial = null;
+        currentOperatingTutorial.setValue(null);
     }
 
     public ModelManager() {
@@ -142,26 +146,27 @@ public class ModelManager implements Model {
     }
 
     //=========== CoursePilot ================================================================================
-    @Override
-    public ObservableList<Tutorial> getTutorialList() {
-        return filteredTutorials;
-    }
 
     @Override
     public Optional<Tutorial> getCurrentOperatingTutorial() {
-        return Optional.ofNullable(currentOperatingTutorial);
+        return Optional.ofNullable(currentOperatingTutorial.get());
     }
 
     @Override
+    public ObjectProperty<Tutorial> getCurrentOperatingTutorialProperty() {
+        return currentOperatingTutorial;
+    }
+
     public void setCurrentOperatingTutorial(Tutorial tutorial) {
         requireNonNull(tutorial);
-        currentOperatingTutorial = tutorial;
+        currentOperatingTutorial.set(tutorial);
     }
 
     @Override
     public void clearCurrentOperatingTutorial() {
-        currentOperatingTutorial = null;
+        currentOperatingTutorial.setValue(null);
     }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -207,8 +212,8 @@ public class ModelManager implements Model {
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && filteredStudents.equals(otherModelManager.filteredStudents)
                 && filteredTutorials.equals(otherModelManager.filteredTutorials)
-                && Optional.ofNullable(currentOperatingTutorial)
-                    .equals(Optional.ofNullable(otherModelManager.currentOperatingTutorial));
+                && Optional.ofNullable(currentOperatingTutorial.get())
+                    .equals(Optional.ofNullable(otherModelManager.currentOperatingTutorial.get()));
     }
 
 }

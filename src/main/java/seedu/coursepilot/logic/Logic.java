@@ -35,7 +35,7 @@ public interface Logic {
     ObservableList<Student> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the tutorial list. */
-    ObservableList<Tutorial> getTutorialList();
+    ObservableList<Tutorial> getFilteredTutorialList();
 
     /** Returns the current operating tutorial, if any. */
     Tutorial getCurrentOperatingTutorial();
