@@ -28,8 +28,8 @@ public class StatusBarFooter extends UiPart<Region> {
         requireNonNull(currentOperatingTutorialProperty);
 
         this.updateFooterText(currentOperatingTutorialProperty.get());
-        currentOperatingTutorialProperty.addListener(
-            (observable, oldValue, newValue) -> updateFooterText(newValue)
+        currentOperatingTutorialProperty.addListener((
+            observable, oldValue, newValue) -> updateFooterText(newValue)
         );
     }
 
