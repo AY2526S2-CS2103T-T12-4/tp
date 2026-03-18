@@ -65,8 +65,10 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
+version = '1.3'
+
 shadowJar {
-    archiveFileName = 'addressbook.jar'
+    archiveFileName = "food-bridge-${project.version}.jar"
 }
 
 defaultTasks 'clean', 'test'
