@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -214,5 +216,12 @@ public class RedoCommandTest {
 
         // Third redo should fail – at the latest state already
         assertCommandFailure(new RedoCommand(), model, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void mutabilityFlags_mutatesModelWithoutHistoryCommit() {
+        RedoCommand redoCommand = new RedoCommand();
+        assertFalse(redoCommand.isMutating());
+        assertTrue(redoCommand.mutatesModel());
     }
 }

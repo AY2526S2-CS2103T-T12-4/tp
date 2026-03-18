@@ -181,4 +181,11 @@ public class EditCommandTest {
         assertEquals(expected, editCommand.toString());
     }
 
+    @Test
+    public void mutabilityFlags_returnsTrue() {
+        EditCommand command = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        assertTrue(command.isMutating());
+        assertTrue(command.mutatesModel());
+    }
+
 }

@@ -85,6 +85,13 @@ public class AddCommandTest {
         assertEquals(expected, addCommand.toString());
     }
 
+    @Test
+    public void mutabilityFlags_returnsTrue() {
+        AddCommand addCommand = new AddCommand(new PersonBuilder().build());
+        assertTrue(addCommand.isMutating());
+        assertTrue(addCommand.mutatesModel());
+    }
+
     /**
      * A default model stub that have all of the methods failing.
      */

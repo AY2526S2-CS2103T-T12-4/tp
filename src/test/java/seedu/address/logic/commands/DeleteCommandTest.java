@@ -109,6 +109,13 @@ public class DeleteCommandTest {
         assertEquals(expected, deleteCommand.toString());
     }
 
+    @Test
+    public void mutabilityFlags_returnsTrue() {
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        assertTrue(deleteCommand.isMutating());
+        assertTrue(deleteCommand.mutatesModel());
+    }
+
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
