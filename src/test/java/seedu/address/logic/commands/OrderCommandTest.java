@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalOrders.ALICE_ORDER;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -18,78 +18,68 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class OrderCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null, null));
+    public void constructor_nullOrder_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new OrderCommand(1, null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-        Order validOrder = new OrderBuilder().build();
+    public void execute_orderAcceptedByModel_addSuccessful() {
+        ModelStubAcceptingOrderAdded modelStub = new ModelStubAcceptingOrderAdded();
 
-        CommandResult commandResult = new AddCommand(validPerson, validOrder).execute(modelStub);
+        Map<Integer, Integer> orderMap = new HashMap<>();
+        orderMap.put(1, 2);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
-                commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
+        OrderCommand orderCommand = new OrderCommand(1, orderMap);
 
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        Order validOrder = new OrderBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson, validOrder);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        CommandResult commandResult = orderCommand.execute(modelStub);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        Order expectedOrder = new Order(modelStub.getFilteredPersonList().get(1), orderMap);
+
+        assertEquals(
+                String.format(OrderCommand.MESSAGE_SUCCESS, Messages.format(expectedOrder)),
+                commandResult.getFeedbackToUser()
+        );
+
+        assertEquals(Arrays.asList(expectedOrder), modelStub.ordersAdded);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        Order DEFAULT_ORDER = new OrderBuilder().withPerson(alice).withOrder("1 1", "2 4").build();
-        AddCommand addAliceCommand = new AddCommand(alice, DEFAULT_ORDER);
-        AddCommand addBobCommand = new AddCommand(bob, DEFAULT_ORDER);
+        Map<Integer, Integer> order1 = new HashMap<>();
+        order1.put(1, 2);
 
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        Map<Integer, Integer> order2 = new HashMap<>();
+        order2.put(2, 3);
 
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice, DEFAULT_ORDER);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        OrderCommand command1 = new OrderCommand(1, order1);
+        OrderCommand command2 = new OrderCommand(2, order2);
 
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        // same object
+        assertTrue(command1.equals(command1));
 
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        // same values
+        OrderCommand command1Copy = new OrderCommand(1, order1);
+        assertTrue(command1.equals(command1Copy));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different types
+        assertFalse(command1.equals(1));
+
+        // null
+        assertFalse(command1.equals(null));
+
+        // different index
+        assertFalse(command1.equals(command2));
     }
-
-    @Test
-    public void toStringMethod() {
-        AddCommand addCommand = new AddCommand(ALICE, ALICE_ORDER);
-        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addCommand.toString());
-    }
-
     /**
      * A default model stub that have all of the methods failing.
      */
@@ -220,45 +210,16 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that always accepts orders.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
+    private class ModelStubAcceptingOrderAdded extends ModelStub {
+        final ArrayList<Order> ordersAdded = new ArrayList<>();
+        private final Person defaultPerson = new PersonBuilder().build();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public void addOrder(Order order) {
+            requireNonNull(order);
+            ordersAdded.add(order);
         }
     }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
 }

@@ -39,7 +39,7 @@ public class RedoCommandTest {
     public void execute_singleRedoableState_success() {
         // Commit a state, then undo it so that it can be redone
         Person person = new PersonBuilder().withName("Redo Test Person")
-                .withPhone("91234567").withEmail("redotest@example.com").withAddress("123456").build();
+                .withPhone("91234567").withAddress("123456").build();
 
         model.addPerson(person);
         model.commitAddressBook();
@@ -58,9 +58,9 @@ public class RedoCommandTest {
     public void execute_multipleRedoableStates_success() {
         // Commit two states, undo both, then redo once
         Person firstPerson = new PersonBuilder().withName("First Redo Person")
-                .withPhone("91111111").withEmail("first@example.com").withAddress("111111").build();
+                .withPhone("91111111").withAddress("111111").build();
         Person secondPerson = new PersonBuilder().withName("Second Redo Person")
-                .withPhone("92222222").withEmail("second@example.com").withAddress("222222").build();
+                .withPhone("92222222").withAddress("222222").build();
 
         model.addPerson(firstPerson);
         model.commitAddressBook();
@@ -90,7 +90,7 @@ public class RedoCommandTest {
     public void execute_redoAfterNewCommit_failure() {
         // Undo history is cleared when a new commit is made, so redo should fail
         Person person = new PersonBuilder().withName("Redo Test Person")
-                .withPhone("91234567").withEmail("redotest@example.com").withAddress("123456").build();
+                .withPhone("91234567").withAddress("123456").build();
 
         model.addPerson(person);
         model.commitAddressBook();
@@ -98,7 +98,7 @@ public class RedoCommandTest {
 
         // Now make a new commit, which should clear the redo history
         Person newPerson = new PersonBuilder().withName("New Person After Undo")
-                .withPhone("93333333").withEmail("newperson@example.com").withAddress("333333").build();
+                .withPhone("93333333").withAddress("333333").build();
         model.addPerson(newPerson);
         model.commitAddressBook();
 
@@ -110,7 +110,7 @@ public class RedoCommandTest {
     public void execute_redoAddCommand_success() {
         // Add a person, commit, undo, then redo – person should be re-added
         Person personToAdd = new PersonBuilder().withName("Hoon Meier")
-                .withPhone("84824240").withEmail("stefan@example.com").withAddress("500001").build();
+                .withPhone("84824240").withAddress("500001").build();
 
         model.addPerson(personToAdd);
         model.commitAddressBook();
@@ -178,9 +178,9 @@ public class RedoCommandTest {
     public void execute_consecutiveRedos_success() {
         // Commit two states, undo both, then redo through all the way to the last state
         Person firstPerson = new PersonBuilder().withName("Hoon Meier")
-                .withPhone("84824240").withEmail("stefan@example.com").withAddress("500001").build();
+                .withPhone("84824240").withAddress("500001").build();
         Person secondPerson = new PersonBuilder().withName("Ida Mueller")
-                .withPhone("84821310").withEmail("hans@example.com").withAddress("600001").build();
+                .withPhone("84821310").withAddress("600001").build();
 
         model.addPerson(firstPerson);
         model.commitAddressBook();

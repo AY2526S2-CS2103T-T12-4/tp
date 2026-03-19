@@ -38,6 +38,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalOrders.BOB_ORDER;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -45,12 +46,14 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.order.Order;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
@@ -59,11 +62,12 @@ public class AddCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Order expectedOrder = new OrderBuilder(BOB_ORDER).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + REGION_DESC_BOB + ORDER_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedPerson, expectedOrder));
 
 
         // multiple tags - all accepted
@@ -72,7 +76,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + REGION_DESC_BOB
                         + ORDER_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddCommand(expectedPersonMultipleTags));
+                new AddCommand(expectedPersonMultipleTags, expectedOrder));
     }
 
     @Test
@@ -152,8 +156,10 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Order expectedOrder = new OrderBuilder(BOB_ORDER).build();
+
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + REGION_DESC_AMY + ORDER_DESC_AMY, new AddCommand(expectedPerson));
+                + REGION_DESC_AMY + ORDER_DESC_AMY, new AddCommand(expectedPerson, expectedOrder));
     }
 
     @Test

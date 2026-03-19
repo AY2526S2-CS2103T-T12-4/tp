@@ -34,7 +34,7 @@ public class OrderCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        Person person = model.getPerson(index);
+        Person person = model.getFilteredPersonList().get(index);
         Order toAdd = new Order(person, this.order);
         model.addOrder(toAdd);
 
