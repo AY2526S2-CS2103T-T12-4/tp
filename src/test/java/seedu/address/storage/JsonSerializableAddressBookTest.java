@@ -5,12 +5,28 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderDate;
+import seedu.address.model.order.OrderId;
+import seedu.address.model.order.OrderStatus;
+import seedu.address.model.order.Price;
+import seedu.address.model.order.Product;
+import seedu.address.model.order.Quantity;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.Region;
 import seedu.address.testutil.TypicalPersons;
 
 public class JsonSerializableAddressBookTest {
@@ -42,6 +58,51 @@ public class JsonSerializableAddressBookTest {
                 JsonSerializableAddressBook.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON,
                 dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_withPersons_success() throws Exception {
+        AddressBook ab = new AddressBook();
+
+        Person person = new Person(
+                new Name("Alice"),
+                new Phone("98765432"),
+                new Email("alice@gmail.com"),
+                new Address("123456"),
+                new Region("W"),
+                new ArrayList<>(),
+                new HashSet<>()
+        );
+        ab.addPerson(person);
+
+        Order order = new Order(
+                new OrderId("1"),
+                person,
+                new Product("Fried Rice"),
+                new Quantity("2"),
+                new Price("5"),
+                OrderStatus.PENDING,
+                new OrderDate(LocalDate.parse("2026-03-10"))
+        );
+        ab.addOrder(order);
+
+        JsonSerializableAddressBook jsonAb = new JsonSerializableAddressBook(ab);
+        AddressBook converted = jsonAb.toModelType();
+
+        assertEquals(1, converted.getPersonList().size());
+        assertEquals("Alice", converted.getPersonList().get(0).getName().toString());
+        assertEquals("98765432", converted.getPersonList().get(0).getPhone().toString());
+        assertEquals("alice@gmail.com", converted.getPersonList().get(0).getEmail().toString());
+        assertEquals("123456", converted.getPersonList().get(0).getAddress().toString());
+        assertEquals("W", converted.getPersonList().get(0).getRegion().toString());
+
+        assertEquals(1, converted.getOrderList().size());
+        assertEquals("1", converted.getOrderList().get(0).getOrderId().toString());
+        assertEquals("Alice", converted.getOrderList().get(0).getPerson().getName().toString());
+        assertEquals("Fried Rice", converted.getOrderList().get(0).getProduct().toString());
+        assertEquals("2", converted.getOrderList().get(0).getQuantity().toString());
+        assertEquals("5.00", converted.getOrderList().get(0).getPrice().toString());
+        assertEquals("2026-03-10", converted.getOrderList().get(0).getDate().toString());
     }
 
 }
