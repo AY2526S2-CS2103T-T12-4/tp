@@ -42,35 +42,30 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                         args,
-                        PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_NAME, PREFIX_PHONE,
                         PREFIX_ADDRESS, PREFIX_UNITNO, PREFIX_REGION,
-                        PREFIX_ORDERS,
                         PREFIX_TAG);
 
         if (!arePrefixesPresent(
                 argMultimap,
                 PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_ADDRESS, PREFIX_REGION,
-                PREFIX_ORDERS)
+                PREFIX_ADDRESS, PREFIX_REGION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(
-                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_UNITNO, PREFIX_REGION,
-                PREFIX_ORDERS);
+                PREFIX_NAME, PREFIX_PHONE,
+                PREFIX_ADDRESS, PREFIX_UNITNO, PREFIX_REGION);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(""));
         String unit = argMultimap.getValue(PREFIX_UNITNO).orElse("");
         String postalCode = argMultimap.getValue(PREFIX_ADDRESS).get();
         Address address = ParserUtil.parseAddress(postalCode, unit);
         Region region = ParserUtil.parseRegion(argMultimap.getValue(PREFIX_REGION).get());
-        String order = argMultimap.getValue(PREFIX_ORDERS).get();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, region, order, tagList);
+        Person person = new Person(name, phone, address, region, tagList);
 
         return new AddCommand(person);
     }
