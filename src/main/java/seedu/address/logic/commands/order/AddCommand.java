@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.order;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -11,9 +11,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_UNITNO;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,7 +22,7 @@ import seedu.address.model.person.Person;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "addperson";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
@@ -38,23 +39,19 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "112233 "
             + PREFIX_UNITNO + "#02-01 "
             + PREFIX_REGION + "N "
-            + PREFIX_ORDERS + "1 2"
-            + PREFIX_ORDERS + "2 5";
+            + PREFIX_ORDERS + "chicken rice";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s. New order added: %2$s.";
+    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
-    private final Order newOrder;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person, Order order) {
+    public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
-        requireNonNull(order);
-        newOrder = order;
     }
 
     @Override
@@ -66,9 +63,17 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
-        model.addOrder(newOrder);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+    }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd), Messages.format(newOrder)));
+    @Override
+    public boolean shouldRecordInHistory() {
+        return true;
+    }
+
+    @Override
+    public boolean mutatesModel() {
+        return true;
     }
 
     @Override
@@ -83,14 +88,13 @@ public class AddCommand extends Command {
         }
 
         AddCommand otherAddCommand = (AddCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd) && newOrder.equals(otherAddCommand.newOrder);
+        return toAdd.equals(otherAddCommand.toAdd);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("toAdd", toAdd)
-                .add("newOrder", newOrder)
                 .toString();
     }
 }

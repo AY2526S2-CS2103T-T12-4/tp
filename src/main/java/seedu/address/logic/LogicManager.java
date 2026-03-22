@@ -49,10 +49,14 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
-        model.commitAddressBook();
+        if (command.shouldRecordInHistory()) {
+            model.commitAddressBook();
+        }
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            if (command.mutatesModel()) {
+                storage.saveAddressBook(model.getAddressBook());
+            }
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
