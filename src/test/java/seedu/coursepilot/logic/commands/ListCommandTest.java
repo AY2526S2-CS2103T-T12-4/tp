@@ -1,6 +1,5 @@
 package seedu.coursepilot.logic.commands;
 
-import static seedu.coursepilot.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.coursepilot.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.coursepilot.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static seedu.coursepilot.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
@@ -35,8 +34,15 @@ public class ListCommandTest {
 
     @Test
     public void execute_listStudentWithNoCurrentOperatingTutorial_throwsCommandException() {
-        assertCommandFailure(new ListCommand(ListCommand.ListTarget.STUDENT),
-            model, ListCommand.MESSAGE_NO_CURRENT_OPERATING_TUTORIAL);
+        expectedModel.updateFilteredStudentList(
+            student -> expectedModel.getCoursePilot().getTutorialList().stream()
+                    .anyMatch(tut -> tut.hasStudent(student))
+        );
+
+        assertCommandSuccess(new ListCommand(ListCommand.ListTarget.STUDENT),
+            model,
+            ListCommand.MESSAGE_SUCCESS_ALL_STUDENTS,
+            expectedModel);
     }
 
     @Test
