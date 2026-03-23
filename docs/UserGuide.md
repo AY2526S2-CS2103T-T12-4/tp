@@ -87,28 +87,39 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-### Listing all persons : `list`
+### Listing all persons : `listperson`
 
-Shows a list of all persons in the address book.
+Shows a list of all persons in the contact list.
 
-Format: `list`
+Format: `listperson`
 
-### Editing a person : `edit`
+### Editing a person : `editperson`
 
-Edits an existing person in the address book.
+Edits an existing person in the person list.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `editperson INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [u/UNIT] [r/REGION] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+
+Editing tags:
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
+| Parameter      | Format requirements                                             |
+|----------------|-----------------------------------------------------------------|
+| `INDEX`        | Must be a positive integer, e.g. 1, 2, 3, …​                    |
+| `PHONE_NUMBER` | Must be exactly 8 digits long and start with either 6, 8, or 9. |
+| `ADDRESS`      | Must be a 6-digit postal code.                                  |
+| `UNIT`         | Must be in the form `#XX-XX`, where `X` is a digit.             |
+| `REGION`       | Must be one of: `N`, `NE`, `W`, `E`, `C`.                       |
+
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `editperson 1 p/91234567 r/E` Edits the phone number and region of the 1st person in the list to be `91234567` and `East` respectively.
+*  `editperson 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editperson 3 a/123456 u/` Edits the postal code of the 3rd person to be `123456` and clears the existing unit number.
 
 ### Locating persons by name: `find`
 
@@ -141,6 +152,19 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Editing an order : `editorder`
+
+Edits an existing order in the order list.
+
+Format: `editorder INDEX o/MENU_ITEM PRODUCT_QUANTITY…​` 
+
+* Edits the order at the specified `INDEX`. The index refers to the index number shown in the displayed order list.
+* Existing menu item selections will be updated to the input values.
+
+Examples:
+*  `editorder 1 o/1 1 o/2 4` Edits the 1st order in the list to include 1 of menu item 1 and 4 of menu item 2.
+*  `editorder 2 o/2 0` Edits the 2nd order to clear the selection of menu item 2.
 
 ### Clearing all entries : `clear`
 
