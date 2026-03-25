@@ -19,9 +19,11 @@ public class ProductQuantityPair {
      */
     public ProductQuantityPair(String productQuantityPair) {
         String[] pair = productQuantityPair.split(" ", 2);
-        this.product = new Product(pair[0]);
-        if (Quantity.isValidQuantity(pair[1])) {
-            this.quantity = new Quantity(pair[1]);
+        String product = pair[0];
+        String quantity = pair[1];
+        this.product = new ProductList().getItem(Integer.parseInt(product));
+        if (Quantity.isValidQuantity(quantity)) {
+            this.quantity = new Quantity(quantity);
         } else {
             this.quantity = null;
         }

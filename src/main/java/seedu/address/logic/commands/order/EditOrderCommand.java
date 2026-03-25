@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -15,10 +17,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderMap;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.Quantity;
-
 
 /**
  * Edits the details of an existing order in the address book.
@@ -57,14 +58,14 @@ public class EditOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredOrderList();
+        List<OrderMap> lastShownList = model.getFilteredOrderList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToEdit = lastShownList.get(index.getZeroBased());
-        Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
+        OrderMap orderToEdit = lastShownList.get(index.getZeroBased());
+        OrderMap editedOrder = createEditedOrderMap(orderToEdit, editOrderDescriptor);
 
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
@@ -75,22 +76,30 @@ public class EditOrderCommand extends Command {
      * Creates and returns an {@code Order} with the details of {@code orderToEdit}
      * edited with {@code editOrderDescriptor}.
      */
-    private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
+    private static OrderMap createEditedOrderMap(OrderMap orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
 
-        Product updatedProduct = editOrderDescriptor.getProduct().orElse(orderToEdit.getProduct());
-        Integer updatedQuantity = editOrderDescriptor.getQuantity();
+//        Product updatedProduct = editOrderDescriptor.getProduct().orElse(orderToEdit.getProduct());
+//        Integer updatedQuantity = editOrderDescriptor.getQuantity();
+//
+//        if (updatedQuantity == 0) {
+//            System.out.println("Zero quantity entered. This functionality hasn't been implemented yet.");
+//            return orderToEdit;
+//        }
+//
+//        Quantity positiveQuantity = new Quantity(updatedQuantity.toString());
 
-        if (updatedQuantity == 0) {
-            System.out.println("Zero quantity entered. This functionality hasn't been implemented yet.");
-            return orderToEdit;
+        Map<Integer, Integer> orderMap = editOrderDescriptor.getOrderMap();
+        Map<Integer, Integer> updatedOrderMap = new HashMap<>();
+
+        for (Map.Entry<Integer, Integer> entry : orderMap.entrySet()) {
+            if (entry.getValue() != 0) {
+                updatedOrderMap.put(entry.getKey(), entry.getValue());
+            }
         }
 
-        Quantity positiveQuantity = new Quantity(updatedQuantity.toString());
-
-        // TODO: Calculate price
-        return new Order(orderToEdit.getOrderId(), orderToEdit.getPerson(), updatedProduct, positiveQuantity,
-                orderToEdit.getPrice(), orderToEdit.getOrderStatus(), orderToEdit.getDate());
+        return new OrderMap(orderToEdit.getOrderId(), orderToEdit.getPerson(), updatedOrderMap,
+                orderToEdit.getStatus(), orderToEdit.getOrderDatetime());
     }
 
     @Override
@@ -132,34 +141,23 @@ public class EditOrderCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditOrderDescriptor {
-        private Product product;
-        private Integer quantity;
+        private Map<Integer, Integer> orderMap;
 
         public EditOrderDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
-            setProduct(toCopy.product);
-            setQuantity(toCopy.quantity);
+            setOrderMap(toCopy.orderMap);
         }
 
-        public void setProduct(Product product) {
-            this.product = product;
+        public void setOrderMap(Map<Integer, Integer> orderMap) {
+            this.orderMap = orderMap;
         }
 
-        public Optional<Product> getProduct() {
-            return Optional.ofNullable(product);
-        }
-
-        public void setQuantity(Integer quantity) {
-            this.quantity = quantity;
-        }
-
-        public Integer getQuantity() {
-            return quantity;
+        public Map<Integer, Integer> getOrderMap() {
+            return orderMap;
         }
 
         @Override
@@ -174,15 +172,13 @@ public class EditOrderCommand extends Command {
             }
 
             EditOrderDescriptor otherEditOrderDescriptor = (EditOrderDescriptor) other;
-            return Objects.equals(product, otherEditOrderDescriptor.product)
-                    && Objects.equals(quantity, otherEditOrderDescriptor.quantity);
+            return Objects.equals(orderMap, otherEditOrderDescriptor.orderMap);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("product", product)
-                    .add("quantity", quantity)
+                    .add("orderMap", orderMap)
                     .toString();
         }
     }

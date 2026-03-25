@@ -2,8 +2,10 @@ package seedu.address.logic.parser.order;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERIDX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
+
+import java.util.List;
+import java.util.Map;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.order.EditOrderCommand;
@@ -39,14 +41,21 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         EditOrderCommand.EditOrderDescriptor editOrderDescriptor = new EditOrderCommand.EditOrderDescriptor();
 
         if (argMultimap.getValue(PREFIX_ORDERS).isPresent()) {
-            ProductQuantityPair productQuantityPair =
-                    ParserUtil.parseProductQuantityPair(argMultimap.getValue(PREFIX_ORDERS).get());
-            editOrderDescriptor.setProduct(productQuantityPair.getProduct());
-            editOrderDescriptor.setQuantity(productQuantityPair.getQuantity().map(q -> q.value).orElse(0));
+            editOrderDescriptor.setOrderMap(parseOrdersForEdit(argMultimap.getAllValues(PREFIX_ORDERS)));
         } else {
             throw new ParseException(EditOrderCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditOrderCommand(index, editOrderDescriptor);
+    }
+
+    /**
+     * Parses {@code Collection<String> orders} into a {@code Map<Integer, Integer>}.
+     */
+    private Map<Integer, Integer> parseOrdersForEdit(List<String> orders) throws ParseException {
+        assert orders != null;
+        assert !orders.isEmpty();
+
+        return ParserUtil.parseOrders(orders);
     }
 }

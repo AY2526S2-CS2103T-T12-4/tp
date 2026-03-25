@@ -24,6 +24,14 @@ public class OrderMap {
         this.orderDatetime = new OrderDateTime(LocalDateTime.now());
     }
 
+    public OrderMap(int orderId, Person person, Map<Integer, Integer> orderMap, OrderStatus status, OrderDateTime orderDatetime) {
+        this.orderId = orderId;
+        this.person = person;
+        this.orderMap = orderMap;
+        this.status = status;
+        this.orderDatetime = orderDatetime;
+    }
+
     public Person getPerson() {
         return person;
     }

@@ -44,24 +44,15 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddPersonCommandParserTest {
-<<<<<<< HEAD
-    private AddCommandParser parser = new AddCommandParser();
-=======
     private AddPersonCommandParser parser = new AddPersonCommandParser();
->>>>>>> add-orders
 
     @Test
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
-<<<<<<< HEAD
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + REGION_DESC_BOB + ORDER_DESC_BOB + TAG_DESC_FRIEND,
-=======
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + REGION_DESC_BOB + TAG_DESC_FRIEND,
->>>>>>> add-orders
                 new AddPersonCommand(expectedPerson));
 
 
@@ -69,14 +60,8 @@ public class AddPersonCommandParserTest {
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser,
-<<<<<<< HEAD
-                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + REGION_DESC_BOB
-                        + ORDER_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-=======
                 NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB + REGION_DESC_BOB
-                        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
->>>>>>> add-orders
-                new AddPersonCommand(expectedPersonMultipleTags));
+                        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddPersonCommand(expectedPersonMultipleTags));
     }
 
     @Test
@@ -140,14 +125,9 @@ public class AddPersonCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-<<<<<<< HEAD
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + REGION_DESC_AMY + ORDER_DESC_AMY, new AddPersonCommand(expectedPerson));
-=======
 
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY
                 + REGION_DESC_AMY, new AddPersonCommand(expectedPerson));
->>>>>>> add-orders
     }
 
     @Test
@@ -206,13 +186,8 @@ public class AddPersonCommandParserTest {
                 + REGION_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-<<<<<<< HEAD
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + REGION_DESC_BOB + ORDER_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-=======
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + REGION_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
->>>>>>> add-orders
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
     }
 }

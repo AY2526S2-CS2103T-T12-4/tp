@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
@@ -50,29 +51,16 @@ public class OrderBuilder {
         orders = new HashMap<>(orderToCopy.getOrderMap());
     }
 
-    /**
-     * Sets the {@code Person} of the {@code Order} that we are building.
-     */
-    public OrderBuilder withPerson(String name, String phone, String address, String unit, String region, String tags) {
-        this.person = new Person(
-                new Name(name),
-                new Phone(phone),
-                new Address(address, unit),
-                new Region(region),
-                new HashSet<>());
-        return this;
-    }
-
     public OrderBuilder withPerson(Person person) {
         this.person = person;
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code orders} into a {@code Set<OrderMap>} and set it to the {@code Person} that we are building.
      */
     public OrderBuilder withOrderMap(String ... orders) {
-        this.orders = SampleDataUtil.parseOrders(orders);
+        // TODO
         return this;
     }
 
