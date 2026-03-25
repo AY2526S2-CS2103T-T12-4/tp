@@ -4,32 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UNITNO;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/person/EditCommandParser.java
 import seedu.address.logic.commands.person.EditPersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand.EditPersonDescriptor;
-=======
-<<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/person/EditCommandParser.java
-import seedu.address.logic.commands.person.EditCommand;
-import seedu.address.logic.commands.person.EditCommand.EditPersonDescriptor;
-========
-import seedu.address.logic.commands.person.EditPersonCommand;
-import seedu.address.logic.commands.person.EditPersonCommand.EditPersonDescriptor;
->>>>>>>> master:src/main/java/seedu/address/logic/parser/person/EditPersonCommandParser.java
->>>>>>> add-orders:src/main/java/seedu/address/logic/parser/person/EditPersonCommandParser.java
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -40,11 +27,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new EditPersonCommand object
  */
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/person/EditCommandParser.java
-public class EditCommandParser implements Parser<EditPersonCommand> {
-=======
 public class EditPersonCommandParser implements Parser<EditPersonCommand> {
->>>>>>> add-orders:src/main/java/seedu/address/logic/parser/person/EditPersonCommandParser.java
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditPersonCommand
@@ -55,23 +38,15 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE,
-<<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/person/EditCommandParser.java
                         PREFIX_ADDRESS, PREFIX_UNITNO, PREFIX_REGION, PREFIX_TAG);
-========
-                        PREFIX_ADDRESS, PREFIX_UNITNO, PREFIX_REGION, PREFIX_ORDERS, PREFIX_TAG);
->>>>>>>> master:src/main/java/seedu/address/logic/parser/person/EditPersonCommandParser.java
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/person/EditCommandParser.java
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPersonCommand.MESSAGE_USAGE), pe);
-=======
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPersonCommand.MESSAGE_USAGE), pe);
->>>>>>> add-orders:src/main/java/seedu/address/logic/parser/person/EditPersonCommandParser.java
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE,
@@ -95,10 +70,6 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         }
         if (argMultimap.getValue(PREFIX_REGION).isPresent()) {
             editPersonDescriptor.setRegion(ParserUtil.parseRegion(argMultimap.getValue(PREFIX_REGION).get()));
-        }
-        if (argMultimap.getValue(PREFIX_ORDERS).isPresent()) {
-            editPersonDescriptor.setOrder(
-                    new ArrayList<>(List.of(ParserUtil.parseOrder(argMultimap.getValue(PREFIX_ORDERS).get()))));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

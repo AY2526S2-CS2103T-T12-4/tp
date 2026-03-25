@@ -11,11 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new DeletePersonCommand object
  */
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/order/DeleteCommandParser.java
-public class DeleteCommandParser implements Parser<DeletePersonCommand> {
-=======
 public class DeletePersonCommandParser implements Parser<DeletePersonCommand> {
->>>>>>> add-orders:src/main/java/seedu/address/logic/parser/person/DeletePersonCommandParser.java
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeletePersonCommand
