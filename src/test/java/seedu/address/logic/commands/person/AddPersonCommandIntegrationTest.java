@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.person;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -11,15 +11,13 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddPersonCommand}.
  */
-public class AddCommandIntegrationTest {
+public class AddPersonCommandIntegrationTest {
 
     private Model model;
 
@@ -31,23 +29,20 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
-        Order validOrder = new OrderBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
-        assertCommandSuccess(new AddCommand(validPerson, validOrder), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        assertCommandSuccess(new AddPersonCommand(validPerson), model,
+                String.format(AddPersonCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
                 expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
-        Order validOrder = new OrderBuilder().build();
-
-        assertCommandFailure(new AddCommand(personInList, validOrder), model,
-                AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddPersonCommand(personInList), model,
+                AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

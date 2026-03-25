@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/order/FindCommand.java
 package seedu.address.logic.commands.order;
+========
+package seedu.address.logic.commands.person;
+>>>>>>>> master:src/main/java/seedu/address/logic/commands/person/FindPersonCommand.java
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,9 +17,9 @@ import seedu.address.model.person.RegionContainsKeywordsPredicate;
  * Finds and lists all persons in address book whose region matches any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class FindPersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "findperson";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose regions match any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
@@ -24,7 +28,7 @@ public class FindCommand extends Command {
 
     private final RegionContainsKeywordsPredicate predicate;
 
-    public FindCommand(RegionContainsKeywordsPredicate predicate) {
+    public FindPersonCommand(RegionContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -43,11 +47,11 @@ public class FindCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindCommand)) {
+        if (!(other instanceof FindPersonCommand)) {
             return false;
         }
 
-        FindCommand otherFindCommand = (FindCommand) other;
+        FindPersonCommand otherFindCommand = (FindPersonCommand) other;
         return predicate.equals(otherFindCommand.predicate);
     }
 

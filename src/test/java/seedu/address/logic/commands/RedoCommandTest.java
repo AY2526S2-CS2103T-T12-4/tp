@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -107,7 +109,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void execute_redoAddCommand_success() {
+    public void execute_redoAddPersonCommand_success() {
         // Add a person, commit, undo, then redo – person should be re-added
         Person personToAdd = new PersonBuilder().withName("Hoon Meier")
                 .withPhone("84824240").withAddress("500001").build();
@@ -214,5 +216,12 @@ public class RedoCommandTest {
 
         // Third redo should fail – at the latest state already
         assertCommandFailure(new RedoCommand(), model, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void mutabilityFlags_mutatesModelWithoutHistoryCommit() {
+        RedoCommand redoCommand = new RedoCommand();
+        assertFalse(redoCommand.shouldRecordInHistory());
+        assertTrue(redoCommand.mutatesModel());
     }
 }

@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -59,5 +62,56 @@ public class CommandResultTest {
                 + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
                 + ", exit=" + commandResult.isExit() + "}";
         assertEquals(expected, commandResult.toString());
+    }
+
+    @Test
+    public void commandMutability_defaultBehavioursReturnFalse() {
+        Command nonMutating = new Command() {
+            @Override
+            public CommandResult execute(Model model) throws CommandException {
+                return new CommandResult("noop");
+            }
+        };
+        assertFalse(nonMutating.shouldRecordInHistory());
+        assertFalse(nonMutating.mutatesModel());
+    }
+
+    @Test
+    public void commandMutability_overridesReturnTrue() {
+        Command mutating = new Command() {
+            @Override
+            public CommandResult execute(Model model) throws CommandException {
+                return new CommandResult("mutate");
+            }
+
+            @Override
+            public boolean shouldRecordInHistory() {
+                return true;
+            }
+
+            @Override
+            public boolean mutatesModel() {
+                return true;
+            }
+        };
+        assertTrue(mutating.shouldRecordInHistory());
+        assertTrue(mutating.mutatesModel());
+    }
+
+    @Test
+    public void commandMutability_mutatesModelWithoutHistoryCommit() {
+        Command storageOnly = new Command() {
+            @Override
+            public CommandResult execute(Model model) throws CommandException {
+                return new CommandResult("storage");
+            }
+
+            @Override
+            public boolean mutatesModel() {
+                return true;
+            }
+        };
+        assertFalse(storageOnly.shouldRecordInHistory());
+        assertTrue(storageOnly.mutatesModel());
     }
 }

@@ -11,7 +11,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_UNITNO;
 import java.util.Set;
 import java.util.stream.Stream;
 
+<<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/person/AddCommandParser.java
 import seedu.address.logic.commands.person.AddCommand;
+========
+import seedu.address.logic.commands.person.AddPersonCommand;
+>>>>>>>> master:src/main/java/seedu/address/logic/parser/person/AddPersonCommandParser.java
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -26,16 +30,16 @@ import seedu.address.model.person.Region;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddPersonCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddPersonCommandParser implements Parser<AddPersonCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddPersonCommand
+     * and returns an AddPersonCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddPersonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                         args,
@@ -48,7 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_ADDRESS, PREFIX_REGION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(
@@ -64,7 +68,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Person person = new Person(name, phone, address, region, tagList);
 
-        return new AddCommand(person);
+        return new AddPersonCommand(person);
     }
 
     /**

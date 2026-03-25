@@ -9,6 +9,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_UNITNO;
 
 import java.util.Set;
 
+import seedu.address.logic.commands.person.AddPersonCommand;
+import seedu.address.logic.commands.person.EditPersonCommand.EditPersonDescriptor;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -18,10 +20,10 @@ import seedu.address.model.tag.Tag;
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add person command string for adding the {@code person}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddPersonCommand(Person person) {
+        return AddPersonCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**
@@ -47,13 +49,8 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getAddress().ifPresent(address ->
-        {
-            sb.append(PREFIX_ADDRESS).append(address.getPostalCode()).append(" ");
-            if (!address.getUnit().isEmpty()) {
-                sb.append(PREFIX_UNITNO).append(address.getUnit()).append(" ");
-            }
-        });
+        descriptor.getPostalCode().ifPresent(postalCode -> sb.append(PREFIX_ADDRESS).append(postalCode).append(" "));
+        descriptor.getUnitNo().ifPresent(unitNo -> sb.append(PREFIX_UNITNO).append(unitNo).append(" "));
         descriptor.getRegion().ifPresent(region -> sb.append(PREFIX_REGION).append(region.getValue()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

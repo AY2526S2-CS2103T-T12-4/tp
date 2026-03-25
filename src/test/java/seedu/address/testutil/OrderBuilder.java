@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
@@ -13,6 +12,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Region;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building Order objects.
+ */
 public class OrderBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
@@ -49,7 +51,7 @@ public class OrderBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Person} of the {@code Order} that we are building.
      */
     public OrderBuilder withPerson(String name, String phone, String address, String unit, String region, String tags) {
         this.person = new Person(
@@ -69,7 +71,7 @@ public class OrderBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public OrderBuilder withOrder(String ... orders) {
+    public OrderBuilder withOrderMap(String ... orders) {
         this.orders = SampleDataUtil.parseOrders(orders);
         return this;
     }

@@ -1,11 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalOrders.ALICE_ORDER;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
@@ -14,36 +13,36 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderMap;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class AddPersonCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new AddPersonCommand(null));
     }
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
-        Order validOrder = new OrderBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson, validOrder).execute(modelStub);
+        CommandResult commandResult = new AddPersonCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+        assertEquals(String.format(AddPersonCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
@@ -51,26 +50,25 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
-        Order validOrder = new OrderBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson, validOrder);
+        AddPersonCommand addCommand = new AddPersonCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        Executable executeCommand = () -> addCommand.execute(modelStub);
+        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, executeCommand);
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        Order DEFAULT_ORDER = new OrderBuilder().withPerson(alice).withOrder("1 1", "2 4").build();
-        AddCommand addAliceCommand = new AddCommand(alice, DEFAULT_ORDER);
-        AddCommand addBobCommand = new AddCommand(bob, DEFAULT_ORDER);
+        AddPersonCommand addAliceCommand = new AddPersonCommand(alice);
+        AddPersonCommand addBobCommand = new AddPersonCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice, DEFAULT_ORDER);
+        AddPersonCommand addAliceCommandCopy = new AddPersonCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -85,9 +83,16 @@ public class AddCommandTest {
 
     @Test
     public void toStringMethod() {
-        AddCommand addCommand = new AddCommand(ALICE, ALICE_ORDER);
-        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
+        AddPersonCommand addCommand = new AddPersonCommand(ALICE);
+        String expected = AddPersonCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
         assertEquals(expected, addCommand.toString());
+    }
+
+    @Test
+    public void mutabilityFlags_returnsTrue() {
+        AddPersonCommand addCommand = new AddPersonCommand(new PersonBuilder().build());
+        assertTrue(addCommand.shouldRecordInHistory());
+        assertTrue(addCommand.mutatesModel());
     }
 
     /**
@@ -130,7 +135,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addOrder(Order order) {
+        public void addOrder(OrderMap order) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,7 +155,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasOrder(Order order) {
+        public boolean hasOrder(OrderMap order) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -160,7 +165,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteOrder(Order target) {
+        public void deleteOrder(OrderMap target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -170,7 +175,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setOrder(Order target, Order editedPerson) {
+        public void setOrder(OrderMap target, OrderMap editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -180,7 +185,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Order> getFilteredOrderList() {
+        public ObservableList<OrderMap> getFilteredOrderList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -189,7 +194,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void updateFilteredOrderList(Predicate<Order> predicate) {
+        public void updateFilteredOrderList(Predicate<OrderMap> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

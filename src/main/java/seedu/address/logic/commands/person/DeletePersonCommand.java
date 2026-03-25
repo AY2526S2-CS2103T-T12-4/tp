@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/order/DeleteCommand.java
 package seedu.address.logic.commands.order;
+========
+package seedu.address.logic.commands.person;
+>>>>>>>> master:src/main/java/seedu/address/logic/commands/person/DeletePersonCommand.java
 
 import static java.util.Objects.requireNonNull;
 
@@ -16,9 +20,9 @@ import seedu.address.model.person.Person;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeletePersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "deleteperson";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
@@ -29,7 +33,7 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeletePersonCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -64,11 +68,11 @@ public class DeleteCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeletePersonCommand)) {
             return false;
         }
 
-        DeleteCommand otherDeleteCommand = (DeleteCommand) other;
+        DeletePersonCommand otherDeleteCommand = (DeletePersonCommand) other;
         return targetIndex.equals(otherDeleteCommand.targetIndex);
     }
 

@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/order/EditCommand.java
 package seedu.address.logic.commands.order;
+========
+package seedu.address.logic.commands.person;
+>>>>>>>> master:src/main/java/seedu/address/logic/commands/person/EditPersonCommand.java
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -37,9 +41,9 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends Command {
+public class EditPersonCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "editperson";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -67,7 +71,7 @@ public class EditCommand extends Command {
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditPersonCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
@@ -112,7 +116,22 @@ public class EditCommand extends Command {
         Region updatedRegion = editPersonDescriptor.getRegion().orElse(personToEdit.getRegion());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
+<<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/order/EditCommand.java
         return new Person(updatedName, updatedPhone, updatedAddress, updatedRegion, updatedTags);
+    }
+
+    @Override
+    public boolean shouldRecordInHistory() {
+        return true;
+    }
+
+    @Override
+    public boolean mutatesModel() {
+        return true;
+========
+        return new Person(updatedName, updatedPhone, updatedAddress, updatedRegion,
+                updatedOrders, updatedTags);
+>>>>>>>> master:src/main/java/seedu/address/logic/commands/person/EditPersonCommand.java
     }
 
     @Override
@@ -132,11 +151,11 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditPersonCommand)) {
             return false;
         }
 
-        EditCommand otherEditCommand = (EditCommand) other;
+        EditPersonCommand otherEditCommand = (EditPersonCommand) other;
         return index.equals(otherEditCommand.index)
                 && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
     }
@@ -267,6 +286,7 @@ public class EditCommand extends Command {
                     && Objects.equals(postalCode, otherEditPersonDescriptor.postalCode)
                     && Objects.equals(unitNo, otherEditPersonDescriptor.unitNo)
                     && Objects.equals(region, otherEditPersonDescriptor.region)
+                    && Objects.equals(order, otherEditPersonDescriptor.order)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
