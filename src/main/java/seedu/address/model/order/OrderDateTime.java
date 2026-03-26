@@ -1,8 +1,6 @@
 package seedu.address.model.order;
 
 import static java.util.Objects.requireNonNull;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

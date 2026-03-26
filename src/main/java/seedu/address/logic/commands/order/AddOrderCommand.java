@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.order;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERIDX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
@@ -11,13 +10,12 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.person.Person;
 
 /**
- * Adds an order to the address book.
+ * Adds an {@code OrderMap} to the address book.
  */
 public class AddOrderCommand extends Command {
 
@@ -35,12 +33,24 @@ public class AddOrderCommand extends Command {
     private final int index;
     private final Map<Integer, Integer> order;
 
+    /**
+     * Constructor for AddOrderCommand.
+     *
+     * @param index Index of person to tag the order to.
+     * @param order Map of all orders made.
+     */
     public AddOrderCommand(int index, Map<Integer, Integer> order) {
         requireAllNonNull(index, order);
         this.index = index;
         this.order = order;
     }
 
+    /**
+     * Executes the AddOrderCommand.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return CommandResult with confirmation message.
+     */
     @Override
     public CommandResult execute(Model model) {
         Person person = model.getFilteredPersonList().get(index - 1);
@@ -50,14 +60,17 @@ public class AddOrderCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
+    /** Returns the index of the person specified. */
     public int getIndex() {
         return index;
     }
 
+    /** Returns the Map of all orders made. */
     public Map<Integer, Integer> getOrder() {
         return order;
     }
 
+    /** Checks if two AddOrderCommands are equal. */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -72,16 +85,20 @@ public class AddOrderCommand extends Command {
         AddOrderCommand e = (AddOrderCommand) other;
         return index == e.getIndex() && order.equals(e.getOrder());
     }
+
+    /** Indicates that AddOrderCommand should be recorded. */
     @Override
     public boolean shouldRecordInHistory() {
         return true;
     }
 
+    /** Indicates that AddOrderCommand mutates the model. */
     @Override
     public boolean mutatesModel() {
         return true;
     }
 
+    /** Represents the AddOrderCommand as a String. */
     @Override
     public String toString() {
         return new ToStringBuilder(this).toString();
