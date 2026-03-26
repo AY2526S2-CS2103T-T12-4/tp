@@ -36,9 +36,9 @@ public class OrderBuilder {
             new HashSet<>());
 
     private static final Map<Integer, Integer> DEFAULT_ORDERMAP = new HashMap<>() {{
-        put(1, 1);
-        put(5, 2);
-    }};
+            put(1, 1);
+            put(5, 2);
+        }};
 
     private int orderId;
     private Person person;
