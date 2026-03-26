@@ -13,7 +13,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.OrderMap;
-import seedu.address.model.order.ProductQuantityPair;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -161,7 +160,7 @@ public class ParserUtil {
             String trimmedOrder = order.trim();
 
             if (!OrderMap.isValidProductQuantityPair(trimmedOrder)) {
-                throw new ParseException(ProductQuantityPair.MESSAGE_CONSTRAINTS);
+                throw new ParseException(OrderMap.MESSAGE_CONSTRAINTS);
             }
 
             int menuItem = Integer.parseInt(trimmedOrder.split(" ")[0]);
