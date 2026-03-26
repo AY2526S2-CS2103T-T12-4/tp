@@ -138,10 +138,21 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String order} into a {@code String order}.
+     * Parses a single {@code String order} into a {@code Map<Integer, Integer> orderMap}.
      * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code order} is invalid.
+     */
+    public static Map<Integer, Integer> parseOrder(String order) {
+        requireNonNull(order);
+        Map<Integer, Integer> orderMap = new HashMap<>();
+        String trimmedOrder = order.trim();
+        int menuItem = Integer.parseInt(trimmedOrder.split(" ")[0]);
+        int quantity = Integer.parseInt(trimmedOrder.split(" ")[1]);
+        orderMap.put(menuItem, quantity);
+        return orderMap;
+    }
+    /**
+     * Parses a List of {@code String order} into a {@code Map<Integer, Integer> orderMap}.
+     * Leading and trailing whitespaces will be trimmed.
      */
     public static Map<Integer, Integer> parseOrders(List<String> orders) throws ParseException {
         requireNonNull(orders);

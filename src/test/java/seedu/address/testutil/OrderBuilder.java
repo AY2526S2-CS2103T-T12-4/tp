@@ -99,6 +99,16 @@ public class OrderBuilder {
         return this;
     }
 
+    /** Gets DEFAULT_PERSON. */
+    public Person getDefaultPerson() {
+        return DEFAULT_PERSON;
+    }
+
+    /** Gets DEFAULT_ORDERMAP. */
+    public Map<Integer, Integer> getDefaultOrderMap() {
+        return DEFAULT_ORDERMAP;
+    }
+
     public OrderMap build() {
         return new OrderMap(orderId, person, orders, status, orderDateTime);
     }

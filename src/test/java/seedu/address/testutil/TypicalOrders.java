@@ -60,7 +60,16 @@ public class TypicalOrders {
     }
 
     public static List<OrderMap> getTypicalOrders() {
-        return new ArrayList<>(Arrays.asList(
-                ALICE_ORDER, BENSON_ORDER, CARL_ORDER, DANIEL_ORDER, ELLE_ORDER, FIONA_ORDER, GEORGE_ORDER));
+        return new ArrayList<>(
+                Arrays.asList(
+                        ALICE_ORDER,
+                        BENSON_ORDER,
+                        CARL_ORDER,
+                        DANIEL_ORDER,
+                        ELLE_ORDER,
+                        FIONA_ORDER,
+                        GEORGE_ORDER
+                )
+        );
     }
 }

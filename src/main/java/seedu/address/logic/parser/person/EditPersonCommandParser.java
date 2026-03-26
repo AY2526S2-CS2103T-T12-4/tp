@@ -71,6 +71,7 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         if (argMultimap.getValue(PREFIX_REGION).isPresent()) {
             editPersonDescriptor.setRegion(ParserUtil.parseRegion(argMultimap.getValue(PREFIX_REGION).get()));
         }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {

@@ -16,14 +16,17 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddOrderCommand object
+ * Parses input arguments and creates a new {@link AddOrderCommand} object.
  */
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddOrderCommand
-     * and returns an AddOrderCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * and returns an {@link AddOrderCommand} object for execution.
+     *
+     * @param args The input arguments provided by the user.
+     * @return A new {@code AddOrderCommand} containing the parsed customer index and order map.
+     * @throws ParseException If the user input does not conform to the expected format or contains invalid values.
      */
     public AddOrderCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

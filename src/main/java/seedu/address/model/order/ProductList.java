@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a list of products, or a menu.
+ * Represents a menu of products available for ordering.
  */
 public class ProductList {
 
     private List<Product> menu;
 
     /**
-     * Create the product list with populated items.
+     * Constructs a new {@code ProductList} with a predefined set of products.
      */
     public ProductList() {
         this.menu = new ArrayList<>();
@@ -26,7 +26,9 @@ public class ProductList {
     }
 
     /**
-     * Returns the item at the specified one-based index.
+     * Returns the product at the specified 1-based index in the menu.
+     * @param index 1-based index in the menu.
+     * @return menu item.
      */
     public Product getItem(int index) {
         return menu.get(index - 1);

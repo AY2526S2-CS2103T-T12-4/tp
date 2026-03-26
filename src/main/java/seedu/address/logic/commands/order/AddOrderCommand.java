@@ -14,9 +14,11 @@ import seedu.address.model.Model;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.person.Person;
 
-/** for adding a new order with a returning customer **/
-
+/**
+ * Adds an {@code OrderMap} to the address book.
+ */
 public class AddOrderCommand extends Command {
+
     public static final String COMMAND_WORD = "addorder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -32,9 +34,10 @@ public class AddOrderCommand extends Command {
     private final Map<Integer, Integer> order;
 
     /**
-     * Create an AddOrderCommand.
-     * @param index The person index
-     * @param order The OrderMap
+     * Constructor for AddOrderCommand.
+     *
+     * @param index Index of person to tag the order to.
+     * @param order Map of all orders made.
      */
     public AddOrderCommand(int index, Map<Integer, Integer> order) {
         requireAllNonNull(index, order);
@@ -42,25 +45,32 @@ public class AddOrderCommand extends Command {
         this.order = order;
     }
 
+    /**
+     * Executes the AddOrderCommand.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return CommandResult with confirmation message.
+     */
     @Override
     public CommandResult execute(Model model) {
-        Person person = model.getFilteredPersonList().get(index);
+        Person person = model.getFilteredPersonList().get(index - 1);
         OrderMap toAdd = new OrderMap(person, this.order);
         model.addOrder(toAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
-    @Override
-    public boolean shouldRecordInHistory() {
-        return true;
+    /** Returns the index of the person specified. */
+    public int getIndex() {
+        return index;
     }
 
-    @Override
-    public boolean mutatesModel() {
-        return true;
+    /** Returns the Map of all orders made. */
+    public Map<Integer, Integer> getOrder() {
+        return order;
     }
 
+    /** Checks if two AddOrderCommands are equal. */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -73,9 +83,22 @@ public class AddOrderCommand extends Command {
         }
 
         AddOrderCommand e = (AddOrderCommand) other;
-        return index == e.index && order.equals(e.order);
+        return index == e.getIndex() && order.equals(e.getOrder());
     }
 
+    /** Indicates that AddOrderCommand should be recorded. */
+    @Override
+    public boolean shouldRecordInHistory() {
+        return true;
+    }
+
+    /** Indicates that AddOrderCommand mutates the model. */
+    @Override
+    public boolean mutatesModel() {
+        return true;
+    }
+
+    /** Represents the AddOrderCommand as a String. */
     @Override
     public String toString() {
         return new ToStringBuilder(this).toString();

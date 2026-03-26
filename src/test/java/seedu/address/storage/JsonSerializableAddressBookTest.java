@@ -91,7 +91,8 @@ public class JsonSerializableAddressBookTest {
         assertEquals(1, converted.getOrderList().size());
         assertEquals(1, converted.getOrderList().get(0).getOrderId());
         assertEquals("Alice", converted.getOrderList().get(0).getPerson().getName().toString());
-        // TODO: Test order map
+        assertEquals(new HashMap<>().put(1, 1),
+                converted.getOrderList().get(0).getOrderMap());
         assertEquals("2026-03-10T10:15:30", converted.getOrderList().get(0).getOrderDatetime().toString());
     }
 

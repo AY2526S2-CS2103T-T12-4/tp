@@ -66,7 +66,7 @@ public class Messages {
                 .append("; Customer: ")
                 .append(orderMap.getPerson().getName())
                 .append("; Date/Time: ")
-                .append(orderMap.getOrderDatetime())
+                .append(orderMap.getOrderDatetime().toString())
                 .append("; Status: ")
                 .append(orderMap.getStatus())
                 .append("; Items: ");
@@ -82,7 +82,7 @@ public class Messages {
             Product product = MENU.getItem(entry.getKey());
             int quantity = entry.getValue();
             builder.append(String.format(
-                    "%s [%d] [$%.2f]",
+                    "%s [%d] [$%.2f] ",
                     product.getName(),
                     quantity,
                     product.getPrice()

@@ -8,7 +8,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 
 /**
- * Represents an order.
+ * Represents an order made by a customer in the system.
  */
 public class OrderMap {
     public static final String MESSAGE_CONSTRAINTS =
@@ -23,9 +23,10 @@ public class OrderMap {
     private final OrderDateTime orderDatetime;
 
     /**
-     * Create a new OrderMap with the current timestamp.
-     * @param person The customer
-     * @param orderMap The items ordered
+     * Constructs a new {@code OrderMap} for the given customer with the specified order items.
+     *
+     * @param person The customer who placed the order.
+     * @param orderMap A mapping of menu item IDs to quantities representing the order.
      */
     public OrderMap(Person person, Map<Integer, Integer> orderMap) {
         this.orderId = idx;
@@ -54,36 +55,28 @@ public class OrderMap {
     }
 
     /**
-     * Returns the customer who ordered the order.
+     * Returns the {@link Person} associated with this order.
      */
     public Person getPerson() {
         return person;
     }
 
-    /**
-     * Returns the order ID.
-     */
+    /** Returns the unique OrderId of this order. */
     public int getOrderId() {
         return orderId;
     }
 
-    /**
-     * Returns the order map.
-     */
+    /** Returns the mapping of menu item IDs to quantities for this order. */
     public Map<Integer, Integer> getOrderMap() {
         return orderMap;
     }
 
-    /**
-     * Returns the order status.
-     */
+    /** Returns the current status of this order. */
     public OrderStatus getStatus() {
         return status;
     }
 
-    /**
-     * Returns the order date-time.
-     */
+    /** Returns the timestamp when the order was created. */
     public OrderDateTime getOrderDatetime() {
         return orderDatetime;
     }
