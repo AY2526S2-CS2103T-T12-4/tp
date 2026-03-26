@@ -13,9 +13,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.ModelManager;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.OrderBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class UniqueOrderListTest {
 
@@ -26,6 +28,7 @@ public class UniqueOrderListTest {
     @Test
     public void addOrder_orderAdded() {
         ModelManager model = new ModelManager();
+        Person person = new PersonBuilder().build();
         OrderMap order = new OrderBuilder().build();
 
         model.addOrder(order);
@@ -35,9 +38,12 @@ public class UniqueOrderListTest {
 
     @BeforeEach
     void setUp() {
+        OrderMap.cleanIdx();
         uniqueOrderList = new UniqueOrderList();
-        order1 = new OrderBuilder().withOrderId(1).build();
-        order2 = new OrderBuilder().withOrderId(2).build();
+        Person person1 = new PersonBuilder().build();
+        Person person2 = new PersonBuilder().build();
+        order1 = new OrderBuilder().build();
+        order2 = new OrderBuilder().build();
     }
 
     @Test
@@ -75,10 +81,11 @@ public class UniqueOrderListTest {
     }
 
     @Test
-    void setOrder_editDuplicate_throwsDuplicateOrderException() {
+    void setOrder_editDuplicate_throwsDuplicatePersonException() {
         uniqueOrderList.add(order1);
         uniqueOrderList.add(order2);
-        assertThrows(DuplicatePersonException.class, () -> uniqueOrderList.setOrder(order1, order2));
+        OrderMap edited = order1;
+        assertThrows(DuplicatePersonException.class, () -> uniqueOrderList.setOrder(order2, edited));
     }
 
     @Test

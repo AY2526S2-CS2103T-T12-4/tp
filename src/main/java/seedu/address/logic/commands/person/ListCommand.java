@@ -12,9 +12,9 @@ import seedu.address.model.person.Person;
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListPersonCommand extends Command {
+public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "listperson";
+    public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_SUCCESS = "Listed all customers";
 

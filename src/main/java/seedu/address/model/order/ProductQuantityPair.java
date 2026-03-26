@@ -25,7 +25,7 @@ public class ProductQuantityPair {
         if (Quantity.isValidQuantity(quantity)) {
             this.quantity = new Quantity(quantity);
         } else {
-            this.quantity = null;
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
     }
 

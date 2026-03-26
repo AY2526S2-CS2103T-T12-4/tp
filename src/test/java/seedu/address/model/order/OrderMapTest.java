@@ -17,7 +17,11 @@ import seedu.address.testutil.PersonBuilder;
 public class OrderMapTest {
 
     private final Person person = new PersonBuilder().build();
-    private final Map<Integer, Integer> ordermap = new HashMap<>(1, 2);
+    private final Map<Integer, Integer> ordermap = new HashMap<>();
+
+    public OrderMapTest() {
+        ordermap.put(1, 2);
+    }
 
     @Test
     void constructor_andGetters_success() {
@@ -47,18 +51,22 @@ public class OrderMapTest {
 
     @Test
     void equals_sameValue_returnsTrue() {
-        OrderMap order1 = new OrderMap(
-                1, person, ordermap, OrderStatus.PENDING, new OrderDateTime(LocalDateTime.now()));
-        OrderMap order2 = new OrderMap(
-                1, person, ordermap, OrderStatus.PENDING, new OrderDateTime(LocalDateTime.now()));
+        OrderMap order = new OrderMap(person, ordermap);
+        assertEquals(order, order);
+        assertEquals(order.hashCode(), order.hashCode());
+        LocalDateTime now = LocalDateTime.now();
+        OrderMap order1 = new OrderMap(1, person, ordermap, OrderStatus.PENDING, new OrderDateTime(now));
+        OrderMap order2 = new OrderMap(1, person, ordermap, OrderStatus.PENDING, new OrderDateTime(now));
         assertEquals(order1, order2);
         assertEquals(order1.hashCode(), order2.hashCode());
     }
 
     @Test
     void equals_differentValue_returnsFalse() {
+        Map<Integer, Integer> otherMap = new HashMap<>();
+        otherMap.put(2, 1);
         OrderMap order1 = new OrderMap(person, ordermap);
-        OrderMap order2 = new OrderMap(person, ordermap);
+        OrderMap order2 = new OrderMap(person, otherMap);
         assertNotEquals(order1, order2);
     }
 
@@ -76,6 +84,6 @@ public class OrderMapTest {
         assertTrue(str.contains("orderId"));
         assertTrue(str.contains("person"));
         assertTrue(str.contains("status"));
-        assertTrue(str.contains("orderDateTime"));
+        assertTrue(str.contains("orderDatetime"));
     }
 }

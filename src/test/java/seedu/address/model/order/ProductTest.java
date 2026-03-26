@@ -43,6 +43,6 @@ public class ProductTest {
     @Test
     void toString_returnsValue() {
         Product product = new Product("Headphones", 100.00);
-        assertEquals("Headphones, $100.0", product.toString());
+        assertEquals("Headphones, $100.00", product.toString());
     }
 }

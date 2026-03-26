@@ -40,21 +40,25 @@ public class OrderBuilder {
             put(5, 2);
         }};
 
+    private final Map<Integer, Integer> defaultOrderMap = new HashMap<>();
+
     private int orderId;
     private Person person;
     private Map<Integer, Integer> orders;
     private OrderStatus status;
     private OrderDateTime orderDateTime;
+    private boolean useExplicitId;
 
     /**
      * Creates a {@code OrderBuilder} with the default details.
      */
     public OrderBuilder() {
-        orderId = Integer.parseInt(DEFAULT_ORDERID);
         person = DEFAULT_PERSON;
         orders = DEFAULT_ORDERMAP;
+        orderId = Integer.parseInt(DEFAULT_ORDERID);
         status = OrderStatus.valueOf(DEFAULT_STATUS);
         orderDateTime = new OrderDateTime(LocalDateTime.parse(DEFAULT_ORDERDATETIME));
+        useExplicitId = false;
     }
 
     /**
@@ -66,6 +70,7 @@ public class OrderBuilder {
         orderId = orderToCopy.getOrderId();
         status = orderToCopy.getStatus();
         orderDateTime = orderToCopy.getOrderDatetime();
+        useExplicitId = true;
     }
 
     /**
@@ -73,6 +78,7 @@ public class OrderBuilder {
      */
     public OrderBuilder withOrderId(int orderId) {
         this.orderId = orderId;
+        this.useExplicitId = true;
         return this;
     }
 
@@ -109,8 +115,14 @@ public class OrderBuilder {
         return DEFAULT_ORDERMAP;
     }
 
+    /**
+     * Builds an {@code OrderMap} with the current builder state.
+     */
     public OrderMap build() {
-        return new OrderMap(orderId, person, orders, status, orderDateTime);
+        if (useExplicitId) {
+            return new OrderMap(orderId, person, orders, status, orderDateTime);
+        }
+        return new OrderMap(person, orders);
     }
 
 }

@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -33,13 +34,18 @@ public class JsonAdaptedOrder {
             @JsonProperty("personName") String personName,
             @JsonProperty("status") String status,
             @JsonProperty("orderDatetime") String orderDatetime,
-            @JsonProperty("orders") Map<Integer, Integer> orders) {
+            @JsonProperty("orders") Map<String, Integer> orders) {
 
         this.orderId = orderId;
         this.personName = personName;
         this.status = status;
         this.orderDatetime = orderDatetime;
-        this.orders = orders;
+        this.orders = new HashMap<>();
+        if (orders != null) {
+            for (Map.Entry<String, Integer> entry : orders.entrySet()) {
+                this.orders.put(Integer.parseInt(entry.getKey()), entry.getValue());
+            }
+        }
     }
 
     /**
@@ -49,7 +55,7 @@ public class JsonAdaptedOrder {
         this.orderId = Integer.toString(source.getOrderId());
         this.personName = source.getPerson().getName().toString();
         this.status = source.getStatus().toString();
-        this.orders = source.getOrderMap();
+        this.orders = new HashMap<>(source.getOrderMap());
         this.orderDatetime = source.getOrderDatetime().toString();
     }
 
@@ -63,12 +69,18 @@ public class JsonAdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
     public OrderMap toModelType(Person person) throws IllegalValueException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime parsedDateTime;
+        try {
+            parsedDateTime = LocalDateTime.parse(orderDatetime);
+        } catch (java.time.format.DateTimeParseException e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            parsedDateTime = LocalDateTime.parse(orderDatetime, formatter);
+        }
         return new OrderMap(
                 Integer.parseInt(orderId),
                 person,
                 this.orders,
                 OrderStatus.valueOf(status),
-                new OrderDateTime(LocalDateTime.parse(orderDatetime, formatter)));
+                new OrderDateTime(parsedDateTime));
     }
 }
