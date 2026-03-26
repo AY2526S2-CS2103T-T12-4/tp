@@ -139,19 +139,32 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a person : `deleteperson`
 
-Deletes the specified person from the address book.
+Deletes the specified person from the person list.
 
-Format: `delete INDEX`
+Format: `deleteperson INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `deleteperson 2` deletes the 2nd person in the person list.
+* `find N` followed by `deleteperson 1` deletes the 1st person in the results of the `find` command.
+
+### Deleting an order : `deleteorder`
+
+Deletes the specified order from the order list.
+
+Format: `deleteorder INDEX`
+
+* Deletes the order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed order list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `deleteorder 3` deletes the 3rd order in the order list.
 
 ### Editing an order : `editorder`
 
@@ -171,6 +184,31 @@ Examples:
 Clears all entries from the address book.
 
 Format: `clear`
+
+### Undoing the last change : `undo`
+
+Undoes the most recent change to the address book.
+
+Format: `undo`
+
+* Only commands that modify data can be undone.
+* You can perform `undo` multiple times to step backwards through recent modifying commands until there is no more history to undo.
+
+Examples:
+* `deleteperson 2` followed by `undo` will restore the deleted 2nd person.
+
+### Redoing the last undone change : `redo`
+
+Redoes the most recently undone change.
+
+Format: `redo`
+
+* Works only if there is at least one previously undone change to redo; you can perform `redo` multiple times until the latest state is reached.
+* If there is no undone change to redo, the command will fail.
+* `redo` cannot be used after any new modifying command has been executed following an `undo` (the redo history is cleared when new changes are made).
+
+Examples:
+* `deleteperson 2` then `undo` then `redo` will delete the 2nd person again.
 
 ### Exiting the program : `exit`
 
@@ -213,13 +251,16 @@ _Details coming soon ..._
 
 ## Command summary
 
- Action               | Format, Examples                                                                                                                                                      
-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
- **Add**              | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` 
- **Clear**            | `clear`                                                                                                                                                               
- **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   
- **Edit Person**      | `editperson INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [u/UNIT] [r/REGION] [t/TAG]…​` <br> e.g.,`editperson 1 p/91234567 r/E`                                        
- **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            
- **List Person List** | `listperson`                                                                                                                                                          
- **Edit Order**       | `editorder INDEX o/MENU_ITEM PRODUCT_QUANTITY…​` <br> e.g., `editorder 1 o/1 1 o/2 4`                                                                                 |
- **Help**             | `help`                                                                                                                                                                
+| Action               | Format, Examples                                                                                                                                                      |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**              | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Delete Person**    | `deleteperson INDEX`<br> e.g., `deleteperson 3`                                                                                                                       |
+| **Edit Person**      | `editperson INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [u/UNIT] [r/REGION] [t/TAG]…​` <br> e.g.,`editperson 1 p/91234567 r/E`                                        |
+| **View Person List** | `listperson`                                                                                                                                                          |
+| **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            |
+| **Edit Order**       | `editorder INDEX o/MENU_ITEM PRODUCT_QUANTITY…​` <br> e.g., `editorder 1 o/1 1 o/2 4`                                                                                 |
+| **Delete Order**     | `deleteorder INDEX`<br> e.g., `deleteorder 2`                                                                                                                         |
+| **Help**             | `help`                                                                                                                                                                |
+| **Undo**             | `undo`                                                                                                                                                                |
+| **Redo**             | `redo`                                                                                                                                                                |
+| **Clear**            | `clear`                                                                                                                                                               |
