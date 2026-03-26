@@ -16,7 +16,7 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderMap;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -28,7 +28,7 @@ public class DeleteOrderCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Order orderToDelete = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
+        OrderMap orderToDelete = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         DeleteOrderCommand deleteCommand = new DeleteOrderCommand(INDEX_FIRST_ORDER);
 
         String expectedMessage = String.format(DeleteOrderCommand.MESSAGE_DELETE_ORDER_SUCCESS,
@@ -52,7 +52,7 @@ public class DeleteOrderCommandTest {
     public void execute_validIndexFilteredList_success() {
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
-        Order orderToDelete = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
+        OrderMap orderToDelete = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         DeleteOrderCommand deleteCommand = new DeleteOrderCommand(INDEX_FIRST_ORDER);
 
         String expectedMessage = String.format(DeleteOrderCommand.MESSAGE_DELETE_ORDER_SUCCESS,
@@ -112,9 +112,9 @@ public class DeleteOrderCommandTest {
     private void showOrderAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderList().size());
 
-        Order order = model.getFilteredOrderList().get(targetIndex.getZeroBased());
-        String orderId = order.getOrderId().toString();
-        model.updateFilteredOrderList(orderItem -> orderItem.getOrderId().toString().equals(orderId));
+        OrderMap order = model.getFilteredOrderList().get(targetIndex.getZeroBased());
+        int orderId = order.getOrderId();
+        model.updateFilteredOrderList(orderItem -> orderItem.getOrderId() == orderId);
 
         assertEquals(1, model.getFilteredOrderList().size());
     }

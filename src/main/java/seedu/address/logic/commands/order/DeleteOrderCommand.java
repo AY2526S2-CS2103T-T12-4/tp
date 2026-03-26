@@ -11,7 +11,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderMap;
 
 /**
  * Deletes an order identified using its displayed index from the address book.
@@ -35,13 +35,13 @@ public class DeleteOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredOrderList();
+        List<OrderMap> lastShownList = model.getFilteredOrderList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Order orderToDelete = lastShownList.get(targetIndex.getZeroBased());
+        OrderMap orderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteOrder(orderToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, Messages.format(orderToDelete)));
     }
