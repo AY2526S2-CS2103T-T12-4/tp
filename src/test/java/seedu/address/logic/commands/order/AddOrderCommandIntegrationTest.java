@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.order;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDateTime;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,26 +29,29 @@ public class AddOrderCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
+        OrderMap.cleanIdx();
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
-    public void execute_newOrder_success() {
+    public void execute_newOrder_success() throws Exception {
         int index = 1;
 
         Map<Integer, Integer> order = new HashMap<>();
         order.put(1, 2);
         order.put(2, 3);
 
+        AddOrderCommand addOrderCommand = new AddOrderCommand(index, order);
+        CommandResult result = addOrderCommand.execute(model);
         Person person = model.getFilteredPersonList().get(index - 1);
         OrderMap orderToAdd = new OrderMap(
                 OrderMap.getNextId(), person, order, OrderStatus.PENDING, new OrderDateTime(LocalDateTime.now()));
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addOrder(orderToAdd);
-
-        assertCommandSuccess(new AddOrderCommand(index, order), model,
-                String.format(AddOrderCommand.MESSAGE_SUCCESS, Messages.format(orderToAdd)),
-                expectedModel);
+        OrderMap addedOrder = model.getAddressBook().getOrderList().get(0);
+        assertEquals(String.format(AddOrderCommand.MESSAGE_SUCCESS, Messages.format(addedOrder)),
+                result.getFeedbackToUser());
+        assertEquals(order, addedOrder.getOrderMap());
+        assertEquals(model.getFilteredPersonList().get(index - 1), addedOrder.getPerson());
+        assertEquals(1, model.getAddressBook().getOrderList().size());
     }
 }

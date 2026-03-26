@@ -89,6 +89,13 @@ public class OrderMap {
     }
 
     /**
+     * Resets the static order id counter (test helper).
+     */
+    public static void cleanIdx() {
+        idx = 1;
+    }
+
+    /**
      * Returns true if both orders have the same order ID.
      * This defines a weaker notion of equality between two orders.
      */
@@ -126,21 +133,28 @@ public class OrderMap {
         return orderId == otherOrder.getOrderId()
                 && orderMap.equals(otherOrder.getOrderMap())
                 && person.equals(otherOrder.getPerson())
+                && orderDatetime.equals(otherOrder.getOrderDatetime())
                 && status.equals(otherOrder.getStatus());
     }
 
+    /**
+     * Returns an integer hash code for this order based on order ID, customer, and order items.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(orderId, person, orderMap);
     }
 
+    /**
+     * Returns a string representation of this order.
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("orderId", orderId)
                 .add("person", person)
                 .add("status", status)
-                .add("orderDateTime", orderDatetime)
+                .add("orderDatetime", orderDatetime)
                 .add("orderMap", orderMap.toString())
                 .toString();
     }

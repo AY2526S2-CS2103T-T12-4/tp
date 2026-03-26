@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -68,12 +69,13 @@ public class JsonSerializableAddressBookTest {
         );
         ab.addPerson(person);
 
-        HashMap<Integer, Integer> items = new HashMap<>();
-        items.put(1, 1);
+        Map<Integer, Integer> orderItems = new HashMap<>();
+        orderItems.put(1, 1);
+
         OrderMap order = new OrderMap(
-               1,
+                1,
                 person,
-                items,
+                orderItems,
                 OrderStatus.PENDING,
                 new OrderDateTime(LocalDateTime.parse("2026-03-10T10:15:30"))
         );
@@ -91,10 +93,8 @@ public class JsonSerializableAddressBookTest {
         assertEquals(1, converted.getOrderList().size());
         assertEquals(1, converted.getOrderList().get(0).getOrderId());
         assertEquals("Alice", converted.getOrderList().get(0).getPerson().getName().toString());
-        assertEquals(
-                new HashMap<>() {{ put(1, 1); }},
-                converted.getOrderList().get(0).getOrderMap());
-        assertEquals("2026-03-10 10:15", converted.getOrderList().get(0).getOrderDatetime().toString());
+        assertEquals(orderItems, converted.getOrderList().get(0).getOrderMap());
+        assertEquals("2026-03-10T10:15:30", converted.getOrderList().get(0).getOrderDatetime().toString());
     }
 
 }
