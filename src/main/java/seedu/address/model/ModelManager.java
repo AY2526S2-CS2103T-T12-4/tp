@@ -135,7 +135,7 @@ public class ModelManager implements Model {
     public void setOrder(OrderMap target, OrderMap editedOrder) {
         requireAllNonNull(target, editedOrder);
 
-        versionedAddressBook.setOrder(target, editedOrder);
+        this.versionedAddressBook.setOrder(target, editedOrder);
     }
 
     //=========== Filtered Person List Accessors =============================================================
