@@ -87,6 +87,20 @@ Examples:
 * `addperson n/John Doe p/98765432 a/111111 u/#01-01 r/N`
 * `addperson n/Betsy Crowe p/87243155 a/110022 r/C t/loyal customer`
 
+### Deleting a person : `deleteperson`
+
+Deletes the specified person from the person list.
+
+Format: `deleteperson INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `deleteperson 2` deletes the 2nd person in the person list.
+* `find N` followed by `deleteperson 1` deletes the 1st person in the results of the `find` command.
+
 ### Listing all persons : `listperson`
 
 Shows a list of all persons in the contact list.
@@ -121,12 +135,6 @@ Examples:
 *  `editperson 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `editperson 3 a/123456 u/` Edits the postal code of the 3rd person to be `123456` and clears the existing unit number.
 
-### Listing all orders : `listorder`
-
-Shows a list of all orders in the order list.
-
-Format: `listorder`
-
 ### Locating people by region: `findperson`
 
 Finds people whose regions match any of the given keywords.
@@ -144,46 +152,6 @@ Examples:
 * `findperson N` returns persons in region `N`
 * `findperson NE W` returns persons in region `NE` or `W`
 
-### Deleting a person : `deleteperson`
-
-Deletes the specified person from the person list.
-
-Format: `deleteperson INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `deleteperson 2` deletes the 2nd person in the person list.
-* `find N` followed by `deleteperson 1` deletes the 1st person in the results of the `find` command.
-
-### Deleting an order : `deleteorder`
-
-Deletes the specified order from the order list.
-
-Format: `deleteorder INDEX`
-
-* Deletes the order at the specified `INDEX`.
-* The index refers to the index number shown in the displayed order list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `deleteorder 3` deletes the 3rd order in the order list.
-
-### Editing an order : `editorder`
-
-Edits an existing order in the order list.
-
-Format: `editorder INDEX o/MENU_ITEM PRODUCT_QUANTITY…​` 
-
-* Edits the order at the specified `INDEX`. The index refers to the index number shown in the displayed order list.
-* Existing menu item selections will be updated to the input values.
-
-Examples:
-*  `editorder 1 o/1 1 o/2 4` Edits the 1st order in the list to include 1 of menu item 1 and 4 of menu item 2.
-*  `editorder 2 o/2 0` Edits the 2nd order to clear the selection of menu item 2.
-
 ### Adding an order: `addorder`
 
 Adds an order to the address book.
@@ -198,11 +166,37 @@ Examples:
 * `addorder c/1 o/2 5`
 * `addorder c/2 o/1 1 o/2 3 o/4 2`
 
-### Clearing all entries : `clear`
+### Deleting an order : `deleteorder`
 
-Clears all entries from the address book.
+Deletes the specified order from the order list.
 
-Format: `clear`
+Format: `deleteorder INDEX`
+
+* Deletes the order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed order list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `deleteorder 3` deletes the 3rd order in the order list.
+
+### Listing all orders : `listorder`
+
+Shows a list of all orders in the order list.
+
+Format: `listorder`
+
+### Editing an order : `editorder`
+
+Edits an existing order in the order list.
+
+Format: `editorder INDEX o/MENU_ITEM PRODUCT_QUANTITY…​` 
+
+* Edits the order at the specified `INDEX`. The index refers to the index number shown in the displayed order list.
+* Existing menu item selections will be updated to the input values.
+
+Examples:
+*  `editorder 1 o/1 1 o/2 4` Edits the 1st order in the list to include 1 of menu item 1 and 4 of menu item 2.
+*  `editorder 2 o/2 0` Edits the 2nd order to clear the selection of menu item 2.
 
 ### Undoing the last change : `undo`
 
@@ -228,6 +222,12 @@ Format: `redo`
 
 Examples:
 * `deleteperson 2` then `undo` then `redo` will delete the 2nd person again.
+
+### Clearing all entries : `clear`
+
+Clears all entries from the address book.
+
+Format: `clear`
 
 ### Exiting the program : `exit`
 
@@ -275,17 +275,17 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 Action | Format, Examples
 --------|------------------
+**View Help** | `help`
 **Add Contact** | `addperson n/NAME p/PHONE_NUMBER a/ADDRESS u/UNIT_NO r/REGION` <br> e.g., `addperson n/John Doe p/98765432 a/111111 u/#01-01 r/N`
 **Delete Contact** | `deleteperson INDEX`<br> e.g., `deleteperson 3`
+**List Contacts** | `listperson`
 **Edit Contact** | `editperson INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find Region** | `find REGION`<br> e.g., `find N`
-**List Contacts** | `listperson`
 **Add Order** | `addorder c/CUSTOMER_INDEX o/MENU_ITEM QUANTITY_ORDERED…​` <br> e.g., `addorder c/1 o/2 5` `addorder c/2 o/1 1 o/2 3 o/4 2`
 **Delete Order** | `deleteorder INDEX`<br> e.g., `deleteorder 3`
 **Edit Order** | `editorder INDEX o/MENU_ITEM PRODUCT_QUANTITY…​` <br> e.g.,`editorder 1 o/1 1 o/2 4` `editorder 2 o/2 0`
-**List Order** | `listorder`
-**Clear** | `clear`
+**List Orders** | `listorder`
 **Undo** | `undo`
 **Redo** | `redo`
-**Help** | `help`
+**Clear** | `clear`
 **Exit** | `exit`
