@@ -33,7 +33,7 @@ public class CompleteOrderCommand extends Command {
      * Creates an CompleteOrderCommand to mark the order as completed.
      */
     public CompleteOrderCommand(Index targetIndex) {
-        requireNonNull(targetIndex);
+        assert targetIndex != null : "Index cannot be null";
         this.targetIndex = targetIndex;
     }
 
@@ -73,5 +73,19 @@ public class CompleteOrderCommand extends Command {
         model.setOrder(orderToMark, completedOrder);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, completedOrder));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof CompleteOrderCommand)) {
+            return false;
+        }
+
+        CompleteOrderCommand otherCommand = (CompleteOrderCommand) other;
+        return targetIndex.equals(otherCommand.targetIndex);
     }
 }

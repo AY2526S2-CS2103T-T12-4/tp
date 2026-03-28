@@ -6,6 +6,8 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 /**
  * Parses input arguments and creates a new {@link CompleteOrderCommand} object.
  */
@@ -17,7 +19,13 @@ public class CompleteOrderCommandParser implements Parser<CompleteOrderCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public CompleteOrderCommand parse(String args) throws ParseException {
-        Index index = ParserUtil.parseIndex(args);
-        return new CompleteOrderCommand(index);
+        try {
+            Index index = ParserUtil.parseIndex(args.trim());
+            return new CompleteOrderCommand(index);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            CompleteOrderCommand.MESSAGE_USAGE), pe);
+        }
     }
 }
