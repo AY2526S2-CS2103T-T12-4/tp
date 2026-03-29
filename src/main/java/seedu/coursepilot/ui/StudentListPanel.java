@@ -27,6 +27,8 @@ public class StudentListPanel extends UiPart<Region> {
         super(FXML);
         studentListView.setItems(studentList);
         studentListView.setCellFactory(listView -> new StudentListViewCell());
+        studentListView.setSelectionModel(null);
+        studentListView.addEventFilter(javafx.scene.input.KeyEvent.ANY, javafx.event.Event::consume);
     }
 
     /**

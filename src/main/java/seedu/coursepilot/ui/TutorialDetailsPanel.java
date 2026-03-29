@@ -42,5 +42,6 @@ public class TutorialDetailsPanel extends UiPart<Region> {
 
         tutorialDetailsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tutorialDetailsTable.setItems(tutorials);
+        tutorialDetailsTable.setSelectionModel(null);
     }
 }

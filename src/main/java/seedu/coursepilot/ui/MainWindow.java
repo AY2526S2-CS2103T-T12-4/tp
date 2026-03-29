@@ -50,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane tutorialListPanelPlaceholder;
 
     @FXML
+    private StackPane tutorialDetailsPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -130,12 +133,12 @@ public class MainWindow extends UiPart<Stage> {
         tutorialListPanelPlaceholder.getChildren().add(tutorialCodeListPanel.getRoot());
 
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
-        setStudentListPanelVisible(false);
+        setStudentListPanelVisible(true);
         studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         tutorialDetailsPanel = new TutorialDetailsPanel(logic.getFilteredTutorialList());
         setTutorialDetailsPanelVisible(true);
-        studentListPanelPlaceholder.getChildren().add(tutorialDetailsPanel.getRoot());
+        tutorialDetailsPanelPlaceholder.getChildren().add(tutorialDetailsPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -188,16 +191,6 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    private void handleShowStudentList() {
-        setTutorialDetailsPanelVisible(false);
-        setStudentListPanelVisible(true);
-    }
-
-    private void handleShowTutorialDetails() {
-        setStudentListPanelVisible(false);
-        setTutorialDetailsPanelVisible(true);
-    }
-
     /**
      * Executes the command and returns the result.
      *
@@ -215,17 +208,6 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            switch (commandResult.getPanelSwitch()) {
-            case SHOW_STUDENT_LIST:
-                handleShowStudentList();
-                break;
-            case SHOW_TUTORIAL_DETAILS:
-                handleShowTutorialDetails();
-                break;
-            default:
-                break;
             }
 
             return commandResult;
