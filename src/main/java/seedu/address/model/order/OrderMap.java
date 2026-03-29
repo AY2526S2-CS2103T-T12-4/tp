@@ -1,8 +1,10 @@
 package seedu.address.model.order;
 
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
@@ -18,7 +20,7 @@ public class OrderMap {
     private static int idx = 1;
     private final int orderId;
     private final Person person;
-    private final Map<Integer, Integer> orderMap;
+    private final Set<ProductQuantityPair> productQuantityPairs = new HashSet<>();
     private final OrderStatus status;
     private final OrderDateTime orderDatetime;
 
@@ -26,12 +28,12 @@ public class OrderMap {
      * Constructs a new {@code OrderMap} for the given customer with the specified order items.
      *
      * @param person The customer who placed the order.
-     * @param orderMap A mapping of menu item IDs to quantities representing the order.
+     * @param productQuantityPairs A mapping of menu item IDs to quantities representing the order.
      */
-    public OrderMap(Person person, Map<Integer, Integer> orderMap) {
+    public OrderMap(Person person, Set<ProductQuantityPair> productQuantityPairs) {
         this.orderId = idx;
         this.person = person;
-        this.orderMap = orderMap;
+        this.productQuantityPairs.addAll(productQuantityPairs);
         idx++;
         this.status = OrderStatus.PENDING;
         this.orderDatetime = new OrderDateTime(LocalDateTime.now());
@@ -41,15 +43,15 @@ public class OrderMap {
      * Creates a new OrderMap.
      * @param orderId The order ID
      * @param person The customer
-     * @param orderMap The items ordered
+     * @param productQuantityPairs The items ordered
      * @param status The status of the order
      * @param orderDatetime The timestamp
      */
-    public OrderMap(int orderId, Person person, Map<Integer, Integer> orderMap,
+    public OrderMap(int orderId, Person person, Set<ProductQuantityPair> productQuantityPairs,
                     OrderStatus status, OrderDateTime orderDatetime) {
         this.orderId = orderId;
         this.person = person;
-        this.orderMap = orderMap;
+        this.productQuantityPairs.addAll(productQuantityPairs);
         this.status = status;
         this.orderDatetime = orderDatetime;
     }
@@ -66,9 +68,12 @@ public class OrderMap {
         return orderId;
     }
 
-    /** Returns the mapping of menu item IDs to quantities for this order. */
-    public Map<Integer, Integer> getOrderMap() {
-        return orderMap;
+    /**
+     * Returns the set of menu items and their corresponding quantities for this order.
+     * @return An unmodifiable view of the order items
+     */
+    public Set<ProductQuantityPair> getProductQuantityPairs() {
+        return Collections.unmodifiableSet(productQuantityPairs);
     }
 
     /** Returns the current status of this order. */
@@ -131,7 +136,7 @@ public class OrderMap {
 
         OrderMap otherOrder = (OrderMap) other;
         return orderId == otherOrder.getOrderId()
-                && orderMap.equals(otherOrder.getOrderMap())
+                && productQuantityPairs.equals(otherOrder.productQuantityPairs)
                 && person.equals(otherOrder.getPerson())
                 && orderDatetime.equals(otherOrder.getOrderDatetime())
                 && status.equals(otherOrder.getStatus());
@@ -142,7 +147,7 @@ public class OrderMap {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, person, orderMap);
+        return Objects.hash(orderId, person, productQuantityPairs);
     }
 
     /**
@@ -155,7 +160,7 @@ public class OrderMap {
                 .add("person", person)
                 .add("status", status)
                 .add("orderDatetime", orderDatetime)
-                .add("orderMap", orderMap.toString())
+                .add("orderMap", productQuantityPairs.stream().sorted().toString())
                 .toString();
     }
 }

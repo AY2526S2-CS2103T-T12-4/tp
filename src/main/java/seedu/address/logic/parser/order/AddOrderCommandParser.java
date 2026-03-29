@@ -4,7 +4,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERIDX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
 
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.order.AddOrderCommand;
@@ -14,6 +14,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.order.ProductQuantityPair;
 
 /**
  * Parses input arguments and creates a new {@link AddOrderCommand} object.
@@ -43,9 +44,9 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CUSTOMERIDX);
         int index = Integer.parseInt(argMultimap.getValue(PREFIX_CUSTOMERIDX).get());
-        Map<Integer, Integer> order = ParserUtil.parseOrders(argMultimap.getAllValues(PREFIX_ORDERS));
+        Set<ProductQuantityPair> productQuantityPairs = ParserUtil.parseOrders(argMultimap.getAllValues(PREFIX_ORDERS));
 
-        return new AddOrderCommand(index, order);
+        return new AddOrderCommand(index, productQuantityPairs);
     }
 
     /**

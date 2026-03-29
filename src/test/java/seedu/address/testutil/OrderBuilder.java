@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.Set;
 
 import seedu.address.model.order.OrderDateTime;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.order.OrderStatus;
+import seedu.address.model.order.ProductQuantityPair;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -35,16 +35,16 @@ public class OrderBuilder {
             new Region(DEFAULT_REGION),
             new HashSet<>());
 
-    private static final Map<Integer, Integer> DEFAULT_ORDERMAP = new HashMap<>() {{
-            put(1, 1);
-            put(5, 2);
+    private static final Set<ProductQuantityPair> DEFAULT_ORDERMAP = new HashSet<>() {{
+            add(new ProductQuantityPair("1 1"));
+            add(new ProductQuantityPair("5 2"));
         }};
 
-    private final Map<Integer, Integer> defaultOrderMap = new HashMap<>();
+    private final Set<ProductQuantityPair> defaultOrderMap = new HashSet<>();
 
     private int orderId;
     private Person person;
-    private Map<Integer, Integer> orders;
+    private Set<ProductQuantityPair> orders;
     private OrderStatus status;
     private OrderDateTime orderDateTime;
     private boolean useExplicitId;
@@ -66,7 +66,7 @@ public class OrderBuilder {
      */
     public OrderBuilder(OrderMap orderToCopy) {
         person = orderToCopy.getPerson();
-        orders = new HashMap<>(orderToCopy.getOrderMap());
+        orders = new HashSet<>(orderToCopy.getProductQuantityPairs());
         orderId = orderToCopy.getOrderId();
         status = orderToCopy.getStatus();
         orderDateTime = orderToCopy.getOrderDatetime();
@@ -94,12 +94,9 @@ public class OrderBuilder {
      * Parses the {@code orders} into a {@code Set<OrderMap>} and set it to the {@code Person} that we are building.
      */
     public OrderBuilder withOrderMap(String ... orders) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<ProductQuantityPair> map = new HashSet<>();
         for (String order : orders) {
-            String[] pair = order.split(" ", 2);
-            String product = pair[0];
-            String quantity = pair[1];
-            map.put(Integer.parseInt(product), Integer.parseInt(quantity));
+            map.add(new ProductQuantityPair(order));
         }
         this.orders = map;
         return this;
@@ -111,7 +108,7 @@ public class OrderBuilder {
     }
 
     /** Gets DEFAULT_ORDERMAP. */
-    public Map<Integer, Integer> getDefaultOrderMap() {
+    public Set<ProductQuantityPair> getDefaultOrderMap() {
         return DEFAULT_ORDERMAP;
     }
 
