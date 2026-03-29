@@ -21,7 +21,7 @@ public class CompleteOrderCommand extends Command {
 
     public static final String MESSAGE_INVALID_INDEX = "No order with that index was found";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the order as completed by the index number used in the displayed order list.\n"
+            + ": Marks the order identified by the index number used in the displayed order list as completed.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
