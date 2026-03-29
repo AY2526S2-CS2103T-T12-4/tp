@@ -35,9 +35,22 @@ public class ProductList {
     }
 
     /**
+     * Returns the index of the given {@code Product} in the menu.
+     */
+    public int getIndex(Product product) {
+        return menu.indexOf(product) + 1;
+    }
+
+    /**
      * Returns true if the index corresponds to a valid item on the menu.
      */
     public boolean isValidItem(int index) {
-        return index > 0 && index < menu.size();
+        return index > 0 && index < menu.size() + 1;
+    }
+
+    public int compare(Product p1, Product p2) {
+        Integer i1 = getIndex(p1);
+        Integer i2 = getIndex(p2);
+        return i1.compareTo(i2);
     }
 }

@@ -154,21 +154,20 @@ public class ParserUtil {
      * Parses a List of {@code String order} into a {@code Map<Integer, Integer> orderMap}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Map<Integer, Integer> parseOrders(List<String> orders) throws ParseException {
+    public static Set<ProductQuantityPair> parseOrders(List<String> orders) throws ParseException {
         requireNonNull(orders);
-        Map<Integer, Integer> orderMap = new HashMap<>();
+        Set<ProductQuantityPair> itemSet = new HashSet<>();
         for (String order : orders) {
             String trimmedOrder = order.trim();
 
-            if (!OrderMap.isValidProductQuantityPair(trimmedOrder)) {
+            if (!ProductQuantityPair.isValidProductQuantityPair(trimmedOrder)) {
                 throw new ParseException(ProductQuantityPair.MESSAGE_CONSTRAINTS);
             }
 
-            int menuItem = Integer.parseInt(trimmedOrder.split(" ")[0]);
-            int quantity = Integer.parseInt(trimmedOrder.split(" ")[1]);
-            orderMap.put(menuItem, quantity);
+            ProductQuantityPair productQuantityPair = new ProductQuantityPair(trimmedOrder);
+            itemSet.add(productQuantityPair);
         }
-        return orderMap;
+        return itemSet;
     }
 
     /**

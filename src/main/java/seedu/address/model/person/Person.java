@@ -24,7 +24,6 @@ public class Person {
     // Data fields
     private final Address address;
     private final Region region;
-    private final ArrayList<String> orders = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**

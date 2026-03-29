@@ -9,7 +9,9 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.order.OrderMap;
+import seedu.address.model.order.ProductQuantityPair;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -44,8 +47,8 @@ public class AddOrderCommandTest {
     public void execute_orderAcceptedByModel_addSuccessful() {
         ModelStubAcceptingOrderAdded modelStub = new ModelStubAcceptingOrderAdded();
 
-        Map<Integer, Integer> order = new HashMap<>();
-        order.put(1, 2);
+        Set<ProductQuantityPair> order = new HashSet<>();
+        order.add(new ProductQuantityPair("1 2"));
 
         CommandResult commandResult = new AddOrderCommand(1, order).execute(modelStub);
 
@@ -58,11 +61,11 @@ public class AddOrderCommandTest {
 
     @Test
     public void equals() {
-        Map<Integer, Integer> order1 = new HashMap<>();
-        order1.put(1, 1);
+        Set<ProductQuantityPair> order1 = new HashSet<>();
+        order1.add(new ProductQuantityPair("1 1"));
 
-        Map<Integer, Integer> order2 = new HashMap<>();
-        order2.put(2, 2);
+        Set<ProductQuantityPair> order2 = new HashSet<>();
+        order2.add(new ProductQuantityPair("2 2"));
 
         AddOrderCommand addOrderCommand1 = new AddOrderCommand(1, order1);
         AddOrderCommand addOrderCommand2 = new AddOrderCommand(2, order2);
@@ -86,8 +89,8 @@ public class AddOrderCommandTest {
 
     @Test
     public void mutabilityFlags_returnsTrue() {
-        Map<Integer, Integer> order = new HashMap<>();
-        order.put(1, 1);
+        Set<ProductQuantityPair> order = new HashSet<>();
+        order.add(new ProductQuantityPair("1 1"));
 
         AddOrderCommand addCommand = new AddOrderCommand(1, order);
         assertTrue(addCommand.shouldRecordInHistory());

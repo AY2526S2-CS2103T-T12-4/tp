@@ -2,8 +2,10 @@ package seedu.address.storage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +14,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.order.OrderDateTime;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.order.OrderStatus;
+import seedu.address.model.order.ProductQuantityPair;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link OrderMap}.
@@ -23,7 +27,7 @@ public class JsonAdaptedOrder {
     private final String personName;
     private final String status;
     private final String orderDatetime;
-    private final Map<Integer, Integer> orders;
+    private final List<String> itemList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
@@ -34,18 +38,13 @@ public class JsonAdaptedOrder {
             @JsonProperty("personName") String personName,
             @JsonProperty("status") String status,
             @JsonProperty("orderDatetime") String orderDatetime,
-            @JsonProperty("orders") Map<String, Integer> orders) {
+            @JsonProperty("itemList") List<String> itemList) {
 
         this.orderId = orderId;
         this.personName = personName;
         this.status = status;
         this.orderDatetime = orderDatetime;
-        this.orders = new HashMap<>();
-        if (orders != null) {
-            for (Map.Entry<String, Integer> entry : orders.entrySet()) {
-                this.orders.put(Integer.parseInt(entry.getKey()), entry.getValue());
-            }
-        }
+        this.itemList.addAll(itemList);
     }
 
     /**
@@ -55,7 +54,9 @@ public class JsonAdaptedOrder {
         this.orderId = Integer.toString(source.getOrderId());
         this.personName = source.getPerson().getName().toString();
         this.status = source.getStatus().toString();
-        this.orders = new HashMap<>(source.getOrderMap());
+        this.itemList.addAll(source.getProductQuantityPairs().stream()
+                .map(ProductQuantityPair::toString)
+                .toList());
         this.orderDatetime = source.getOrderDatetime().toString();
     }
 
@@ -69,6 +70,12 @@ public class JsonAdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
     public OrderMap toModelType(Person person) throws IllegalValueException {
+        final Set<ProductQuantityPair> itemList = new HashSet<>();
+        for (String item : this.itemList) {
+            ProductQuantityPair productQuantityPair = new ProductQuantityPair(item);
+            itemList.add(productQuantityPair);
+        }
+
         LocalDateTime parsedDateTime;
         try {
             parsedDateTime = LocalDateTime.parse(orderDatetime);
@@ -79,7 +86,7 @@ public class JsonAdaptedOrder {
         return new OrderMap(
                 Integer.parseInt(orderId),
                 person,
-                this.orders,
+                itemList,
                 OrderStatus.valueOf(status),
                 new OrderDateTime(parsedDateTime));
     }

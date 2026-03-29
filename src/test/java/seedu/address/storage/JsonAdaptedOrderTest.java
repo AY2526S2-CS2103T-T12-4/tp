@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.order.OrderDateTime;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.order.OrderStatus;
+import seedu.address.model.order.ProductQuantityPair;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -34,8 +36,8 @@ public class JsonAdaptedOrderTest {
         );
         ab.addPerson(person);
 
-        HashMap<Integer, Integer> items = new HashMap<>();
-        items.put(1, 1);
+        Set<ProductQuantityPair> items = new HashSet<>();
+        items.add(new ProductQuantityPair("1 1"));
         OrderMap order = new OrderMap(
                 1,
                 person,

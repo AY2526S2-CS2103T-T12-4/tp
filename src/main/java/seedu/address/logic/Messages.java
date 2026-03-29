@@ -9,6 +9,8 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.order.Product;
 import seedu.address.model.order.ProductList;
+import seedu.address.model.order.ProductQuantityPair;
+import seedu.address.model.order.Quantity;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,6 +25,7 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_INVALID_MENU_ITEM = "Invalid menu item index: %d";
 
     public static final ProductList MENU = new ProductList();
 
@@ -73,18 +76,18 @@ public class Messages {
 
         boolean first = true;
 
-        for (Map.Entry<Integer, Integer> entry : orderMap.getOrderMap().entrySet()) {
+        for (ProductQuantityPair entry : orderMap.getProductQuantityPairs()) {
             if (!first) {
                 builder.append(", ");
             }
             first = false;
 
-            Product product = MENU.getItem(entry.getKey());
-            int quantity = entry.getValue();
+            Product product = entry.getProduct();
+            Quantity quantity = entry.getQuantity();
             builder.append(String.format(
                     "%s [%d] [$%.2f] ",
                     product.getName(),
-                    quantity,
+                    quantity.getValue(),
                     product.getPrice()
             ));
         }

@@ -8,8 +8,9 @@ import seedu.address.commons.util.AppUtil;
  * Represents a quantity in an order.
  */
 public class Quantity {
-    public static final String MESSAGE_CONSTRAINTS = "Quantity should be a positive integer.";
-    private static final String VALIDATION_REGEX = "^[1-9]\\d*$";
+    public static final String MESSAGE_CONSTRAINTS = "Quantity should be a non-negative integer.";
+    private static final String VALIDATION_REGEX_POSITIVE = "^[1-9]\\d*$";
+    private static final String VALIDATION_REGEX_NONNEGATIVE = "^[0-9]\\d*$";
 
     private final int value;
 
@@ -20,7 +21,7 @@ public class Quantity {
      */
     public Quantity(String quantity) {
         requireNonNull(quantity);
-        AppUtil.checkArgument(isValidQuantity(quantity), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidNonnegativeQuantity(quantity), MESSAGE_CONSTRAINTS);
         this.value = Integer.parseInt(quantity);
     }
 
@@ -29,10 +30,17 @@ public class Quantity {
     }
 
     /**
-     * Returns true if a given string is a valid quantity.
+     * Returns true if a given string is a valid and positive quantity.
      */
-    public static boolean isValidQuantity(String test) {
-        return test != null && test.matches(VALIDATION_REGEX);
+    public static boolean isValidPositiveQuantity(String test) {
+        return test != null && test.matches(VALIDATION_REGEX_POSITIVE);
+    }
+
+    /**
+     * Returns true if a given string is a valid and non-negative quantity.
+     */
+    public static boolean isValidNonnegativeQuantity(String test) {
+        return test != null && test.matches(VALIDATION_REGEX_NONNEGATIVE);
     }
 
     @Override

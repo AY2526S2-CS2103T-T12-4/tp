@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.order.OrderDateTime;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.order.OrderStatus;
+import seedu.address.model.order.ProductQuantityPair;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -69,8 +71,9 @@ public class JsonSerializableAddressBookTest {
         );
         ab.addPerson(person);
 
-        Map<Integer, Integer> orderItems = new HashMap<>();
-        orderItems.put(1, 1);
+
+        Set<ProductQuantityPair> orderItems = new HashSet<>();
+        orderItems.add(new ProductQuantityPair("1 1"));
 
         OrderMap order = new OrderMap(
                 1,
@@ -93,7 +96,7 @@ public class JsonSerializableAddressBookTest {
         assertEquals(1, converted.getOrderList().size());
         assertEquals(1, converted.getOrderList().get(0).getOrderId());
         assertEquals("Alice", converted.getOrderList().get(0).getPerson().getName().toString());
-        assertEquals(orderItems, converted.getOrderList().get(0).getOrderMap());
+        assertEquals(orderItems, converted.getOrderList().get(0).getProductQuantityPairs());
         assertEquals("2026-03-10T10:15:30", converted.getOrderList().get(0).getOrderDatetime().toString());
     }
 
