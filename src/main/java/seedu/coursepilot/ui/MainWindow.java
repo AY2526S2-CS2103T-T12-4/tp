@@ -3,9 +3,13 @@ package seedu.coursepilot.ui;
 import java.util.logging.Logger;
 
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -59,6 +63,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private SplitPane outerSplitPane;
+
+    @FXML
+    private SplitPane innerSplitPane;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -135,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getCurrentOperatingTutorialProperty());
         tutorialListPanelPlaceholder.getChildren().add(tutorialCodeListPanel.getRoot());
 
-        studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
+        studentListPanel = new StudentListPanel(logic.getFilteredStudentList(), logic.getFilteredTutorialList());
         setStudentListPanelVisible(true);
         studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
@@ -152,6 +162,33 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        lockSplitPaneDividers(outerSplitPane);
+        lockSplitPaneDividers(innerSplitPane);
+
+        Platform.runLater(() -> syncTableViewScrollBars(
+            tutorialCodeListPanel.getTableView(),
+            tutorialDetailsPanel.getTableView()
+        ));
+    }
+
+    /**
+     * Disables all dividers in a SplitPane to prevent manual resizing.
+     */
+    private void lockSplitPaneDividers(SplitPane splitPane) {
+        for (SplitPane.Divider divider : splitPane.getDividers()) {
+            final double[] lockedPosition = {
+                divider.getPosition()
+            };
+            final boolean[] isLocking = { false };
+            divider.positionProperty().addListener((obs, oldVal, newVal) -> {
+                if (!isLocking[0]) {
+                    isLocking[0] = true;
+                    divider.setPosition(lockedPosition[0]);
+                    isLocking[0] = false;
+                }
+            });
+        }
     }
 
     /**
@@ -165,6 +202,41 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    /**
+     * Syncs the vertical scroll bars of two TableViews so scrolling one scrolls the other.
+     */
+    private void syncTableViewScrollBars(TableView<?> table1, TableView<?> table2) {
+        ScrollBar scrollBar1 = getVerticalScrollBar(table1);
+        ScrollBar scrollBar2 = getVerticalScrollBar(table2);
+
+        if (scrollBar1 == null || scrollBar2 == null) {
+            logger.warning("Could not find scroll bars to sync");
+            return;
+        }
+
+        scrollBar1.valueProperty().addListener((obs, oldVal, newVal) -> {
+            scrollBar2.setValue(newVal.doubleValue());
+        });
+        scrollBar2.valueProperty().addListener((obs, oldVal, newVal) -> {
+            scrollBar1.setValue(newVal.doubleValue());
+        });
+    }
+
+    /**
+     * Extracts the vertical ScrollBar from a TableView.
+     */
+    private ScrollBar getVerticalScrollBar(TableView<?> tableView) {
+        for (javafx.scene.Node node : tableView.lookupAll(".scroll-bar")) {
+            if (node instanceof ScrollBar) {
+                ScrollBar scrollBar = (ScrollBar) node;
+                if (scrollBar.getOrientation() == javafx.geometry.Orientation.VERTICAL) {
+                    return scrollBar;
+                }
+            }
+        }
+        return null;
     }
 
     /**

@@ -349,6 +349,22 @@
     -fx-border-width: 0;
 }
 
+.student-card-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.student-card-scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.student-card-scroll-pane .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;

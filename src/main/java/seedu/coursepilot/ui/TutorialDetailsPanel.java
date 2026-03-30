@@ -44,4 +44,8 @@ public class TutorialDetailsPanel extends UiPart<Region> {
         tutorialDetailsTable.setItems(tutorials);
         tutorialDetailsTable.setSelectionModel(null);
     }
+
+    public TableView<Tutorial> getTableView() {
+        return tutorialDetailsTable;
+    }
 }

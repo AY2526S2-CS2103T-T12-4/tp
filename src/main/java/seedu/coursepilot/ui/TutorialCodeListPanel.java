@@ -46,8 +46,7 @@ public class TutorialCodeListPanel extends UiPart<Region> {
                 Tutorial current = currentTutorial == null ? null : currentTutorial.get();
                 boolean isSelected = current != null && current.isSameTutorial(tutorial);
                 setText(isSelected ? "  " + tutorial.getTutorialCode() + " ●" : "  " + tutorial.getTutorialCode());
-                setStyle(isSelected ? "-fx-font-weight: bold;" : "");
-                setStyle(isSelected ? "-fx-background-color: #3a7bd5;" : "");
+                setStyle(isSelected ? "-fx-background-color: #3a7bd5; -fx-font-weight: bold;" : "");
             }
         });
 
@@ -57,5 +56,9 @@ public class TutorialCodeListPanel extends UiPart<Region> {
                 tutorialCodeListView.scrollTo(newVal);
             });
         }
+    }
+
+    public TableView<Tutorial> getTableView() {
+        return tutorialCodeListView;
     }
 }

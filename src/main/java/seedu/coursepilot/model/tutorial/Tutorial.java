@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.coursepilot.model.student.Student;
 
 /**
@@ -19,7 +21,7 @@ public class Tutorial {
     private final Day day;
     private final TimeSlot timeSlot;
     private final Capacity capacity;
-    private final List<Student> students = new ArrayList<>();
+    private final ObservableList<Student> students = FXCollections.observableArrayList();
 
     /**
      * Constructs a {@code Tutorial}.
@@ -68,9 +70,9 @@ public class Tutorial {
     }
 
     /**
-     * Returns the list of students in this tutorial
+     * Returns the observable list of students in this tutorial.
      */
-    public List<Student> getStudents() {
+    public ObservableList<Student> getStudents() {
         return students;
     }
 

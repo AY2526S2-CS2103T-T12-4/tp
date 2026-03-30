@@ -1,13 +1,17 @@
 package seedu.coursepilot.ui;
 
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.coursepilot.model.student.Student;
+import seedu.coursepilot.model.tutorial.Tutorial;
 
 /**
  * An UI component that displays information of a {@code Student}.
@@ -39,12 +43,16 @@ public class StudentCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label tutorials;
+    @FXML
+    private VBox tutorialTags;
+    @FXML
     private FlowPane tags;
 
     /**
      * Creates a {@code StudentCode} with the given {@code Student} and index to display.
      */
-    public StudentCard(Student student, int displayedIndex) {
+    public StudentCard(Student student, int displayedIndex, ObservableList<Tutorial> tutorialList) {
         super(FXML);
         this.student = student;
         id.setText(displayedIndex + ". ");
@@ -55,5 +63,19 @@ public class StudentCard extends UiPart<Region> {
         student.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        
+        tutorialList.stream()
+        .filter(tutorial -> tutorial.hasStudent(student))
+        .map(Tutorial::getTutorialCode)
+        .forEach(code -> {
+            Label tutorialLabel = new Label(code);
+            tutorialLabel.setStyle("-fx-text-fill: white; "
+                    + "-fx-background-color: #3e7b91; "
+                    + "-fx-padding: 1 3 1 3; "
+                    + "-fx-border-radius: 2; "
+                    + "-fx-background-radius: 2; "
+                    + "-fx-font-size: 11;");
+            tutorialTags.getChildren().add(tutorialLabel);
+        });
     }
 }

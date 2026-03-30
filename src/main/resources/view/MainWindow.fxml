@@ -33,11 +33,11 @@
           </Menu>
         </MenuBar>
 
-        <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.20" styleClass="pane-with-border">
+        <SplitPane fx:id="outerSplitPane" VBox.vgrow="ALWAYS" dividerPositions="0.20" styleClass="pane-with-border">
           <VBox minWidth="140" maxWidth="200" prefWidth="180" styleClass="pane-with-border">
             <StackPane fx:id="tutorialListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-          <SplitPane orientation="HORIZONTAL" dividerPositions="0.31" styleClass="pane-with-border">
+          <SplitPane fx:id="innerSplitPane" orientation="HORIZONTAL" dividerPositions="0.31" styleClass="pane-with-border">
 
             <StackPane fx:id="tutorialDetailsPanelPlaceholder" VBox.vgrow="ALWAYS"
                        minWidth="200" minHeight="150" prefHeight="250"/>
