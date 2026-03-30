@@ -45,13 +45,13 @@ public class CommandAutoCompleter {
 
     private static final List<String> STUDENT_PREFIXES = List.of(
             PREFIX_NAME.toString(), PREFIX_PHONE.toString(), PREFIX_EMAIL.toString(),
-            PREFIX_MATRICNUMBER.toString());
+            PREFIX_MATRICNUMBER.toString(), PREFIX_TAG.toString());
     private static final List<String> TUTORIAL_PREFIXES = List.of(
             PREFIX_TUTORIALCODE.toString(), PREFIX_DAY.toString(),
             PREFIX_TIMESLOT.toString(), PREFIX_CAPACITY.toString());
     private static final List<String> EDIT_PREFIXES = List.of(
             PREFIX_NAME.toString(), PREFIX_PHONE.toString(), PREFIX_EMAIL.toString(),
-            PREFIX_MATRICNUMBER.toString());
+            PREFIX_MATRICNUMBER.toString(), PREFIX_TAG.toString());
 
     /**
      * Returns autocomplete suggestions based on the current input text.
