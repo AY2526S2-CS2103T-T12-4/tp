@@ -55,6 +55,38 @@ public class SelectCommandTest {
     }
 
     @Test
+    public void execute_validTutorialCodeUpperCase_selectsCorrectTutorial() {
+        Tutorial tutorialToSelect = model.getFilteredTutorialList().get(0);
+        String tutorialCode = tutorialToSelect.getTutorialCode().toString();
+        String upperCaseTutorialCode = tutorialCode.toUpperCase();
+
+        SelectCommand selectCommand = new SelectCommand(upperCaseTutorialCode);
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SUCCESS, tutorialCode);
+
+        expectedModel.setCurrentOperatingTutorial(tutorialToSelect);
+        assertCommandSuccess(selectCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validTutorialCodeMixedCase_selectsCorrectTutorial() {
+        Tutorial tutorialToSelect = model.getFilteredTutorialList().get(0);
+        String tutorialCode = tutorialToSelect.getTutorialCode().toString();
+
+        // Alternate upper and lower case characters
+        StringBuilder mixedCase = new StringBuilder();
+        for (int i = 0; i < tutorialCode.length(); i++) {
+            char c = tutorialCode.charAt(i);
+            mixedCase.append(i % 2 == 0 ? Character.toUpperCase(c) : Character.toLowerCase(c));
+        }
+
+        SelectCommand selectCommand = new SelectCommand(mixedCase.toString());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SUCCESS, tutorialCode);
+
+        expectedModel.setCurrentOperatingTutorial(tutorialToSelect);
+        assertCommandSuccess(selectCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_invalidTutorialCode_returnsNotFoundMessage() {
         String invalidCode = "INVALID999";
         SelectCommand selectCommand = new SelectCommand(invalidCode);
@@ -100,6 +132,13 @@ public class SelectCommandTest {
         SelectCommand selectCommand1 = new SelectCommand("T01");
         SelectCommand selectCommand2 = new SelectCommand("T01");
         assertTrue(selectCommand1.equals(selectCommand2));
+    }
+
+    @Test
+    public void equals_sameTutorialKeywordDifferentCase_returnsTrue() {
+        SelectCommand selectCommandUpper = new SelectCommand("T01");
+        SelectCommand selectCommandLower = new SelectCommand("t01");
+        assertTrue(selectCommandUpper.equals(selectCommandLower));
     }
 
     @Test
