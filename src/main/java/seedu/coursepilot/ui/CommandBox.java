@@ -33,8 +33,6 @@ public class CommandBox extends UiPart<Region> {
     private final Popup suggestionPopup = new Popup();
     private final ListView<String> suggestionListView = new ListView<>();
 
-    private boolean isApplyingSuggestion = false;
-
     @FXML
     private TextField commandTextField;
 
@@ -49,9 +47,6 @@ public class CommandBox extends UiPart<Region> {
 
         commandTextField.textProperty().addListener((unused1, unused2, newVal) -> {
             setStyleToDefault();
-            if (isApplyingSuggestion) {
-                return;
-            }
             updateSuggestions(newVal);
         });
 
@@ -172,8 +167,6 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void applySuggestion(String suggestion) {
-        isApplyingSuggestion = true;
-
         String text = commandTextField.getText();
         String[] parts = text.stripLeading().split("\\s+");
 
@@ -190,8 +183,6 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setText(newText);
         commandTextField.positionCaret(newText.length());
         suggestionPopup.hide();
-
-        isApplyingSuggestion = false;
     }
 
     /**
@@ -206,9 +197,7 @@ public class CommandBox extends UiPart<Region> {
 
         try {
             commandExecutor.execute(commandText);
-            isApplyingSuggestion = true;
             commandTextField.setText("");
-            isApplyingSuggestion = false;
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
