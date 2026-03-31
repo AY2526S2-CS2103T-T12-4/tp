@@ -113,7 +113,7 @@ public class CommandBox extends UiPart<Region> {
             if (selected != null) {
                 applySuggestion(selected);
                 event.consume();
-            } else if (event.getCode() == KeyCode.ENTER) {
+            } else {
                 suggestionPopup.hide();
             }
             break;
