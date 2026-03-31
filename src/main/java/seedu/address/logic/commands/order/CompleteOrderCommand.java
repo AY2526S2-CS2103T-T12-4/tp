@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.order.OrderMap;
 
 /**
- * Marks an order as completed using its displayed index from the address book.
+ * Marks an order as completed using its displayed index from the order list.
  */
 public class CompleteOrderCommand extends Command {
     public static final String COMMAND_WORD = "complete";
