@@ -68,12 +68,7 @@ public class StudentCard extends UiPart<Region> {
                 .map(Tutorial::getTutorialCode)
                 .forEach(code -> {
                     Label tutorialLabel = new Label(code);
-                    tutorialLabel.setStyle("-fx-text-fill: white; "
-                            + "-fx-background-color: #3e7b91; "
-                            + "-fx-padding: 1 3 1 3; "
-                            + "-fx-border-radius: 2; "
-                            + "-fx-background-radius: 2; "
-                            + "-fx-font-size: 11;");
+                    tutorialLabel.getStyleClass().add("tutorial-tag");
                     tutorialTags.getChildren().add(tutorialLabel);
                 });
     }
