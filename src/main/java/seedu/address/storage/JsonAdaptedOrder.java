@@ -52,7 +52,7 @@ public class JsonAdaptedOrder {
     public JsonAdaptedOrder(OrderMap source) {
         this.orderId = Integer.toString(source.getOrderId());
         this.personName = source.getPerson().getName().toString();
-        this.status = source.getStatus().toString();
+        this.status = source.getStatus().name();
         this.itemList.addAll(source.getProductQuantityPairs().stream()
                 .map(ProductQuantityPair::toString)
                 .toList());

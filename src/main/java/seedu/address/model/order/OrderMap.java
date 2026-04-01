@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
@@ -114,6 +115,26 @@ public class OrderMap {
     }
 
     /**
+     * Sets the OrderStatus of an OrderMap as Completed.
+     */
+    public OrderMap markAsCompleted() {
+        if (status == OrderStatus.COMPLETED) {
+            throw new IllegalStateException("Order is already completed");
+        }
+        if (status == OrderStatus.CANCELLED) {
+            throw new IllegalStateException("Cannot complete a cancelled order");
+        }
+
+        return new OrderMap(
+                orderId,
+                person,
+                productQuantityPairs,
+                OrderStatus.COMPLETED,
+                orderDatetime
+        );
+    }
+
+    /**
      * Returns true if a given string is a valid product + quantity pair.
      */
     public static boolean isValidProductQuantityPair(String test) {
@@ -160,7 +181,7 @@ public class OrderMap {
                 .add("person", person)
                 .add("status", status)
                 .add("orderDatetime", orderDatetime)
-                .add("orderMap", productQuantityPairs.stream().sorted().toString())
+                .add("orderMap", productQuantityPairs.stream().sorted().collect(Collectors.toList()))
                 .toString();
     }
 }

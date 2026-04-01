@@ -4,9 +4,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.order.OrderDateTime;
+import seedu.address.model.order.OrderMap;
+import seedu.address.model.order.OrderStatus;
 import seedu.address.model.person.Person;
 
 /**
@@ -51,5 +57,15 @@ public class TestUtil {
      */
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    public static OrderMap getSampleOrder() {
+        return new OrderMap(
+                1,
+                new PersonBuilder().withName("Alice").build(),
+                new HashSet<>(),
+                OrderStatus.PENDING,
+                new OrderDateTime(LocalDateTime.now())
+        );
     }
 }

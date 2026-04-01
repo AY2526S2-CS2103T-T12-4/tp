@@ -1,3 +1,4 @@
+//@@author Achiack
 package seedu.address.model.order;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,32 +52,38 @@ public class OrderMapTest {
 
     @Test
     void equals_sameValue_returnsTrue() {
+        //@@author
         OrderMap order = new OrderMap(person, itemSet);
         assertEquals(order, order);
         assertEquals(order.hashCode(), order.hashCode());
         LocalDateTime now = LocalDateTime.now();
         OrderMap order1 = new OrderMap(1, person, itemSet, OrderStatus.PENDING, new OrderDateTime(now));
         OrderMap order2 = new OrderMap(1, person, itemSet, OrderStatus.PENDING, new OrderDateTime(now));
+        //@@author Achiack
         assertEquals(order1, order2);
         assertEquals(order1.hashCode(), order2.hashCode());
     }
 
     @Test
     void equals_differentValue_returnsFalse() {
+        //@@author
         Set<ProductQuantityPair> otherMap = new HashSet<>();
         otherMap.add(new ProductQuantityPair("2 1"));
         OrderMap order1 = new OrderMap(person, itemSet);
         OrderMap order2 = new OrderMap(person, otherMap);
+        //@@author Achiack
         assertNotEquals(order1, order2);
     }
 
     @Test
     void equals_otherObject_returnsFalse() {
+        //@@author
         OrderMap order = new OrderMap(person, itemSet);
         assertNotEquals(null, order);
         assertNotEquals("not an order", order);
     }
 
+    //@@author Achiack
     @Test
     void toString_containsAllFields() {
         OrderMap order = new OrderMap(person, itemSet);
