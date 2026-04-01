@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -17,7 +17,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.OrderMap;
-import seedu.address.model.order.ProductList;
+import seedu.address.model.order.Product;
+import seedu.address.model.order.ProductQuantityPair;
 
 /**
  * Edits the details of an existing order in the address book.
@@ -38,7 +39,6 @@ public class EditOrderCommand extends Command {
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Order edited successfully.\n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_EMPTY_ORDER = "An order must have at least one item.";
-    public static final String MESSAGE_INVALID_ITEM = "Invalid menu item index: %d";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -80,7 +80,7 @@ public class EditOrderCommand extends Command {
             OrderMap orderToEdit, EditOrderDescriptor editOrderDescriptor) throws CommandException {
         assert orderToEdit != null;
 
-        Map<Integer, Integer> updatedOrderMap = getUpdatedOrderMap(orderToEdit, editOrderDescriptor);
+        Set<ProductQuantityPair> updatedOrderMap = getUpdatedOrderMap(orderToEdit, editOrderDescriptor);
 
         if (updatedOrderMap.isEmpty()) {
             throw new CommandException(MESSAGE_EMPTY_ORDER);
@@ -95,27 +95,31 @@ public class EditOrderCommand extends Command {
      * @param orderToEdit The original order
      * @param editOrderDescriptor The order descriptor with the new order items
      */
-    private static Map<Integer, Integer> getUpdatedOrderMap(
+    private static Set<ProductQuantityPair> getUpdatedOrderMap(
             OrderMap orderToEdit, EditOrderDescriptor editOrderDescriptor) throws CommandException {
-        Map<Integer, Integer> newOrders = editOrderDescriptor.getOrderMap();
-        Map<Integer, Integer> updatedOrderMap = new HashMap<>();
+        Set<ProductQuantityPair> enteredOrders = editOrderDescriptor.getProductQuantityPairs();
+        Set<ProductQuantityPair> updateditemSet = new HashSet<>();
 
-        for (Map.Entry<Integer, Integer> item : newOrders.entrySet()) {
-            if (!new ProductList().isValidItem(item.getKey())) {
-                throw new CommandException(String.format(MESSAGE_INVALID_ITEM, item.getKey()));
-            }
-
-            if (item.getValue() != 0) {
-                updatedOrderMap.put(item.getKey(), item.getValue());
+        for (ProductQuantityPair item : enteredOrders) {
+            if (item.getQuantity().getValue() != 0) {
+                updateditemSet.add(item);
             }
         }
 
-        for (Map.Entry<Integer, Integer> item : orderToEdit.getOrderMap().entrySet()) {
-            if (!newOrders.containsKey(item.getKey())) {
-                updatedOrderMap.put(item.getKey(), item.getValue());
+        for (ProductQuantityPair item : orderToEdit.getProductQuantityPairs()) {
+            if (!doesItemSetContainProduct(enteredOrders, item.getProduct())) {
+                updateditemSet.add(item);
             }
         }
-        return updatedOrderMap;
+        return updateditemSet;
+    }
+
+    /**
+     * Returns true if {@code itemSet} contains an entry for {@code product}.
+     */
+    private static boolean doesItemSetContainProduct(Set<ProductQuantityPair> itemSet, Product product) {
+        return itemSet.stream()
+                .anyMatch(pair -> pair.getProduct().equals(product));
     }
 
     @Override
@@ -157,7 +161,7 @@ public class EditOrderCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditOrderDescriptor {
-        private Map<Integer, Integer> orderMap;
+        private Set<ProductQuantityPair> productQuantityPairs;
 
         public EditOrderDescriptor() {}
 
@@ -165,15 +169,15 @@ public class EditOrderCommand extends Command {
          * Copy constructor.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
-            setOrderMap(toCopy.orderMap);
+            setProductQuantityPairs(toCopy.productQuantityPairs);
         }
 
-        public void setOrderMap(Map<Integer, Integer> orderMap) {
-            this.orderMap = orderMap;
+        public void setProductQuantityPairs(Set<ProductQuantityPair> productQuantityPairs) {
+            this.productQuantityPairs = productQuantityPairs;
         }
 
-        public Map<Integer, Integer> getOrderMap() {
-            return orderMap;
+        public Set<ProductQuantityPair> getProductQuantityPairs() {
+            return productQuantityPairs;
         }
 
         @Override
@@ -188,13 +192,13 @@ public class EditOrderCommand extends Command {
             }
 
             EditOrderDescriptor otherEditOrderDescriptor = (EditOrderDescriptor) other;
-            return Objects.equals(orderMap, otherEditOrderDescriptor.orderMap);
+            return Objects.equals(productQuantityPairs, otherEditOrderDescriptor.productQuantityPairs);
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("orderMap", orderMap)
+                    .add("orderMap", productQuantityPairs)
                     .toString();
         }
     }

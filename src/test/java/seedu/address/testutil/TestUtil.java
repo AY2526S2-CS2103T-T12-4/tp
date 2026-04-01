@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
@@ -62,7 +63,7 @@ public class TestUtil {
         return new OrderMap(
                 1,
                 new PersonBuilder().withName("Alice").build(),
-                new HashMap<>(),
+                new HashSet<>(),
                 OrderStatus.PENDING,
                 new OrderDateTime(LocalDateTime.now())
         );

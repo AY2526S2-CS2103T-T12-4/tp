@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERIDX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
 
-import java.util.Map;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.order.OrderMap;
+import seedu.address.model.order.ProductQuantityPair;
 import seedu.address.model.person.Person;
 
 /**
@@ -31,7 +32,7 @@ public class AddOrderCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New order added: %1$s.";
 
     private final int index;
-    private final Map<Integer, Integer> order;
+    private final Set<ProductQuantityPair> order;
 
     /**
      * Constructor for AddOrderCommand.
@@ -39,7 +40,7 @@ public class AddOrderCommand extends Command {
      * @param index Index of person to tag the order to.
      * @param order Map of all orders made.
      */
-    public AddOrderCommand(int index, Map<Integer, Integer> order) {
+    public AddOrderCommand(int index, Set<ProductQuantityPair> order) {
         requireAllNonNull(index, order);
         this.index = index;
         this.order = order;
@@ -66,7 +67,7 @@ public class AddOrderCommand extends Command {
     }
 
     /** Returns the Map of all orders made. */
-    public Map<Integer, Integer> getOrder() {
+    public Set<ProductQuantityPair> getOrder() {
         return order;
     }
 

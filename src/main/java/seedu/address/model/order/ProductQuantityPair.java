@@ -1,14 +1,16 @@
 package seedu.address.model.order;
 
-import java.util.Optional;
+import java.util.Objects;
+
+import seedu.address.logic.Messages;
 
 /**
  * Represents a product + quantity pair.
  */
-public class ProductQuantityPair {
+public class ProductQuantityPair implements Comparable<ProductQuantityPair> {
     public static final String MESSAGE_CONSTRAINTS =
             "Orders should be in the form \"MENU_ITEM PRODUCT_QUANTITY\".";
-    public static final String VALIDATION_REGEX = "^[1-9]\\d* \\d+$";
+    public static final String VALIDATION_REGEX = "^[0-9]\\d* \\d+$";
     private final Product product;
     private final Quantity quantity;
 
@@ -18,15 +20,24 @@ public class ProductQuantityPair {
      * @param productQuantityPair A valid product + quantity pair.
      */
     public ProductQuantityPair(String productQuantityPair) {
-        String[] pair = productQuantityPair.split(" ", 2);
-        String product = pair[0];
-        String quantity = pair[1];
-        this.product = new ProductList().getItem(Integer.parseInt(product));
-        if (Quantity.isValidQuantity(quantity)) {
-            this.quantity = new Quantity(quantity);
-        } else {
+        if (!isValidProductQuantityPair(productQuantityPair)) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
+
+        String[] pair = productQuantityPair.split(" ", 2);
+        int product = Integer.parseInt(pair[0]);
+        String quantity = pair[1];
+
+        if (!new ProductList().isValidItem(product)) {
+            throw new IllegalArgumentException(String.format(Messages.MESSAGE_INVALID_MENU_ITEM, product));
+        }
+
+        if (!Quantity.isValidQuantity(quantity)) {
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
+        }
+
+        this.product = Messages.MENU.getItem(product);
+        this.quantity = new Quantity(quantity);
     }
 
     /**
@@ -46,7 +57,35 @@ public class ProductQuantityPair {
     /**
      * Returns the Quantity of a ProductQuantityPair.
      */
-    public Optional<Quantity> getQuantity() {
-        return Optional.ofNullable(quantity);
+    public Quantity getQuantity() {
+        return quantity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d %d", Messages.MENU.getIndex(product), quantity.getValue());
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == this) {
+            return true;
+        }
+
+        if (!(object instanceof ProductQuantityPair other)) {
+            return false;
+        }
+
+        return product.equals(other.product) && quantity.equals(other.quantity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, quantity);
+    }
+
+    @Override
+    public int compareTo(ProductQuantityPair o) {
+        return product.compareTo(o.product);
     }
 }

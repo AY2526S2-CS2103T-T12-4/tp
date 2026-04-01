@@ -1,15 +1,14 @@
 package seedu.address.ui;
 
-import java.util.Map;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.logic.Messages;
 import seedu.address.model.order.OrderMap;
 import seedu.address.model.order.Product;
+import seedu.address.model.order.ProductQuantityPair;
+import seedu.address.model.order.Quantity;
 
 /**
  * An UI component that displays information of an {@code OrderMap}.
@@ -44,16 +43,11 @@ public class OrderCard extends UiPart<Region> {
         status.setText("Status: " + order.getStatus());
         datetime.setText("At: " + order.getOrderDatetime());
 
-        for (Map.Entry<Integer, Integer> entry : order.getOrderMap().entrySet()) {
-            int menuItem = entry.getKey();
-            int quantity = entry.getValue();
+        for (ProductQuantityPair entry : order.getProductQuantityPairs()) {
+            Product product = entry.getProduct();
+            Quantity quantity = entry.getQuantity();
             String itemLabel;
-            try {
-                Product product = Messages.MENU.getItem(menuItem);
-                itemLabel = product.getName() + " x" + quantity;
-            } catch (IndexOutOfBoundsException e) {
-                itemLabel = "Item " + menuItem + " x" + quantity;
-            }
+            itemLabel = product.getName() + " x" + quantity;
             items.getChildren().add(new Label(itemLabel));
         }
     }

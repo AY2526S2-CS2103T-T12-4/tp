@@ -4,11 +4,13 @@ package seedu.address.model.order;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.logic.Messages;
+
 /**
  * Represents the Product ordered.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Product {
+public class Product implements Comparable<Product> {
     public static final String MESSAGE_CONSTRAINTS =
             "Product names should not be blank.";
 
@@ -58,5 +60,10 @@ public class Product {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return Messages.MENU.compare(this, o);
     }
 }
