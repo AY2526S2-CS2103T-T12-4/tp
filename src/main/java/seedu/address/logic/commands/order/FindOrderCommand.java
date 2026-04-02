@@ -3,34 +3,58 @@ package seedu.address.logic.commands.order;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.order.PhoneNumberPredicate;
 
 /**
- * Finds and lists orders in the address book matching keywords.
+ * Finds and lists all orders in address book whose customer's phone number matches the given phone number.
  */
 public class FindOrderCommand extends Command {
 
     public static final String COMMAND_WORD = "findorder";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds orders by keywords. TODO";
 
-    public FindOrderCommand() {}
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all orders whose customer's phone number matches "
+            + "the given phone number and displays them as a list with index numbers.\n"
+            + "Parameters: PHONE\n"
+            + "Example: " + COMMAND_WORD + " 90813212";
+
+    private final PhoneNumberPredicate predicate;
+
+    public FindOrderCommand(PhoneNumberPredicate predicate) {
+        this.predicate = predicate;
+    }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
-        return new CommandResult("TODO: Implement find order");
+        model.updateFilteredOrderList(this.predicate);
+        return new CommandResult(
+                String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW, model.getFilteredOrderList().size()),
+                false, false, false, true);
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this || other instanceof FindOrderCommand;
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof FindOrderCommand)) {
+            return false;
+        }
+
+        FindOrderCommand otherFindCommand = (FindOrderCommand) other;
+        return predicate.equals(otherFindCommand.predicate);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).toString();
+        return new ToStringBuilder(this)
+                .add("predicate", predicate)
+                .toString();
     }
 }
