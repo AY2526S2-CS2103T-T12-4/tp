@@ -85,7 +85,7 @@ public interface Model {
 
     /**
      * Deletes all orders matching {@code predicate}.
-     * If no orders match, no orders are deleted.
+     * If no orders match, implementations may throw an exception rather than performing a no-op.
      */
     void deleteOrderByPredicate(Predicate<OrderMap> predicate);
 

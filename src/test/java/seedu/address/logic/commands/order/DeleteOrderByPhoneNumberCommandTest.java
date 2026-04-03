@@ -44,7 +44,7 @@ public class DeleteOrderByPhoneNumberCommandTest {
 
     @Test
     public void execute_noMatchingPhone_throwsCommandException() {
-        PhoneNumberPredicate predicate = new PhoneNumberPredicate("11111111");
+        PhoneNumberPredicate predicate = new PhoneNumberPredicate("61234567");
         DeleteOrderByPhoneNumberCommand command = new DeleteOrderByPhoneNumberCommand(predicate);
 
         assertCommandFailure(command, model, DeleteOrderByPhoneNumberCommand.MESSAGE_NO_ORDER_WITH_PHONE);

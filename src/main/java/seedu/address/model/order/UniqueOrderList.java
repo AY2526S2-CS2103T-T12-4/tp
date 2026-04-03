@@ -81,14 +81,11 @@ public class UniqueOrderList implements Iterable<OrderMap> {
     }
 
     /**
-     * Removes the orders from the list that match the given predicate.
-     * At least 1 matching order must exist in the list.
+     * If no orders match the predicate, no orders are removed.
      */
     public void removeByPredicate(Predicate<OrderMap> predicate) {
         requireNonNull(predicate);
-        if (!internalList.removeIf(predicate)) {
-            throw new OrderNotFoundException();
-        }
+        internalList.removeIf(predicate);
     }
 
     public void setOrders(UniqueOrderList replacement) {
@@ -98,7 +95,7 @@ public class UniqueOrderList implements Iterable<OrderMap> {
 
     /**
      * Replaces the contents of this list with {@code orders}.
-     * {@code orders} must not contain duplicate persons.
+     * {@code orders} must not contain duplicate orders.
      */
     public void setOrders(List<OrderMap> orders) {
         requireAllNonNull(orders);
