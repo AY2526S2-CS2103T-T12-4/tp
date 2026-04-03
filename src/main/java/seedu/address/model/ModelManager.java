@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -112,6 +114,12 @@ public class ModelManager implements Model {
     public void deleteOrder(OrderMap target) {
         versionedAddressBook.removeOrder(target);
     }
+
+    @Override
+    public void deleteOrderByPredicate(Predicate<OrderMap> predicate) {
+        versionedAddressBook.removeOrderByPredicate(predicate);
+    }
+
     //@@author
     @Override
     public void addPerson(Person person) {

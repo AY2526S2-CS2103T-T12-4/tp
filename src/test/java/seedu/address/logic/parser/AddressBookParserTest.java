@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.order.DeleteOrderByPhoneNumberCommand;
 import seedu.address.logic.commands.order.DeleteOrderCommand;
 import seedu.address.logic.commands.order.ListOrderCommand;
 import seedu.address.logic.commands.person.AddPersonCommand;
@@ -29,6 +30,7 @@ import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.RegionContainsKeywordsPredicate;
+import seedu.address.model.order.PhoneNumberPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -64,6 +66,13 @@ public class AddressBookParserTest {
         DeleteOrderCommand command = (DeleteOrderCommand) parser.parseCommand(
                 DeleteOrderCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
         assertEquals(new DeleteOrderCommand(INDEX_FIRST_ORDER), command);
+    }
+
+    @Test
+    public void parseCommand_deleteOrderByPhone() throws Exception {
+        DeleteOrderByPhoneNumberCommand command = (DeleteOrderByPhoneNumberCommand) parser.parseCommand(
+                DeleteOrderByPhoneNumberCommand.COMMAND_WORD + " 94351253");
+        assertEquals(new DeleteOrderByPhoneNumberCommand(new PhoneNumberPredicate("94351253")), command);
     }
 
     @Test

@@ -1,0 +1,75 @@
+package seedu.address.logic.commands.order;
+
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.order.PhoneNumberPredicate;
+
+/**
+ * Finds and lists all orders in address book whose customer's phone number matches the given phone number.
+ */
+public class DeleteOrderByPhoneNumberCommand extends Command {
+
+    public static final String COMMAND_WORD = "deleteorderbyphone";
+
+    public static final String MESSAGE_DELETE_ORDERS_BY_PHONE_SUCCESS = "Deleted %1$d order(s) with given phone number.";
+    public static final String MESSAGE_NO_ORDER_WITH_PHONE = "No orders found with given phone number.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes all orders matching the provided customer phone number.\n"
+            + "Parameters: PHONE\n"
+            + "Example: " + COMMAND_WORD + " 90813212";
+
+    private final PhoneNumberPredicate predicate;
+
+    public DeleteOrderByPhoneNumberCommand(PhoneNumberPredicate predicate) {
+        this.predicate = predicate;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        long matchCount = model.getAddressBook().getOrderList().stream().filter(predicate).count();
+        if (matchCount == 0) {
+            throw new CommandException(MESSAGE_NO_ORDER_WITH_PHONE);
+        }
+        model.deleteOrderByPredicate(this.predicate);
+        return new CommandResult(String.format(MESSAGE_DELETE_ORDERS_BY_PHONE_SUCCESS, matchCount),
+                false, false, false, true);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeleteOrderByPhoneNumberCommand)) {
+            return false;
+        }
+
+        DeleteOrderByPhoneNumberCommand otherDeleteByPhoneNumCommand = (DeleteOrderByPhoneNumberCommand) other;
+        return predicate.equals(otherDeleteByPhoneNumCommand.predicate);
+    }
+
+    @Override
+    public boolean shouldRecordInHistory() {
+        return true;
+    }
+
+    @Override
+    public boolean mutatesModel() {
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("predicate", predicate)
+                .toString();
+    }
+}

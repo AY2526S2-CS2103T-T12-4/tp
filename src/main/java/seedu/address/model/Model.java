@@ -83,6 +83,9 @@ public interface Model {
      */
     void deleteOrder(OrderMap target);
 
+
+    void deleteOrderByPredicate(Predicate<OrderMap> predicate);
+
     //@@author
     /**
      * Adds the given person.
