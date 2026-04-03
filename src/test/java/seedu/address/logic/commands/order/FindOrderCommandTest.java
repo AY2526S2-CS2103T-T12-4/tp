@@ -67,4 +67,12 @@ public class FindOrderCommandTest {
         assertFalse(command.equals(null));
         assertFalse(command.equals(1));
     }
+
+    @Test
+    public void toStringMethod() {
+        ActiveOrderInRegionPredicate predicate = new ActiveOrderInRegionPredicate(new Region("N"));
+        FindOrderCommand command = new FindOrderCommand(predicate);
+        String expected = FindOrderCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        assertEquals(expected, command.toString());
+    }
 }
