@@ -96,6 +96,25 @@ public class Tutorial {
     }
 
     /**
+     * Edits a student from this tutorial's student list.
+     * The student must exist in the tutorial.
+     *
+     * @param old matric number of the student to be edited
+     * @param student the student to be removed
+     * @return true if the student was removed, false if not found
+     */
+    public void editStudent(String matric, Student editedStudent) {
+        requireNonNull(editedStudent);
+        for (int i = 0; i < this.students.size(); i++) {
+            Student current = this.students.get(i);
+
+            if (current.getMatriculationNumber().toString().equals(matric)) {
+                this.students.set(i, editedStudent);
+            }
+        }
+    }
+
+    /**
      * Removes a student from this tutorial's student list.
      * The student must exist in the tutorial.
      *
