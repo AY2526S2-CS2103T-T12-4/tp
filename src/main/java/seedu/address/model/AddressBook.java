@@ -119,7 +119,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(person);
         List<OrderMap> ordersToRemove = new ArrayList<>(orders.asUnmodifiableObservableList());
         for (OrderMap order : ordersToRemove) {
-            if (order.getPerson().equals(person)) {
+            if (order.getPerson().isSamePerson(person)) {
                 orders.remove(order);
             }
         }
