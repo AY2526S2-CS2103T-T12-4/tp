@@ -10,9 +10,9 @@ import seedu.address.logic.commands.order.FindOrderByPhoneNumberCommand;
 import seedu.address.model.order.PhoneNumberPredicate;
 import seedu.address.model.person.Phone;
 
-public class FindOrderByPhoneNumberCommandParserTest {
+public class FindOrderByPredicateCommandParserTest {
 
-    private final FindOrderByPhoneNumberCommandParser parser = new FindOrderByPhoneNumberCommandParser();
+    private final FindOrderByPredicateCommandParser parser = new FindOrderByPredicateCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -22,15 +22,17 @@ public class FindOrderByPhoneNumberCommandParserTest {
 
     @Test
     public void parse_invalidPhone_throwsParseException() {
-        assertParseFailure(parser, "123", Phone.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "9435 1253", Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "123",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderByPhoneNumberCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " p/123", Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " p/9435 1253", Phone.MESSAGE_CONSTRAINTS);
     }
 
     @Test
-    public void parse_validArgs_returnsFindOrderCommand() {
+    public void parse_validArgs_returnsFindOrderByPhoneNumberCommand() {
         FindOrderByPhoneNumberCommand expectedFindCommand =
                 new FindOrderByPhoneNumberCommand(new PhoneNumberPredicate("94351253"));
-        assertParseSuccess(parser, "94351253", expectedFindCommand);
-        assertParseSuccess(parser, " \n 94351253 \t", expectedFindCommand);
+        assertParseSuccess(parser, " p/94351253", expectedFindCommand);
+        assertParseSuccess(parser, " \n p/94351253 \t", expectedFindCommand);
     }
 }

@@ -30,7 +30,7 @@ import seedu.address.logic.parser.order.AddOrderCommandParser;
 import seedu.address.logic.parser.order.CompleteOrderCommandParser;
 import seedu.address.logic.parser.order.DeleteOrderCommandParser;
 import seedu.address.logic.parser.order.EditOrderCommandParser;
-import seedu.address.logic.parser.order.FindOrderByPhoneNumberCommandParser;
+import seedu.address.logic.parser.order.FindOrderByPredicateCommandParser;
 import seedu.address.logic.parser.person.AddPersonCommandParser;
 import seedu.address.logic.parser.person.DeletePersonCommandParser;
 import seedu.address.logic.parser.person.EditPersonCommandParser;
@@ -95,7 +95,7 @@ public class AddressBookParser {
             return new FindPersonCommandParser().parse(arguments);
 
         case FindOrderByPhoneNumberCommand.COMMAND_WORD:
-            return new FindOrderByPhoneNumberCommandParser().parse(arguments);
+            return new FindOrderByPredicateCommandParser().parse(arguments);
 
         case ListPersonCommand.COMMAND_WORD:
             return new ListPersonCommand();
