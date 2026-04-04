@@ -15,7 +15,7 @@ import seedu.coursepilot.model.tutorial.Tutorial;
  * A UI component that displays a list of tutorials in the application.
  */
 public class TutorialCodeListPanel extends UiPart<Region> {
-    
+
     private static final String FXML = "TutorialCodeListPanel.fxml";
     private static final String SELECTED_STYLE = "-fx-background-color: #3a7bd5; -fx-font-weight: bold;";
     private static final String SELECTED_INDICATOR = " ●";
@@ -42,7 +42,7 @@ public class TutorialCodeListPanel extends UiPart<Region> {
         tutorialCodeListView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tutorialCodeListView.setItems(tutorials);
         tutorialCodeListView.setSelectionModel(new NoOpTableSelectionModel<>(tutorialCodeListView));
-        
+
         tutorialCodeListView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             KeyCode key = event.getCode();
             if (key == KeyCode.UP || key == KeyCode.DOWN || key == KeyCode.PAGE_UP

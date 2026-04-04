@@ -28,7 +28,7 @@ public abstract class StudentFieldPredicate implements Predicate<Student> {
         if (other == this) {
             return true;
         }
-        if (!getClass().equals(other.getClass())) {
+        if (other == null || !getClass().equals(other.getClass())) {
             return false;
         }
         StudentFieldPredicate otherPredicate = (StudentFieldPredicate) other;

@@ -26,7 +26,7 @@ public class CommandBox extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
-    public static final String ERROR_STYLE_CLASS = "error";
+    private static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
     private static final int MAX_SUGGESTIONS = 8;
     private static final double LIST_CELL_HEIGHT = 30.0;
