@@ -220,7 +220,17 @@ public class AddOrderCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public String getUndoCommandText() {
+            throw new AssertionError();
+        }
+
+        @Override
+        public String getRedoCommandText() {
+            throw new AssertionError();
+        }
+
+        @Override
+        public void commitAddressBook(String commandText) {
             throw new AssertionError();
         }
     }

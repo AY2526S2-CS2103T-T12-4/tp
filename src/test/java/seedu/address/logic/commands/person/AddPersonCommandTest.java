@@ -194,6 +194,7 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public void updateFilteredOrderList(Predicate<OrderMap> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -219,7 +220,17 @@ public class AddPersonCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public String getUndoCommandText() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getRedoCommandText() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitAddressBook(String commandText) {
             throw new AssertionError("This method should not be called.");
         }
     }
