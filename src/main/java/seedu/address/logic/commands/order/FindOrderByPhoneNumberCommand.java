@@ -24,6 +24,9 @@ public class FindOrderByPhoneNumberCommand extends Command {
 
     private final PhoneNumberPredicate predicate;
 
+    /**
+     * Creates a command to find active orders by customer phone number.
+     */
     public FindOrderByPhoneNumberCommand(PhoneNumberPredicate predicate) {
         requireNonNull(predicate);
         this.predicate = predicate;
