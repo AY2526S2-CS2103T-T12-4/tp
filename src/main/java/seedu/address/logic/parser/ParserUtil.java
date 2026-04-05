@@ -117,7 +117,7 @@ public class ParserUtil {
         }
         String trimmedUnitNo = unitNo.trim();
         if (!Address.isValidUnit(trimmedUnitNo)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS_UNIT);
         }
         return trimmedUnitNo;
     }
