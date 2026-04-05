@@ -26,6 +26,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label customer;
     @FXML
+    private Label region;
+    @FXML
     private Label status;
     @FXML
     private Label datetime;
@@ -40,6 +42,7 @@ public class OrderCard extends UiPart<Region> {
         this.order = order;
         id.setText(displayedIndex + ". ");
         customer.setText(order.getPerson().getName().fullName);
+        region.setText("Region: " + order.getPerson().getRegion());
         status.setText("Status: " + order.getStatus());
         datetime.setText("At: " + order.getOrderDatetime());
 

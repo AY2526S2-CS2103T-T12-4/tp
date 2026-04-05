@@ -6,24 +6,31 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.order.FindOrderCommand;
-import seedu.address.model.order.ActiveOrderInRegionPredicate;
+import seedu.address.logic.commands.order.CompleteRegionOrdersCommand;
 import seedu.address.model.person.Region;
 
-public class FindOrderCommandParserTest {
+public class CompleteRegionOrdersCommandParserTest {
 
-    private final FindOrderCommandParser parser = new FindOrderCommandParser();
+    private final CompleteRegionOrdersCommandParser parser = new CompleteRegionOrdersCommandParser();
 
     @Test
     public void parse_validArgs_returnsCommand() {
         assertParseSuccess(parser, " r/N",
-                new FindOrderCommand(new ActiveOrderInRegionPredicate(new Region("N"))));
+                new CompleteRegionOrdersCommand(new Region("N")));
     }
 
     @Test
     public void parse_missingPrefix_failure() {
         assertParseFailure(parser, " N",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        CompleteRegionOrdersCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_nonEmptyPreamble_failure() {
+        assertParseFailure(parser, " extra r/N",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        CompleteRegionOrdersCommand.MESSAGE_USAGE));
     }
 
     @Test

@@ -5,38 +5,37 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REGION;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.order.FindOrderCommand;
+import seedu.address.logic.commands.order.CompleteRegionOrdersCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.ActiveOrderInRegionPredicate;
 import seedu.address.model.person.Region;
 
 /**
- * Parses input arguments and creates a new FindOrderCommand object.
+ * Parses input arguments and creates a new {@link CompleteRegionOrdersCommand} object.
  */
-public class FindOrderCommandParser implements Parser<FindOrderCommand> {
+public class CompleteRegionOrdersCommandParser implements Parser<CompleteRegionOrdersCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindOrderCommand
-     * and returns a FindOrderCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CompleteRegionOrdersCommand
+     * and returns a CompleteRegionOrdersCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    @Override
-    public FindOrderCommand parse(String args) throws ParseException {
+    public CompleteRegionOrdersCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_REGION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_REGION) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindOrderCommand.MESSAGE_USAGE));
+                    CompleteRegionOrdersCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_REGION);
         Region region = ParserUtil.parseRegion(argMultimap.getValue(PREFIX_REGION).get());
-        return new FindOrderCommand(new ActiveOrderInRegionPredicate(region));
+
+        return new CompleteRegionOrdersCommand(region);
     }
 
     /**
@@ -47,3 +46,4 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
+
