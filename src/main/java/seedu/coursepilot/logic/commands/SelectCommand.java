@@ -10,7 +10,7 @@ import seedu.coursepilot.model.tutorial.Tutorial;
 
 /**
  * Selects a tutorial in CoursePilot, making it the current operating tutorial.
- * Keyword matching is case insensitive.
+ * Tutorial code matching is case-insensitive.
  * Use {@code CLEAR_KEYWORD} as the argument to clear the current selection.
  */
 public class SelectCommand extends Command {
