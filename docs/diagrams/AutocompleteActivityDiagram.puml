@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+
+start
+:User types text in CommandBox;
+
+if (Text is empty?) then (yes)
+    :Return all command words;
+else (no)
+    if (No space in text?) then (yes)
+        :Filter command words\nby typed prefix;
+    else (no)
+        if (Valid command word?) then (yes)
+            switch (Command type?)
+            case (add)
+                if (Flag typed?) then (yes)
+                    if (Typing a "/" token?) then (yes)
+                        :Suggest matching unused\nprefixes for the flag type;
+                    else (no)
+                        :No suggestions;
+                    endif
+                else (no)
+                    :Suggest type flags\n(-student / -tutorial);
+                endif
+            case (delete / list)
+                :Suggest type flags;
+            case (find)
+                :Suggest find flags;
+            case (edit)
+                if (Typing a "/" token?) then (yes)
+                    :Suggest matching unused\nedit prefixes;
+                else (no)
+                    :No suggestions;
+                endif
+            case (others)
+                :No suggestions;
+            endswitch
+        else (no)
+            :No suggestions;
+        endif
+    endif
+endif
+
+:Display suggestions\nin Popup;
+stop
+
+@enduml
