@@ -10,21 +10,25 @@ import seedu.address.model.Model;
 import seedu.address.model.order.PhoneNumberPredicate;
 
 /**
- * Finds and lists all orders in address book whose customer's phone number matches the given phone number.
+ * Finds and lists all active orders in address book whose customer's phone number matches the given phone number.
  */
-public class FindOrderCommand extends Command {
+public class FindOrderByPhoneNumberCommand extends Command {
 
     public static final String COMMAND_WORD = "findorder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds all orders matching the provided customer phone number "
             + "and displays them as a list with index numbers.\n"
-            + "Parameters: PHONE\n"
-            + "Example: " + COMMAND_WORD + " 90813212";
+            + "Parameters: p/PHONE\n"
+            + "Example: " + COMMAND_WORD + " p/90813212";
 
     private final PhoneNumberPredicate predicate;
 
-    public FindOrderCommand(PhoneNumberPredicate predicate) {
+    /**
+     * Creates a command to find active orders by customer phone number.
+     */
+    public FindOrderByPhoneNumberCommand(PhoneNumberPredicate predicate) {
+        requireNonNull(predicate);
         this.predicate = predicate;
     }
 
@@ -44,11 +48,11 @@ public class FindOrderCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindOrderCommand)) {
+        if (!(other instanceof FindOrderByPhoneNumberCommand)) {
             return false;
         }
 
-        FindOrderCommand otherFindCommand = (FindOrderCommand) other;
+        FindOrderByPhoneNumberCommand otherFindCommand = (FindOrderByPhoneNumberCommand) other;
         return predicate.equals(otherFindCommand.predicate);
     }
 
