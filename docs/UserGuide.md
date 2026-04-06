@@ -49,7 +49,7 @@ Here is an example workflow for a new user getting to know Food Bridge.
 
 1. [**Clear existing data**](#clearing-all-entries--clear): Use `clear` to remove the sample data.
 
-2. [**Add a customer**](#adding-a-customer-addperson): A new order come from a customer:
+2. [**Add a customer**](#adding-a-customer-addperson): A new order comes from a customer:
    * Name: Jenny Tan
    * Phone number: 98765432.
    * Postal code: 111111
@@ -57,7 +57,7 @@ Here is an example workflow for a new user getting to know Food Bridge.
    * Region: North.<br>
    Use `addperson n/Jenny Tan p/98765432 a/111111 u/#01-01 r/N` to add the new customer to the contact list.
    
-3. [**Edit a customer**](#editing-a-customer--editperson): You realise the unit is number wrong. It should be #02-01.<br>
+3. [**Edit a customer**](#editing-a-customer--editperson): You realise the unit number is wrong. It should be #02-01.<br>
     Use `editperson 1 u/#02-01` to edit the contact. (`1` refers to the first customer in the list, i.e. Jenny Tan.)
 
 4. [**Add an order**](#adding-an-order-addorder): The customer orders: 
@@ -128,15 +128,15 @@ Information about a customer is stored in a customer contact. Each contact has t
 
 Below are some common parameters and their required formats.
 
-| Parameter        | Format requirements                                             |
-|------------------|-----------------------------------------------------------------|
-| `CUSTOMER_INDEX` | Must be a positive integer, e.g. 1, 2, 3, …​                    |
-| `NAME`           | Must contain only alphabetical letters, numbers, and spaces.    |
-| `PHONE_NUMBER`   | Must be exactly 8 digits long and start with either 6, 8, or 9. |
-| `POSTAL_CODE`    | Must be exactly 6 digits long.                                  |
-| `UNIT`           | Must be in the form `#XX-XX`, where `X` is a digit.             |
-| `REGION`         | Must be either: `N`, `NE`, `W`, `E`, or `C`.                    |
-| `TAG`            | Must contain only alphabetical letters and numbers.             |
+| Parameter        | Format requirements                                              |
+|------------------|------------------------------------------------------------------|
+| `CUSTOMER_INDEX` | Must be a positive integer, e.g. 1, 2, 3, …​                     |
+| `NAME`           | Must contain only alphabetical letters, numbers, and spaces.     |
+| `PHONE_NUMBER`   | Must be exactly 8 digits long and start with either 6, 8, or 9.  |
+| `POSTAL_CODE`    | Must be exactly 6 digits long.                                   |
+| `UNIT`           | Must be in the form `#XX-XX` or `#XX-XXX`, where `X` is a digit. |
+| `REGION`         | Must be either: `N`, `NE`, `W`, `E`, or `C`.                     |
+| `TAG`            | Must contain only alphabetical letters and numbers.              |
 
 #### Adding a customer: `addperson`
 
