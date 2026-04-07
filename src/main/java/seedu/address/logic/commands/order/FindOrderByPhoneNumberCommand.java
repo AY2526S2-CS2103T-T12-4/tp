@@ -2,45 +2,46 @@ package seedu.address.logic.commands.order;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.ActiveOrderInRegionPredicate;
+import seedu.address.model.order.OrderMap;
 
 /**
- * Finds and lists active orders in the address book for a given region.
+ * Finds and lists all active orders in address book that match the given predicate.
  */
-public class FindOrderCommand extends Command {
+public class FindOrderByPhoneNumberCommand extends Command {
 
     public static final String COMMAND_WORD = "findorder";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds active orders for a region. "
-            + "Parameters: r/REGION\n"
+            + ": Finds all active orders that match the given criteria and displays them as a list "
+            + "with index numbers.\n"
+            + "Parameters: [p/PHONE] [r/REGION] (exactly one field must be provided)\n"
+            + "Example: " + COMMAND_WORD + " p/90813212\n"
             + "Example: " + COMMAND_WORD + " r/N";
 
-    private final ActiveOrderInRegionPredicate predicate;
+    private final Predicate<OrderMap> predicate;
 
     /**
-     * Creates a FindOrderCommand with the specified predicate.
+     * Creates a command to find active orders by predicate.
      */
-    public FindOrderCommand(ActiveOrderInRegionPredicate predicate) {
+    public FindOrderByPhoneNumberCommand(Predicate<OrderMap> predicate) {
         requireNonNull(predicate);
         this.predicate = predicate;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredOrderList(predicate);
+        model.updateFilteredOrderList(this.predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_ORDERS_LISTED_OVERVIEW, model.getFilteredOrderList().size()),
-                false,
-                false,
-                false,
-                true);
+                false, false, false, true);
     }
 
     @Override
@@ -49,12 +50,13 @@ public class FindOrderCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof FindOrderCommand)) {
+        // instanceof handles nulls
+        if (!(other instanceof FindOrderByPhoneNumberCommand)) {
             return false;
         }
 
-        FindOrderCommand otherCommand = (FindOrderCommand) other;
-        return predicate.equals(otherCommand.predicate);
+        FindOrderByPhoneNumberCommand otherFindCommand = (FindOrderByPhoneNumberCommand) other;
+        return predicate.equals(otherFindCommand.predicate);
     }
 
     @Override

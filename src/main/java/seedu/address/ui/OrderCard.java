@@ -26,11 +26,11 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label customer;
     @FXML
-    private Label region;
-    @FXML
     private Label status;
     @FXML
     private Label datetime;
+    @FXML
+    private Label region;
     @FXML
     private FlowPane items;
 
