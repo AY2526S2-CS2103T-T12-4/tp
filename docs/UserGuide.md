@@ -49,6 +49,10 @@ For those who can type fast, **CoursePilot** transforms student management into 
 
 1. Refer to the [Features](#features) below for details of each command.
 
+**Tip:** If you are new, start by using `list -tutorial` followed by `select` before attempting student-related commands.
+This ensures commands like `add -student` and `list -student` work as expected.  
+Following this workflow can help avoid common errors.
+
 ## Features
 
 <div markdown="block" class="alert alert-info">
@@ -307,7 +311,11 @@ CoursePilot provides context-aware autocomplete suggestions as you type in the c
 * <kbd>Escape</kbd> : Dismisses the suggestion menu.
 * You can also click on any suggestion to select it.
 
+<<<<<<< HEAD
 ---
+=======
+Autocomplete suggestions are updated dynamically as you type, helping to reduce input errors and improve efficiency.
+>>>>>>> dad3402b1cafadc2d1278104612764a8a0226de8
 
 ### Saving the data
 
