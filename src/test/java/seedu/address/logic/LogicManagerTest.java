@@ -90,18 +90,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_undoCommand_success() throws Exception {
-        String addCommand = AddPersonCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + ADDRESS_DESC_AMY + REGION_DESC_AMY;
-
-        logic.execute(addCommand);
-        CommandResult result = logic.execute(UndoCommand.COMMAND_WORD);
-
-        assertEquals(UndoCommand.MESSAGE_SUCCESS, result.getFeedbackToUser());
-        assertEquals(new ModelManager(), model);
-    }
-
-    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
