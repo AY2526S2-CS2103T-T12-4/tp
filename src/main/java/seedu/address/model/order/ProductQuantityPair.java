@@ -12,7 +12,7 @@ public class ProductQuantityPair implements Comparable<ProductQuantityPair> {
             "Orders should be in the form \"MENU_ITEM PRODUCT_QUANTITY\".";
     public static final String VALIDATION_REGEX = "^[0-9]\\d* \\d+$";
     private final Product product;
-    private final Quantity quantity;
+    private Quantity quantity;
 
     /**
      * Constructs a {@code ProductQuantityPair}.
@@ -47,6 +47,8 @@ public class ProductQuantityPair implements Comparable<ProductQuantityPair> {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public void setQuantity(int increment) {
+        quantity = new Quantity(Integer.toString(quantity.getValue() + increment)); }
     /**
      * Returns the Product of a ProductQuantityPair.
      */

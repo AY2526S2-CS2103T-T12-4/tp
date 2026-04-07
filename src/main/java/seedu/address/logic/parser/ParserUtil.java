@@ -172,7 +172,14 @@ public class ParserUtil {
                 throw new ParseException(e.getMessage());
             }
 
-            itemSet.add(productQuantityPair);
+            if (itemSet.stream().anyMatch(p -> p.getProduct().equals(productQuantityPair.getProduct()))) {
+                int increment = productQuantityPair.getQuantity().getValue();
+                itemSet.stream()
+                        .filter(p -> p.getProduct().equals(productQuantityPair.getProduct()))
+                        .forEach(p -> p.setQuantity(increment));
+            } else {
+                itemSet.add(productQuantityPair);
+            }
         }
         return itemSet;
     }
