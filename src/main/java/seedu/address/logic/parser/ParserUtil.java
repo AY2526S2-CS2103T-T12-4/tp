@@ -12,8 +12,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.OrderMap;
 import seedu.address.model.order.ProductQuantityPair;
+import seedu.address.model.order.Quantity;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -151,24 +151,45 @@ public class ParserUtil {
         return orderMap;
     }
     /**
-     * Parses a List of {@code String order} into a {@code Map<Integer, Integer> orderMap}.
+     * Parses a List of {@code String order} into a {@code Set<ProductQuantityPair> itemSet}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Map<Integer, Integer> parseOrders(List<String> orders) throws ParseException {
+    public static Set<ProductQuantityPair> parseOrders(List<String> orders) throws ParseException {
         requireNonNull(orders);
-        Map<Integer, Integer> orderMap = new HashMap<>();
+        Set<ProductQuantityPair> itemSet = new HashSet<>();
         for (String order : orders) {
             String trimmedOrder = order.trim();
 
-            if (!OrderMap.isValidProductQuantityPair(trimmedOrder)) {
+            if (!ProductQuantityPair.isValidProductQuantityPair(trimmedOrder)) {
                 throw new ParseException(ProductQuantityPair.MESSAGE_CONSTRAINTS);
             }
 
-            int menuItem = Integer.parseInt(trimmedOrder.split(" ")[0]);
-            int quantity = Integer.parseInt(trimmedOrder.split(" ")[1]);
-            orderMap.put(menuItem, quantity);
+            ProductQuantityPair productQuantityPair;
+
+            try {
+                productQuantityPair = new ProductQuantityPair(trimmedOrder);
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(e.getMessage());
+            }
+
+            itemSet.add(productQuantityPair);
         }
-        return orderMap;
+        return itemSet;
+    }
+
+    /**
+     * Parses a List of {@code String order} into a {@code Set<ProductQuantityPair> itemSet}.
+     * Quantities should be positive.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Set<ProductQuantityPair> parseOrdersPositiveQuantity(List<String> orders) throws ParseException {
+        Set<ProductQuantityPair> itemSet = parseOrders(orders);
+        for (ProductQuantityPair item : itemSet) {
+            if (item.getQuantity().getValue() <= 0) {
+                throw new ParseException(Quantity.MESSAGE_CONSTRAINTS_POSITIVE);
+            }
+        }
+        return itemSet;
     }
 
     /**

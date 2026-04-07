@@ -9,7 +9,7 @@ class EditOrderDescriptorTest {
     public void toStringMethod() {
         EditOrderCommand.EditOrderDescriptor editOrderDescriptor = new EditOrderCommand.EditOrderDescriptor();
         String expected = EditOrderCommand.EditOrderDescriptor.class.getCanonicalName() + "{orderMap="
-                + editOrderDescriptor.getOrderMap() + "}";
+                + editOrderDescriptor.getProductQuantityPairs() + "}";
         assertEquals(expected, editOrderDescriptor.toString());
     }
 }

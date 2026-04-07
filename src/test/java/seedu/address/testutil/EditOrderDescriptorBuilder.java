@@ -1,10 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.logic.commands.order.EditOrderCommand.EditOrderDescriptor;
 import seedu.address.model.order.OrderMap;
+import seedu.address.model.order.ProductQuantityPair;
 
 /**
  * A utility class to help with building EditOrderDescriptor objects.
@@ -26,21 +27,18 @@ public class EditOrderDescriptorBuilder {
      */
     public EditOrderDescriptorBuilder(OrderMap order) {
         descriptor = new EditOrderDescriptor();
-        descriptor.setOrderMap(order.getOrderMap());
+        descriptor.setProductQuantityPairs(order.getProductQuantityPairs());
     }
 
     /**
      * Sets the {@code orderMap} of the {@code EditOrderDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withOrderMap(String... orders) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<ProductQuantityPair> map = new HashSet<>();
         for (String order : orders) {
-            String[] pair = order.split(" ", 2);
-            String product = pair[0];
-            String quantity = pair[1];
-            map.put(Integer.parseInt(product), Integer.parseInt(quantity));
+            map.add(new ProductQuantityPair(order));
         }
-        descriptor.setOrderMap(map);
+        descriptor.setProductQuantityPairs(map);
         return this;
     }
 

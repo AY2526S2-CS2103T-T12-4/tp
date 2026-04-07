@@ -15,9 +15,15 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.order.AddOrderCommand;
+import seedu.address.logic.commands.order.ClearOrderCommand;
+import seedu.address.logic.commands.order.CompleteOrderCommand;
+import seedu.address.logic.commands.order.DeleteOrderByPhoneNumberCommand;
 import seedu.address.logic.commands.order.DeleteOrderCommand;
 import seedu.address.logic.commands.order.EditOrderCommand;
+import seedu.address.logic.commands.order.FindOrderByPhoneNumberCommand;
+import seedu.address.logic.commands.order.ListCurrOrderCommand;
 import seedu.address.logic.commands.order.ListOrderCommand;
+import seedu.address.logic.commands.order.ListPastOrderCommand;
 import seedu.address.logic.commands.person.AddPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
@@ -25,8 +31,11 @@ import seedu.address.logic.commands.person.FindPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.order.AddOrderCommandParser;
+import seedu.address.logic.parser.order.CompleteOrderCommandParser;
+import seedu.address.logic.parser.order.DeleteOrderByPhoneNumberCommandParser;
 import seedu.address.logic.parser.order.DeleteOrderCommandParser;
 import seedu.address.logic.parser.order.EditOrderCommandParser;
+import seedu.address.logic.parser.order.FindOrderByPredicateCommandParser;
 import seedu.address.logic.parser.person.AddPersonCommandParser;
 import seedu.address.logic.parser.person.DeletePersonCommandParser;
 import seedu.address.logic.parser.person.EditPersonCommandParser;
@@ -69,8 +78,14 @@ public class AddressBookParser {
         case AddPersonCommand.COMMAND_WORD:
             return new AddPersonCommandParser().parse(arguments);
 
+        case AddOrderCommand.COMMAND_WORD:
+            return new AddOrderCommandParser().parse(arguments);
+
         case EditPersonCommand.COMMAND_WORD:
             return new EditPersonCommandParser().parse(arguments);
+
+        case EditOrderCommand.COMMAND_WORD:
+            return new EditOrderCommandParser().parse(arguments);
 
         case DeletePersonCommand.COMMAND_WORD:
             return new DeletePersonCommandParser().parse(arguments);
@@ -78,20 +93,32 @@ public class AddressBookParser {
         case DeleteOrderCommand.COMMAND_WORD:
             return new DeleteOrderCommandParser().parse(arguments);
 
+        case DeleteOrderByPhoneNumberCommand.COMMAND_WORD:
+            return new DeleteOrderByPhoneNumberCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+
+        case ClearOrderCommand.COMMAND_WORD:
+            return new ClearOrderCommand();
 
         case FindPersonCommand.COMMAND_WORD:
             return new FindPersonCommandParser().parse(arguments);
 
+        case FindOrderByPhoneNumberCommand.COMMAND_WORD:
+            return new FindOrderByPredicateCommandParser().parse(arguments);
+
         case ListPersonCommand.COMMAND_WORD:
             return new ListPersonCommand();
 
-        case EditOrderCommand.COMMAND_WORD:
-            return new EditOrderCommandParser().parse(arguments);
-
         case ListOrderCommand.COMMAND_WORD:
             return new ListOrderCommand();
+
+        case ListCurrOrderCommand.COMMAND_WORD:
+            return new ListCurrOrderCommand();
+
+        case ListPastOrderCommand.COMMAND_WORD:
+            return new ListPastOrderCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -105,8 +132,8 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        case AddOrderCommand.COMMAND_WORD:
-            return new AddOrderCommandParser().parse(arguments);
+        case CompleteOrderCommand.COMMAND_WORD:
+            return new CompleteOrderCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

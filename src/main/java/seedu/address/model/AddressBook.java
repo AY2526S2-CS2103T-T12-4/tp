@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -18,7 +19,9 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    //@@author Achiack
     private final UniqueOrderList orders;
+    //@@author
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,7 +32,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        //@@author Achiack
         orders = new UniqueOrderList();
+        //@@author
     }
 
     public AddressBook() {}
@@ -107,6 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //@@author Achiack
     /**
      * Adds an order to the address book.
      * The order must not already exist in the address book.
@@ -135,13 +141,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes order(s) from the order list using the given predicate.
+     */
+    public void removeOrderByPredicate(Predicate<OrderMap> predicate) {
+        orders.removeByPredicate(predicate);
+    }
+
+    /**
      * Returns true if an order with the same id as {@code order} exists in the address book.
      */
     public boolean hasOrder(OrderMap order) {
         requireNonNull(order);
         return orders.contains(order);
     }
-
+    //@@author
     //// util methods
 
     @Override
