@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -73,8 +73,8 @@ public class JsonAdaptedOrderTest {
         JsonAdaptedOrder adaptedOrder = new JsonAdaptedOrder(
                 null, "Alice", "98765432", "PENDING", ORDER_DATETIME, List.of("1 1"));
 
-        IllegalValueException thrown = assertThrows(IllegalValueException.class,
-                () -> adaptedOrder.toModelType(PERSON));
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () ->
+                adaptedOrder.toModelType(PERSON));
         assertEquals(String.format(JsonAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT, "orderId"), thrown.getMessage());
     }
 
@@ -83,8 +83,8 @@ public class JsonAdaptedOrderTest {
         JsonAdaptedOrder adaptedOrder = new JsonAdaptedOrder(
                 "1", "Alice", "98765432", null, ORDER_DATETIME, List.of("1 1"));
 
-        IllegalValueException thrown = assertThrows(IllegalValueException.class,
-                () -> adaptedOrder.toModelType(PERSON));
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () ->
+                adaptedOrder.toModelType(PERSON));
         assertEquals(String.format(JsonAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT, "status"), thrown.getMessage());
     }
 
@@ -93,8 +93,8 @@ public class JsonAdaptedOrderTest {
         JsonAdaptedOrder adaptedOrder = new JsonAdaptedOrder(
                 "1", "Alice", "98765432", "PENDING", null, List.of("1 1"));
 
-        IllegalValueException thrown = assertThrows(IllegalValueException.class,
-                () -> adaptedOrder.toModelType(PERSON));
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () ->
+                adaptedOrder.toModelType(PERSON));
         assertEquals(String.format(JsonAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT, "orderDatetime"),
                 thrown.getMessage());
     }
@@ -104,8 +104,8 @@ public class JsonAdaptedOrderTest {
         JsonAdaptedOrder adaptedOrder = new JsonAdaptedOrder(
                 "1", "Alice", "98765432", "PENDING", ORDER_DATETIME, List.of("1 1"));
 
-        IllegalValueException thrown = assertThrows(IllegalValueException.class,
-                () -> adaptedOrder.toModelType(null));
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () ->
+                adaptedOrder.toModelType(null));
         assertEquals(String.format(JsonAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT, "person"), thrown.getMessage());
     }
 
@@ -114,8 +114,8 @@ public class JsonAdaptedOrderTest {
         JsonAdaptedOrder adaptedOrder = new JsonAdaptedOrder(
                 "1", "Alice", "98765432", "PENDING", ORDER_DATETIME, List.of("abc"));
 
-        IllegalValueException thrown = assertThrows(IllegalValueException.class,
-                () -> adaptedOrder.toModelType(PERSON));
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () ->
+                adaptedOrder.toModelType(PERSON));
         assertEquals(ProductQuantityPair.MESSAGE_CONSTRAINTS, thrown.getMessage());
     }
 
@@ -124,8 +124,8 @@ public class JsonAdaptedOrderTest {
         JsonAdaptedOrder adaptedOrder = new JsonAdaptedOrder(
                 "abc", "Alice", "98765432", "PENDING", ORDER_DATETIME, List.of("1 1"));
 
-        IllegalValueException thrown = assertThrows(IllegalValueException.class,
-                () -> adaptedOrder.toModelType(PERSON));
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () ->
+                adaptedOrder.toModelType(PERSON));
         assertEquals("Invalid orderId: abc", thrown.getMessage());
     }
 
@@ -134,8 +134,8 @@ public class JsonAdaptedOrderTest {
         JsonAdaptedOrder adaptedOrder = new JsonAdaptedOrder(
                 "1", "Alice", "98765432", "UNKNOWN", ORDER_DATETIME, List.of("1 1"));
 
-        IllegalValueException thrown = assertThrows(IllegalValueException.class,
-                () -> adaptedOrder.toModelType(PERSON));
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () ->
+                adaptedOrder.toModelType(PERSON));
         assertEquals("Invalid order status: UNKNOWN", thrown.getMessage());
     }
 
@@ -144,8 +144,8 @@ public class JsonAdaptedOrderTest {
         JsonAdaptedOrder adaptedOrder = new JsonAdaptedOrder(
                 "1", "Alice", "98765432", "PENDING", "invalid-datetime", List.of("1 1"));
 
-        IllegalValueException thrown = assertThrows(IllegalValueException.class,
-                () -> adaptedOrder.toModelType(PERSON));
+        IllegalValueException thrown = assertThrows(IllegalValueException.class, () ->
+                adaptedOrder.toModelType(PERSON));
         assertEquals("Invalid order datetime: invalid-datetime", thrown.getMessage());
     }
 }
