@@ -290,9 +290,11 @@ public class MainWindow extends UiPart<Stage> {
         sceneRoot.applyCss();
         sceneRoot.layout();
 
-        double requiredHeight = sceneRoot.prefHeight(primaryStage.getWidth());
-        if (requiredHeight > primaryStage.getHeight()) {
-            primaryStage.setHeight(requiredHeight);
+        double requiredContentHeight = sceneRoot.prefHeight(primaryStage.getWidth());
+        double stageDecorationHeight = primaryStage.getHeight() - primaryStage.getScene().getHeight();
+        double requiredStageHeight = requiredContentHeight + stageDecorationHeight;
+        if (requiredStageHeight > primaryStage.getHeight()) {
+            primaryStage.setHeight(requiredStageHeight);
         }
     }
 }
