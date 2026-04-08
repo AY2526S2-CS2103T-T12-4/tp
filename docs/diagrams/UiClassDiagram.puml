@@ -38,7 +38,7 @@ MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" PersonListPanel
 MainWindow *-down-> "1" OrderListPanel
 MainWindow *-down-> "1" StatusBarFooter
-MainWindow *-down-> "1" HelpWindow
+MainWindow -down-> "1" HelpWindow
 
 PersonListPanel -down-> "*" PersonCard
 OrderListPanel -down-> "*" OrderCard
