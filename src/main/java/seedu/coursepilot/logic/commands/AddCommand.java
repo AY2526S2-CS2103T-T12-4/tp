@@ -163,11 +163,8 @@ public class AddCommand extends Command {
         }
         if (this.addTarget == AddTarget.STUDENT) {
             return Objects.equals(toAdd, otherAddCommand.toAdd);
-        } else if (this.addTarget == AddTarget.TUTORIAL) {
-            return Objects.equals(tutorialToAdd, otherAddCommand.tutorialToAdd);
-        } else {
-            return false;
         }
+        return Objects.equals(tutorialToAdd, otherAddCommand.tutorialToAdd);
     }
 
     @Override
