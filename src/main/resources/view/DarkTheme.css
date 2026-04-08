@@ -219,7 +219,7 @@
 }
 
 .app-brand-row {
-    -fx-padding: 2 0 2 0;
+    -fx-padding: 2 0 2 6;
 }
 
 .entity-tabs {
@@ -465,7 +465,7 @@
 }
 
 #resultDisplay {
-    -fx-background-color: transparent, #f6f6f6, transparent, #f6f6f6;
+    -fx-background-color: #ffffff;
     -fx-background-radius: 0;
 }
 
