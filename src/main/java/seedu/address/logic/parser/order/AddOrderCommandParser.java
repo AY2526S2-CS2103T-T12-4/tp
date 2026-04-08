@@ -1,14 +1,12 @@
 package seedu.address.logic.parser.order;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERIDX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.order.AddOrderCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;

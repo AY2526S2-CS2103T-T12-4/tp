@@ -47,6 +47,9 @@ public class ProductQuantityPair implements Comparable<ProductQuantityPair> {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns a new {@code ProductQuantityPair} for the product, with the updated quantity.
+     */
     public ProductQuantityPair withNewQuantity(int increment) {
         int newQuantity = quantity.getValue() + increment;
         return new ProductQuantityPair(
