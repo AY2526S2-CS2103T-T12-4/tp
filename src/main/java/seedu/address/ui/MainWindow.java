@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -29,6 +30,7 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private final boolean shouldAutoFitWindowOnStartup;
 
     private Stage primaryStage;
     private Logic logic;
@@ -67,8 +69,11 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        GuiSettings guiSettings = logic.getGuiSettings();
+        shouldAutoFitWindowOnStartup = guiSettings.getWindowCoordinates() == null;
+
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(guiSettings);
 
         setAccelerators();
 
@@ -130,6 +135,18 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        primaryStage.widthProperty().addListener((obs, oldWidth, newWidth) -> expandWindowVerticallyIfNeeded());
+        primaryStage.heightProperty()
+                .addListener((obs, oldHeight, newHeight) -> expandWindowVerticallyIfNeeded());
+
+        Platform.runLater(() -> {
+            if (shouldAutoFitWindowOnStartup) {
+                fitWindowToSceneOnStartup();
+            } else {
+                expandWindowVerticallyIfNeeded();
+            }
+        });
+
         // Default to showing persons
         showPersonList();
     }
@@ -139,7 +156,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void showOrderList() {
-        setActiveListPanel(orderListPanel.getRoot(), "Active orders");
+        setActiveListPanel(orderListPanel.getRoot(), "Orders");
     }
 
 
@@ -205,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            expandWindowForResultDisplayIfNeeded();
+            expandWindowVerticallyIfNeeded();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -225,15 +242,35 @@ public class MainWindow extends UiPart<Stage> {
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
-            expandWindowForResultDisplayIfNeeded();
+            expandWindowVerticallyIfNeeded();
             throw e;
         }
     }
 
     /**
-     * Expands the stage only when new feedback needs more vertical space.
+     * Sizes the initial window to its scene and ensures a portrait-like shape.
      */
-    private void expandWindowForResultDisplayIfNeeded() {
+    private void fitWindowToSceneOnStartup() {
+        if (primaryStage.getScene() == null) {
+            return;
+        }
+
+        Parent sceneRoot = primaryStage.getScene().getRoot();
+        sceneRoot.applyCss();
+        sceneRoot.layout();
+        primaryStage.sizeToScene();
+
+        if (primaryStage.getHeight() <= primaryStage.getWidth()) {
+            primaryStage.setHeight(primaryStage.getWidth() + 1);
+        }
+
+        expandWindowVerticallyIfNeeded();
+    }
+
+    /**
+     * Expands the stage only when current content needs more vertical space.
+     */
+    private void expandWindowVerticallyIfNeeded() {
         if (primaryStage.getScene() == null) {
             return;
         }
