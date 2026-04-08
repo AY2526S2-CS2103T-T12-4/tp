@@ -6,5 +6,5 @@
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/17"
     xmlns:fx="http://javafx.com/fxml/1">
   <Label fx:id="resultDisplay" wrapText="true"
-      maxWidth="1.7976931348623157E308" styleClass="result-display"/>
+      maxWidth="Infinity" styleClass="result-display"/>
 </StackPane>
