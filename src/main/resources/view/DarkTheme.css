@@ -276,12 +276,12 @@
 }
 
 .menu-item:focused,
-.menu-item:hovered {
+.menu-item:hover {
     -fx-background-color: #ffe7d7;
 }
 
 .menu-item:focused .label,
-.menu-item:hovered .label {
+.menu-item:hover .label {
     -fx-text-fill: #1f1f1f;
 }
 
