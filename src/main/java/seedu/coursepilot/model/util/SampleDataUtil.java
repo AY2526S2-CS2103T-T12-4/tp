@@ -28,10 +28,10 @@ public class SampleDataUtil {
         return new Student[] {
             new Student(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new MatricNumber("A000000"),
-                getTagSet("friends")),
+                getTagSet("DeanList")),
             new Student(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new MatricNumber("A000001"),
-                getTagSet("colleagues", "friends")),
+                getTagSet("HonorRoll", "DeanList")),
         };
     }
 
@@ -39,10 +39,10 @@ public class SampleDataUtil {
         return new Student[] {
             new Student(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new MatricNumber("A000002"),
-                getTagSet("neighbours")),
+                getTagSet("Improving")),
             new Student(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new MatricNumber("A000003"),
-                getTagSet("family")),
+                getTagSet("Distinction", "HonorRoll")),
         };
     }
 
@@ -50,10 +50,10 @@ public class SampleDataUtil {
         return new Student[] {
             new Student(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new MatricNumber("A000004"),
-                getTagSet("classmates")),
+                getTagSet("Exceptional", "DeanList", "Distinction")),
             new Student(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new MatricNumber("A000005"),
-                getTagSet("colleagues"))
+                getTagSet("Underperforming", "Failing"))
         };
     }
 
