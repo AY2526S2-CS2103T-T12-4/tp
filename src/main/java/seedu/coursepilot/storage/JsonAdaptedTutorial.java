@@ -98,6 +98,12 @@ class JsonAdaptedTutorial {
             modelStudents.add(jsonStudent.toModelType());
         }
 
+        if (modelStudents.size() > modelCapacity.value) {
+            throw new IllegalValueException(
+                    "Tutorial '" + tutorialCode + "' has more students ("
+                            + modelStudents.size() + ") than its capacity (" + modelCapacity.value + ").");
+        }
+
         Tutorial tutorial = new Tutorial(modelTutorialCode, modelDay, modelTimeSlot, modelCapacity);
 
         for (Student student : modelStudents) {
