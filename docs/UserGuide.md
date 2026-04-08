@@ -73,9 +73,11 @@ Here is an example workflow for a new user getting to know Food Bridge.
 6. [**Edit an order**](#editing-an-order--editorder): The customer changes Caesar Salad (item 5) to Smoked Salmon Bagel (item 6).<br>
     Use `editorder 1 o/5 0 o/6 1` to edit the order. (`1` refers to the first order in the list.)
 
-7. [**Delete an order**](#deleting-an-order--deleteorder): Once the order is completed, use `deleteorder` to delete the order.
+7. [**Find orders**](#finding-orders-by-region--findorder): Use `findorder r/N` to list all active orders from the North region, or `findorder p/98765432` to list active orders by phone number.
 
-8. [**Exit**](#exiting-the-program--exit): Use `exit` to close the application.
+8. [**Complete orders by region**](#completing-all-orders-in-a-region--completeregion): Use `completeregion r/N` to mark all North region orders as completed.
+
+9. [**Exit**](#exiting-the-program--exit): Use `exit` to close the application.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -289,6 +291,29 @@ Examples:
 *  `editorder 1 o/1 1 o/2 4` edits the 1st order in the list to include 1 unit of menu item 1 and 4 units of menu item 2.
 *  `editorder 2 o/3 0` edits the 2nd order to remove menu item 3 from the order.
 
+#### Completing all orders in a region : `completeregion`
+
+Marks all orders belonging to customers in a region as completed.
+
+Format: `completeregion r/REGION`
+
+* Marks all orders made by customers in the specified `REGION` as completed.
+* Orders that are already completed are skipped.
+
+Examples:
+* `completeregion r/N` marks all orders from the `N` region as completed.
+
+#### Finding orders by region : `findorder`
+
+Finds all active (incomplete) orders whose customer's region matches the given region.
+
+Format: `findorder r/REGION`
+
+* Exactly one of `p/PHONE` or `r/REGION` must be provided.
+
+Examples:
+* `findorder r/N` lists active orders for customers in the `N` region.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ### **General Commands**
@@ -390,6 +415,8 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 | **Delete Order**             | `deleteorder ORDER_INDEX` <br> e.g. `deleteorder 3`                                                                                                           |
 | **List Orders**              | `listorder`                                                                                                                                                   |
 | **Edit Order**               | `editorder ORDER_INDEX o/MENU_ITEM QUANTITY [o/MENU_ITEM QUANTITY]…​` <br> e.g. `editorder 1 o/1 1 o/2 4`                                                     |
+| **Complete Region Orders**   | `completeregion r/REGION` <br> e.g. `completeregion r/N`                                                                                                       |
+| **Find Orders by Region**    | `findorder r/REGION` <br> e.g. `findorder r/N`                                                                                                                 |
 | **View Help**                | `help`                                                                                                                                                        |
 | **Undo**                     | `undo`                                                                                                                                                        |
 | **Redo**                     | `redo`                                                                                                                                                        |
