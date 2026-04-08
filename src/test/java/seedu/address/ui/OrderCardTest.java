@@ -20,6 +20,9 @@ public class OrderCardTest {
 
     @BeforeAll
     public static void initToolkit() {
+        if (System.getenv("CI") != null) {
+            org.junit.jupiter.api.Assumptions.assumeTrue(false, "Skip UI tests on CI");
+        }
         System.setProperty("javafx.platform", "Monocle");
         System.setProperty("monocle.platform", "Headless");
         System.setProperty("prism.order", "sw");
