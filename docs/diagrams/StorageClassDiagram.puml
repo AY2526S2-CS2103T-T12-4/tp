@@ -40,8 +40,7 @@ JsonCoursePilotStorage ..> JsonSerializableCoursePilot
 
 JsonSerializableCoursePilot --> "*" JsonAdaptedStudent
 JsonSerializableCoursePilot --> "*" JsonAdaptedTutorial
-
-' Reflecting the nested structure in your code
 JsonAdaptedTutorial --> "*" JsonAdaptedStudent
 JsonAdaptedStudent --> "*" JsonAdaptedTag
+
 @enduml
