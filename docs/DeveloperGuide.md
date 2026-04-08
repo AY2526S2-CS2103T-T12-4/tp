@@ -401,7 +401,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 2a. No tutorial is currently selected.
-    * 2a1. CoursePilot shows an error message indicating that a tutorial must first be selected
+    * 2a1. CoursePilot shows an error message indicating a tutorial must first be selected
       Use case ends.
 
 * 3a. Phone number or Email is already used by a different student entry.
@@ -424,29 +424,35 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Tutor requests to <u>list students (UC06)</u>.
-2.  Tutor requests to delete a specific student in the list. 
-3.  CoursePilot deletes the student and displays a confirmation message.
+1.  Tutor requests to delete a specific student by their index in the displayed list.
+2.  CoursePilot verifies that a tutorial is currently selected.
+3.  CoursePilot identifies the student at the specified index within that tutorial.
+4.  CoursePilot removes the student from the current tutorial.
+5.  CoursePilot checks if the student is enrolled in any other tutorials.
+6.  CoursePilot deletes the student from the global system if they are not found in any other tutorial.
+7.  CoursePilot updates the display and shows a confirmation message.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
-
-  Use case ends.
-
-* 2b. The given index is invalid.
-
-    * 2b1. CoursePilot shows an error message.
-
+* 1a. The given index is invalid (out of bounds or non-numeric).
+    * 1a1. CoursePilot shows an error message indicating an invalid index.
       Use case ends.
+
+* 2a. No tutorial is currently selected (No "Operating Tutorial").
+    * 2a1. CoursePilot shows an error message indicating a tutorial must first be selected
+      Use case ends.
+
+* 6a. The student exists in at least one other tutorial.
+    * 6a1. CoursePilot retains the student in the global list and only removes the association with the current tutorial.
+      Use case resumes at step 7.
 
 **Use case: UC04 - Edit a student**
 
 **MSS**
 
-1.  Tutor requests to <u>list students (UC06)</u>.
+1.  Tutor requests to list students.
 2.  Tutor enters the command to mark a student's attendance for a specific tutorial session.
 3.  CoursePilot records the attendance and displays a confirmation message.
 
