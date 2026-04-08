@@ -58,11 +58,14 @@ public class AddOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         OrderMap.setIdx(model.getFilteredOrderList().size() + 1);
-        Person person = model.getFilteredPersonList().get(index - 1);
-        OrderMap toAdd = new OrderMap(person, this.order);
-        model.addOrder(toAdd);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        if (index > model.getFilteredPersonList().size()) {
+            return new CommandResult(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        } else {
+            Person person = model.getFilteredPersonList().get(index - 1);
+            OrderMap toAdd = new OrderMap(person, this.order);
+            model.addOrder(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        }
     }
 
     /** Returns the index of the person specified. */
