@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-title Get Suggestions For Command
+title Get suggestions for command
 
 start
 
@@ -35,7 +35,5 @@ else ([else])
     endif
 endif
 
-:Display suggestions\nin Popup;
 stop
-
 @enduml

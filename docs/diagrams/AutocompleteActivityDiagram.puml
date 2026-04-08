@@ -5,22 +5,26 @@ start
 :User types text in CommandBox;
 
 if () then ([text is empty])
-    :Return all command words;
+    :Hide suggestions;
+    stop
 else ([else])
     if () then ([no space in text])
-        :Filter command words\nby typed prefix;
+        :Filter COMMAND_WORDS\nby prefix;
     else ([else])
         if () then ([valid command word])
-            :Get suggestions\nfor command;
-            -[hidden]->
-            detach
+            :Get suggestions for command;
+            note right: Fork: See detailed sub-diagram
         else ([else])
-            :No suggestions;
+            :Returns empty list;
         endif
     endif
 endif
 
-:Display suggestions\nin Popup;
+if () then ([suggestions list is empty])
+    :Hide suggestion;
+else ([else])
+    :Set items in suggestionListView;
+    :Display suggestions in Popup;
+endif
 stop
-
 @enduml
