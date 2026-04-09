@@ -223,6 +223,28 @@ public class AddCommandTest {
 
         // different student -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
+
+        // different addTarget (student vs tutorial) -> returns false, no NPE
+        Tutorial tutorial = new Tutorial(new TutorialCode("CS2103T-W13"), new Day("Mon"),
+                new TimeSlot("10:00-11:00"), new Capacity(10));
+        AddCommand addTutorialCommand = new AddCommand(tutorial);
+        assertFalse(addAliceCommand.equals(addTutorialCommand));
+        assertFalse(addTutorialCommand.equals(addAliceCommand));
+
+        // same tutorial -> returns true; different tutorial -> returns false
+        AddCommand addTutorialCommandCopy = new AddCommand(tutorial);
+        assertTrue(addTutorialCommand.equals(addTutorialCommandCopy));
+        Tutorial otherTutorial = new Tutorial(new TutorialCode("CS2103T-W14"), new Day("Tue"),
+                new TimeSlot("11:00-12:00"), new Capacity(10));
+        assertFalse(addTutorialCommand.equals(new AddCommand(otherTutorial)));
+    }
+
+    @Test
+    public void hashCode_sameValues_sameHash() {
+        Student alice = new StudentBuilder().withName("Alice").build();
+        AddCommand a1 = new AddCommand(alice);
+        AddCommand a2 = new AddCommand(alice);
+        assertEquals(a1.hashCode(), a2.hashCode());
     }
 
     @Test
