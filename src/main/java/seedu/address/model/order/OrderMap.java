@@ -18,7 +18,7 @@ public class OrderMap {
             "Orders should be in the form \"MENU_ITEM PRODUCT_QUANTITY\".";
     public static final String VALIDATION_REGEX = "^\\d+ \\d+$";
 
-    private static int idx = 1;
+    private static int idx = 1; // Math.max(1, model.getFilteredOrderList().size())
     private final int orderId;
     private final Person person;
     private final Set<ProductQuantityPair> productQuantityPairs = new HashSet<>();
@@ -90,6 +90,7 @@ public class OrderMap {
     /**
      * Returns the id of the next order to be created.
      */
+
     public static int getNextId() {
         return idx;
     }
@@ -97,8 +98,13 @@ public class OrderMap {
     /**
      * Resets the static order id counter (test helper).
      */
+
     public static void cleanIdx() {
         idx = 1;
+    }
+
+    public static void setIdx(int newIdx) {
+        idx = newIdx;
     }
 
     /**
@@ -111,7 +117,8 @@ public class OrderMap {
         }
 
         return otherOrder != null
-                && otherOrder.getOrderId() == getOrderId();
+                && otherOrder.getOrderId() == getOrderId()
+                && otherOrder.getOrderDatetime().equals(getOrderDatetime());
     }
 
     /**

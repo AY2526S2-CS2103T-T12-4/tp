@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -172,7 +173,20 @@ public class ParserUtil {
                 throw new ParseException(e.getMessage());
             }
 
-            itemSet.add(productQuantityPair);
+            Optional<ProductQuantityPair> existing = itemSet.stream()
+                    .filter(p -> p.getProduct().equals(productQuantityPair.getProduct()))
+                    .findFirst();
+
+            if (existing.isPresent()) {
+                ProductQuantityPair oldPair = existing.get();
+                itemSet.remove(oldPair);
+                ProductQuantityPair updated = oldPair.withNewQuantity(
+                        productQuantityPair.getQuantity().getValue()
+                );
+                itemSet.add(updated);
+            } else {
+                itemSet.add(productQuantityPair);
+            }
         }
         return itemSet;
     }

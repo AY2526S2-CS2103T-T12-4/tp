@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.order;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMERIDX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDERS;
 
@@ -55,11 +56,15 @@ public class AddOrderCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) {
-        Person person = model.getFilteredPersonList().get(index - 1);
-        OrderMap toAdd = new OrderMap(person, this.order);
-        model.addOrder(toAdd);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        OrderMap.setIdx(model.getAddressBook().getOrderList().size() + 1);
+        if (index > model.getFilteredPersonList().size()) {
+            return new CommandResult(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        } else {
+            Person person = model.getFilteredPersonList().get(index - 1);
+            OrderMap toAdd = new OrderMap(person, this.order);
+            model.addOrder(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        }
     }
 
     /** Returns the index of the person specified. */
