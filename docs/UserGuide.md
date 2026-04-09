@@ -415,8 +415,6 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 | **Delete Order**             | `deleteorder ORDER_INDEX` <br> e.g. `deleteorder 3`                                                                                                           |
 | **List Orders**              | `listorder`                                                                                                                                                   |
 | **Edit Order**               | `editorder ORDER_INDEX o/MENU_ITEM QUANTITY [o/MENU_ITEM QUANTITY]…​` <br> e.g. `editorder 1 o/1 1 o/2 4`                                                     |
-| **Complete Region Orders**   | `completeregion r/REGION` <br> e.g. `completeregion r/N`                                                                                                       |
-| **Find Orders by Region**    | `findorder r/REGION` <br> e.g. `findorder r/N`                                                                                                                 |
 | **View Help**                | `help`                                                                                                                                                        |
 | **Undo**                     | `undo`                                                                                                                                                        |
 | **Redo**                     | `redo`                                                                                                                                                        |
