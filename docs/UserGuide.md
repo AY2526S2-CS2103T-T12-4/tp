@@ -75,7 +75,11 @@ Here is an example workflow for a new user getting to know Food Bridge.
 
 7. [**Delete an order**](#deleting-an-order--deleteorder): Once the order is completed, use `deleteorder` to delete the order.
 
-8. [**Exit**](#exiting-the-program--exit): Use `exit` to close the application.
+8. [**Find orders**](#finding-orders-by-region--findorder): Use `findorder r/N` to list all active orders from the North region, or `findorder p/98765432` to list active orders by phone number.
+
+9. [**Complete orders by region**](#completing-all-orders-in-a-region--completeregion): Use `completeregion r/N` to mark all North region orders as completed.
+
+10. [**Exit**](#exiting-the-program--exit): Use `exit` to close the application.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -336,6 +340,27 @@ Format: `complete INDEX`
 * Marks the order at the specified `INDEX` as completed.
 * The index refers to the index number shown in the displayed order list.
 * The index **must be a positive integer** 1, 2, 3, …​
+
+#### Completing all orders in a region : `completeregion`
+
+Marks all orders belonging to customers in a region as completed.
+
+Format: `completeregion r/REGION`
+
+* Marks all orders made by customers in the specified `REGION` as completed.
+* Orders that are already completed are skipped.
+
+Examples:
+* `completeregion r/N` marks all orders from the `N` region as completed.
+
+#### Finding orders by region : `findorder`
+
+Finds all orders whose customer's region matches the given region.
+
+Format: `findorder r/REGION`
+
+Examples:
+* `findorder r/N` lists active orders for customers in the `N` region.
 
 #### Clear Order List: `clearorder`
 
