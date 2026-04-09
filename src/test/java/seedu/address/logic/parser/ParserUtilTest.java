@@ -25,6 +25,7 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_UNITNO = "05-05";
     private static final String INVALID_ORDER_NEGATIVE_QUANTITY = "1 -1";
     private static final String INVALID_ORDER_ZERO_QUANTITY = "1 0";
     private static final String INVALID_TAG = "#friend";
@@ -127,6 +128,22 @@ public class ParserUtilTest {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS, VALID_UNITNO);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace, VALID_UNITNO));
+    }
+
+    @Test
+    public void parseUnitNo_validValueWithWhitespace_returnsTrimmedUnitNo() throws Exception {
+        String unitNoWithWhitespace = WHITESPACE + VALID_UNITNO + WHITESPACE;
+        assertEquals(VALID_UNITNO, ParserUtil.parseUnitNo(unitNoWithWhitespace));
+    }
+
+    @Test
+    public void parseUnitNo_blankValue_returnsBlankString() throws Exception {
+        assertEquals("", ParserUtil.parseUnitNo(""));
+    }
+
+    @Test
+    public void parseUnitNo_invalidValue_throwsParserException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseUnitNo(INVALID_UNITNO));
     }
 
     @Test
