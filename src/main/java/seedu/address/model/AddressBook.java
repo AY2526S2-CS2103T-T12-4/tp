@@ -107,7 +107,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         List<OrderMap> affectedOrders = new ArrayList<>();
         for (OrderMap order : orders.asUnmodifiableObservableList()) {
-            if (order.getPerson().equals(target)) {
+            if (order.getPerson().isSamePerson(target)) {
                 affectedOrders.add(order);
             }
         }
