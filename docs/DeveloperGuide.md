@@ -661,6 +661,39 @@ testers are expected to do more *exploratory* testing.
 
   1. Launch after moving the app folder and verify data path handling remains valid.
 
+### Adding a student
+
+1. Adding a student to a selected tutorial
+
+   1. Prerequisites: Select a tutorial using the `select` command (e.g., `select CS2103T-W13`). Ensure the tutorial exists and is not at full capacity.
+
+   1. Test case: `add -student /name John Doe /phone 98765432 /email johnd@example.com /matric A123456`<br>
+      Expected: Student is added to the current operating tutorial. Details of the added student shown in the status message.
+
+   1. Test case: `add -student /name John Doe /phone 98765432 /email johnd@example.com /matric A123456` (repeat the same command)<br>
+      Expected: No student is added. Error message indicating duplicate student shown in the status message.
+
+   1. Test case: `add -student /name John Doe /phone 98765432 /email johnd@example.com`(missing `/matric` field)<br>
+      Expected: No student is added. Error message indicating invalid command format shown in the status message.
+
+   1. Other incorrect add commands to try: `add -student`, `add -student /name`, `add -student /name John Doe /phone abc /email johnd@example.com /matric A123456` (non-numeric phone)<br>
+      Expected: Similar to previous.
+
+1. Adding a student without a selected tutorial
+
+   1. Prerequisites: Ensure no tutorial is selected. Use `select none` if needed.
+
+   1. Test case: `add -student /name John Doe /phone 98765432 /email johnd@example.com /matric A123456`<br>
+      Expected: No student is added. Error message indicating no tutorial is selected shown in the status message.
+
+1. Additional exploratory checks:
+
+   1. Add a student who already exists in the global list to a different tutorial and verify no duplicate student record is created in the global list.
+
+   1. Add a student with a phone number or email already used by another student and verify the appropriate duplicate contact detail error is shown.
+
+   1. Add students until the tutorial reaches maximum capacity, then attempt to add one more and verify the capacity error is shown.
+
 ### Deleting a student
 
 1. Deleting a student while all students are being shown
@@ -681,6 +714,53 @@ testers are expected to do more *exploratory* testing.
   1. Delete a student who appears in multiple tutorials and verify the student remains in the global list.
 
   1. Delete a student who appears only in the selected tutorial and verify the student is removed from the global list.
+
+### Adding a tutorial
+
+1. Adding a valid tutorial
+
+   1. Prerequisites: None. A tutorial does not need to be selected.
+
+   1. Test case: `add -tutorial /code CS2103T-W12 /day Wed /timeslot 10:00-11:00 /capacity 10`<br>
+      Expected: Tutorial is added to the system. Details of the added tutorial shown in the status message. Tutorial appears in the tutorial list.
+
+   1. Test case: `add -tutorial /code CS2103T-W12 /day Wed /timeslot 10:00-11:00 /capacity 10` (repeat the same command)<br>
+      Expected: No tutorial is added. Error message indicating duplicate tutorial code shown in the status message.
+
+   1. Test case: `add -tutorial /code CS2103T-W12 /day Wed /timeslot 10:00-11:00` (missing `/capacity` field)<br>
+      Expected: No tutorial is added. Error message indicating invalid command format shown in the status message.
+
+   1. Other incorrect add tutorial commands to try: `add -tutorial`, `add -tutorial /code CS2103T-W12 /day Monday /timeslot 10:00-11:00 /capacity 10` (invalid day format), `add -tutorial /code CS2103T-W12 /day Wed /timeslot 10:00 /capacity 10` (invalid timeslot format)<br>
+      Expected: Similar to previous.
+
+1. Additional exploratory checks:
+
+   1. Add a tutorial with capacity 1, add a student to it, then attempt to add another student and verify the capacity error is shown.
+
+   1. Add a tutorial with the same code but different casing (e.g., `cs2103t-w12`) and verify it is treated as a duplicate.
+
+### Deleting a tutorial
+
+1. Deleting a tutorial while the tutorial list is shown
+
+   1. Prerequisites: Run `list -tutorial` to display all tutorials. At least one tutorial must exist.
+
+   1. Test case: `delete -tutorial 1`<br>
+      Expected: First tutorial is deleted from the list. Details of the deleted tutorial shown in the status message.
+
+   1. Test case: `delete -tutorial 0`<br>
+      Expected: No tutorial is deleted. Error message indicating invalid index shown in the status message.
+
+   1. Other incorrect delete tutorial commands to try: `delete -tutorial`, `delete -tutorial x`, `delete -tutorial ...` (where index is larger than the list size)<br>
+      Expected: Similar to previous.
+
+1. Additional exploratory checks:
+
+   1. Delete a tutorial containing students who are also enrolled in other tutorials and verify those students remain in the global list.
+
+   1. Delete a tutorial containing students who are not enrolled in any other tutorial and verify those students are removed from the global list entirely.
+
+   1. Delete the currently selected tutorial (current operating tutorial) and verify the operating tutorial selection is cleared.
 
 ### Saving data
 
