@@ -63,11 +63,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             case EMAIL:
                 return new FindCommand(new EmailContainsKeywordsPredicate(Arrays.asList(keywords)));
             case MATRIC:
-                for (String kw : keywords) {
-                    if (!MatricNumber.isValidMatricNumber(kw)) {
-                        throw new ParseException(MatricNumber.MESSAGE_CONSTRAINTS);
-                    }
-                }
                 return new FindCommand(new MatricNumberStartsWithKeywordsPredicate(Arrays.asList(keywords)));
             default:
                 // Default case only occurs if you added a flag into FindCommand.Flag but did not add the case here
