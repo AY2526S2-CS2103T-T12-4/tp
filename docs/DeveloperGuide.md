@@ -410,7 +410,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC03 - Add a student**
 
-**Preconditions**: Tutor has selected a tutorial (UC02).
+**Preconditions**: Tutor has selected a tutorial.
 
 **MSS**
 
@@ -445,7 +445,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC04 - Delete a student**
 
-**Preconditions**: Tutor has selected a tutorial (UC02).
+**Preconditions**: Tutor has selected a tutorial.
 
 **MSS**
 
