@@ -353,7 +353,7 @@ Examples:
 * `complete 1` marks the 1st order in the list as completed.
 
 ![Adding an order](images/completeOrderExample.png)
-
+![Completing an order](images/completeOrderExample.png)
 #### Completing all orders in a region : `completeregion`
 
 Marks all orders belonging to customers in a region as completed.
