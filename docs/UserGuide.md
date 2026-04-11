@@ -352,7 +352,7 @@ Format: `complete INDEX`
 Examples:
 * `complete 1` marks the 1st order in the list as completed.
 
-![Adding an order](images/completeOrderExample.png)
+![Marking an order as completed](images/completeOrderExample.png)
 
 #### Completing all orders in a region : `completeregion`
 
@@ -366,7 +366,7 @@ Format: `completeregion r/REGION`
 Examples:
 * `completeregion r/E` marks all orders made by customers who live in the East region as completed.
 
-![Adding an order](images/completeOrderRegionExample.png)
+![Marking an order as completed by region](images/completeOrderRegionExample.png)
 
 #### Finding orders by region : `findorder`
 
