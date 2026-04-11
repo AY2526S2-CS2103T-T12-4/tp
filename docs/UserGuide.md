@@ -295,6 +295,8 @@ Shows a list of all completed or cancelled orders.
 
 Format: `listpastorder`
 
+![List past order](images/listPastOrderExample.png)
+
 #### Filtering orders by phone number: `findorder`
 
 Finds orders matching a specific customer phone number.
