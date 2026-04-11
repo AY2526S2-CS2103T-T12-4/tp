@@ -366,7 +366,7 @@ Format: `completeregion r/REGION`
 Examples:
 * `completeregion r/E` marks all orders made by customers who live in the East region as completed.
 
-![Adding an order](images/completeOrderRegionExample.png)
+![Completing all orders in a region](images/completeOrderRegionExample.png)
 
 #### Finding orders by region : `findorder`
 
