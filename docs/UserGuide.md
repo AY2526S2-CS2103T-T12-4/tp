@@ -6,6 +6,7 @@ title: User Guide
 Food Bridge is a desktop app that helps restaurant delivery workers keep track of customer details and orders quickly and efficiently.
 By using simple typed commands, you can manage everything faster than traditional point-and-click apps.
 
+<h2 id="toc">Table of Contents</h2>
 * Table of Contents
 {:toc}
 
@@ -41,6 +42,7 @@ By using simple typed commands, you can manage everything faster than traditiona
 
 9. Refer to the [Features](#features) below for details of each command.
 
+[Return to Table of Contents](#toc)
 --------------------------------------------------------------------------------------------------------------------
 
 ## Example Workflow
@@ -81,6 +83,7 @@ Here is an example workflow for a new user getting to know Food Bridge.
 
 10. [**Exit**](#exiting-the-program--exit): Use `exit` to close the application.
 
+[Return to Table of Contents](#toc)
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -115,6 +118,7 @@ Notes about the format:
 
 If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
+[Return to Table of Contents](#toc)
 --------------------------------------------------------------------------------------------------------------------
 
 ### **Customer Management Commands**
@@ -210,6 +214,7 @@ Examples:
 * `findperson N` displays customers who live in region `N`.
 * `findperson NE W` displays customers who live in either region `NE` or `W`.
 
+[Return to Table of Contents](#toc)
 --------------------------------------------------------------------------------------------------------------------
 
 ### **Order Management Commands** 
@@ -244,6 +249,7 @@ Below is the menu used in Food Bridge, consisting of each item's name and price.
 6. Smoked Salmon Bagel, $8.50
 7. Apple Juice, $1.50
 8. Cafe Latte, $3.00
+
 
 #### Adding an order: `addorder`
 
@@ -368,6 +374,7 @@ Clears all orders from the order list.
 
 Format: `clearorder`
 
+[Return to Table of Contents](#toc)
 --------------------------------------------------------------------------------------------------------------------
 
 ### **General Commands**
@@ -433,6 +440,7 @@ If your changes are invalid, Food Bridge will discard all data and start with an
 Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e.g., if a value is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+[Return to Table of Contents](#toc)
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -452,6 +460,7 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 **Q**: What happens if I delete a customer with existing orders?<br>
 **A**: Deleting a customer automatically deletes their corresponding orders.
 
+[Return to Table of Contents](#toc)
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
@@ -462,6 +471,7 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 4. **If the app is placed in a write-protected folder**, it may fail to save data and preferences correctly. The workaround is to move the app to a folder with write permissions.
 5. Mac users using the fullscreen mode for secondary dialogs (e.g., the help dialog) might encounter unexpected behaviours.
 
+[Return to Table of Contents](#toc)
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command summary
@@ -489,3 +499,5 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 | **Redo**                           | `redo`                                                                                                                                                        |
 | **Clear**                          | `clear`                                                                                                                                                       |
 | **Exit**                           | `exit`                                                                                                                                                        |
+
+[Return to Table of Contents](#toc)
