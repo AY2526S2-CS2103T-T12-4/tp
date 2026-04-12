@@ -6,6 +6,7 @@ title: User Guide
 Food Bridge is a desktop app that helps restaurant delivery workers keep track of customer details and orders quickly and efficiently.
 By using simple typed commands, you can manage everything faster than traditional point-and-click apps.
 
+<h2 id="toc">Table of Contents</h2>
 * Table of Contents
 {:toc}
 
@@ -32,7 +33,7 @@ By using simple typed commands, you can manage everything faster than traditiona
 
 6. Type `java -jar food-bridge-[version].jar` and press Enter to launch the application.<br>
     E.g. If you downloaded version 1.5, you should type `java -jar food-bridge-1.5.jar`.<br>
-     A GUI similar to the below should appear. Note how the app contains some sample data.<br>
+     An interface similar to the below should appear. Note how the app contains some sample data.<br>
          ![Ui](images/Ui.png)
 
 7. Type a command into the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
@@ -40,6 +41,8 @@ By using simple typed commands, you can manage everything faster than traditiona
 8. Refer to the [Example Workflow](#example-workflow) for a quick introduction to the commands.
 
 9. Refer to the [Features](#features) below for details of each command.
+
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -81,6 +84,8 @@ Here is an example workflow for a new user getting to know Food Bridge.
 
 10. [**Exit**](#exiting-the-program--exit): Use `exit` to close the application.
 
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -104,7 +109,7 @@ Notes about the format:
 * **Optionals**: Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/member` or as `n/John Doe`.
 
-* **Multiple parameters**: Items with `…`​ after them can be used multiple times including zero times.<br>
+* **Multiple parameters**: Items with `…`​ after them can be used multiple times, including zero times.<br>
   e.g. `[t/TAG]…​` can be used as `t/member`, `t/member t/staff`, or simply ignored.
 
 * **Parameter order**: Apart from the `INDEX`, parameters can be in any order.<br>
@@ -114,6 +119,8 @@ Notes about the format:
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -155,6 +162,8 @@ Examples:
 * `addperson n/John Doe p/98765432 a/111111 u/#01-01 r/N` adds a customer named `John Doe` with phone number `98765432`, postal code `111111`, unit number `#01-01`, in the `N` region to the customer list.
 * `addperson n/Betsy Crowe p/87243155 a/110022 r/C t/member` adds a customer named `Betsy Crowe`, with phone number `87243155`, postal code `110022`, in the `C` region, tagged as a `member` to the customer list. 
 
+<a href="#customer-contacts" style="font-size:12px;"> Refer to common parameters and required formats. </a>
+
 #### Deleting a customer: `deleteperson`
 
 Deletes the specified customer from the contact list.
@@ -167,6 +176,8 @@ Format: `deleteperson CUSTOMER_INDEX`
 Examples:
 * `deleteperson 2` deletes the 2nd customer in the contact list.
 * `findperson N` followed by `deleteperson 1` deletes the 1st person displayed in the results of the `findperson` command.
+
+<a href="#customer-contacts" style="font-size:12px;"> Refer to common parameters and required formats. </a>
 
 #### Listing all customers: `listperson`
 
@@ -188,13 +199,15 @@ Format: `editperson CUSTOMER_INDEX [n/NAME] [p/PHONE_NUMBER] [a/POSTAL_CODE] [u/
 
 Editing tags:
 * When editing tags, the existing tags of the customer will be overridden.
-* You can remove all of the specified customer’s tags by using `t/` without
+* You can remove all the specified customer’s tags by using `t/` without
     specifying any tags after it.
 
 Examples:
 * `editperson 1 p/91234567 r/E` edits the phone number and region of the 1st person in the list to be `91234567` and `East` respectively.
 * `editperson 2 n/Betsy Crower t/` edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `editperson 3 a/123456 u/` edits the postal code of the 3rd person to be `123456` and clears the existing unit number.
+
+<a href="#customer-contacts" style="font-size:12px;"> Refer to common parameters and required formats. </a>
 
 #### Finding customers by region: `findperson`
 
@@ -209,6 +222,10 @@ Format: `findperson REGION [MORE_REGIONS]…`
 Examples:
 * `findperson N` displays customers who live in region `N`.
 * `findperson NE W` displays customers who live in either region `NE` or `W`.
+
+<a href="#customer-contacts" style="font-size:12px;"> Refer to common parameters and required formats. </a>
+
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -259,6 +276,8 @@ Examples:
 * `addorder c/1 o/2 5` adds an order of 5 units of menu item 2 for the first customer in the customer list.
 * `addorder c/2 o/1 1 o/2 3 o/4 2` adds an order for the second customer, consisting of 1 unit of menu item 1, 3 units of menu item 2, and 2 units of menu item 4.
 
+<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+
 #### Deleting an order: `deleteorder`
 
 Deletes an order from the order list.
@@ -270,6 +289,8 @@ Format: `deleteorder ORDER_INDEX`
 
 Examples:
 * `deleteorder 3` deletes the 3rd order in the order list.
+
+<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Listing all orders: `listorder`
 
@@ -285,7 +306,7 @@ Format: `listcurrorder`
 
 #### Viewing past orders: `listpastorder`
 
-Shows a list of all completed or cancelled orders.
+Shows a list of all completed orders.
 
 Format: `listpastorder`
 
@@ -302,6 +323,8 @@ Format: `findorder p/PHONE_NUMBER`
 Examples:
 * `findorder p/98765432` displays all orders made by the customer with phone number `98765432`.
 
+<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+
 #### Deleting orders of a specific person: `deleteorderbyphone`
 
 Deletes orders matching a specific customer phone number.
@@ -312,6 +335,8 @@ Format: `deleteorderbyphone PHONE_NUMBER`
 
 Examples:
 * `deleteorderbyphone 98765432` deletes all orders made by the customer with phone number `98765432`.
+
+<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Editing an order: `editorder`
 
@@ -330,6 +355,8 @@ Format: `editorder ORDER_INDEX o/MENU_ITEM QUANTITY [o/MENU_ITEM QUANTITY]…​
 Examples:
 *  `editorder 1 o/1 1 o/2 4` edits the 1st order in the list to include 1 unit of menu item 1 and 4 units of menu item 2.
 *  `editorder 2 o/3 0` edits the 2nd order to remove menu item 3 from the order.
+
+<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Mark an order as completed: `complete`
 
@@ -353,6 +380,8 @@ Format: `completeregion r/REGION`
 Examples:
 * `completeregion r/N` marks all orders from the `N` region as completed.
 
+<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+
 #### Finding orders by region : `findorder`
 
 Finds all orders whose customer's region matches the given region.
@@ -362,11 +391,15 @@ Format: `findorder r/REGION`
 Examples:
 * `findorder r/N` lists active orders for customers in the `N` region.
 
+<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+
 #### Clear Order List: `clearorder`
 
 Clears all orders from the order list.
 
 Format: `clearorder`
+
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -430,15 +463,17 @@ Food Bridge data is stored as a JSON file `[JAR file location]/data/addressbook.
 
 <div markdown="span" class="alert alert-warning"> :exclamation: **Caution:**
 If your changes are invalid, Food Bridge will discard all data and start with an empty data file on the next run. Hence, it is recommended to back up the file before editing it.<br>
-Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e.g., if a value is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e.g. if a value is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
+
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer. Then, run the app. Overwrite the empty data file it creates with the file that contains the data of your previous Food Bridge home folder. Your data should load once you relaunch your app. 
 
 **Q**: Can I add multiple products in one order?<br>
 **A**: Yes. Use the `addorder` command and add as many menu items as you want with the `o/` prefix.
@@ -452,15 +487,19 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 **Q**: What happens if I delete a customer with existing orders?<br>
 **A**: Deleting a customer automatically deletes their corresponding orders.
 
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-3. **Double-clicking the `.jar` file may not work on some systems**, depending on system Java/file association settings. The workaround is to launch the app from a terminal using `java -jar food-bridge-[version].jar`.
-4. **If the app is placed in a write-protected folder**, it may fail to save data and preferences correctly. The workaround is to move the app to a folder with write permissions.
-5. Mac users using the fullscreen mode for secondary dialogs (e.g., the help dialog) might encounter unexpected behaviours.
+1. **Using multiple screens**: if you move the app to a second screen, and later switch back to using only one screen, the app might open somewhere you can't see it. To fix this, delete the `preferences.json` file before opening the app again.
+2. **Help Window remains hidden**: if you minimize the Help Window then try to open it again (whether by using the `help` command, the `Help` menu, or the keyboard shortcut `F1`), nothing will seem to happen. Instead, simply restore the minimized Help Window manually.
+3. **App does not open when double-clicking the `.jar` file**: double-clicking the `.jar` file may not work on some systems. Instead, open a terminal and launch the app using the command `java -jar food-bridge-[version].jar`.
+4. **App can't save data**: if the app is in a folder where it isn’t allowed to make changes, the data won’t be saved properly. You'll need to move it to a different folder where it has permission.
+5. **Mac fullscreen issues**: on Mac, using fullscreen mode for pup-up windows (e.g., the help dialog) may cause some unexpected behaviour.
+
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -489,3 +528,5 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 | **Redo**                           | `redo`                                                                                                                                                        |
 | **Clear**                          | `clear`                                                                                                                                                       |
 | **Exit**                           | `exit`                                                                                                                                                        |
+
+<a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
