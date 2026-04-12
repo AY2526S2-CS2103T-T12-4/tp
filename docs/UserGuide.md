@@ -156,7 +156,7 @@ Format: `add -student /name NAME /phone PHONE_NUMBER /email EMAIL /matric MATRIC
 * A student cannot be added to the same tutorial twice.
 
 **Field Constraints:**
-* **Name**: Must contain only alphabetic characters and spaces. Cannot be blank. Maximum 100 characters long.
+* **Name**: Must contain at least one alphabetic character. Spaces and symbols such as commas, hyphens, forward slashes, and `@` are allowed. Cannot be blank. Maximum 100 characters long.
 * **Phone**: Must contain only digits and be at least 3 digits long to a maximum of 15 digits long.
 * **Email**: Must follow standard email format (e.g., `student@u.nus.edu`). Maximum 100 characters long.
 * **Matric Number**: Must follow the format `Axxxxxx` where `x` is a digit (e.g., `A000000`, `A123456`). Must be exactly 7 characters: the letter `A` followed by 6 digits.
