@@ -3,8 +3,9 @@ layout: page
 title: User Guide
 ---
 
-Food Bridge is a desktop app that helps restaurant delivery workers keep track of customer details and orders quickly and efficiently.
-By using simple typed commands, you can manage everything faster than traditional point-and-click apps.
+Food Bridge is a desktop app for managers of restaurants that do deliveries.
+It helps you organize customer contacts, track active and past orders, and update delivery-related details from one place.
+Using fast typed commands, you can process daily delivery operations more efficiently than traditional point-and-click workflows.
 
 * Table of Contents
 {:toc}
@@ -37,9 +38,11 @@ By using simple typed commands, you can manage everything faster than traditiona
 
 7. Type a command into the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
     
-8. Refer to the [Example Workflow](#example-workflow) for a quick introduction to the commands.
+8. New users should first read the [Command format](#command-format) to understand how commands and prefixes are written.
 
-9. Refer to the [Features](#features) below for details of each command.
+9. Then follow the [Example Workflow](#example-workflow) for a quick, end-to-end walkthrough of common tasks.
+
+10. Refer to the [Features](#features) section for full details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -84,6 +87,14 @@ Here is an example workflow for a new user getting to know Food Bridge.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+Food Bridge commands are grouped by what you need to manage:
+
+* **Customer management** commands to add, edit, delete, list, and find customers by region.
+* **Order management** commands to add, edit, delete, filter, complete, and list orders by status.
+* **General commands** for help, undo/redo, clearing data, and exiting the app.
+
+If you are new, start with [Command format](#command-format), then try the [Example Workflow](#example-workflow) before exploring individual command details below.
 
 #### Command format
 
@@ -190,6 +201,11 @@ Editing tags:
 * When editing tags, the existing tags of the customer will be overridden.
 * You can remove all of the specified customer’s tags by using `t/` without
     specifying any tags after it.
+
+Tip: If you only want to keep certain tags, include all desired tags again in the same command.
+For example, `editperson 2 t/member t/vip` replaces the current tag set with exactly `member` and `vip`.
+
+Warning: `t/` by itself is intentional and will clear every existing tag for that customer.
 
 Examples:
 * `editperson 1 p/91234567 r/E` edits the phone number and region of the 1st person in the list to be `91234567` and `East` respectively.
@@ -299,6 +315,8 @@ Format: `findorder p/PHONE_NUMBER`
 * This command only accepts one filter (i.e. either `r/` or `p/`) at a time.
 * Use `listorder` to show all orders again after filtering.
 
+Tip: If `findorder p/...` returns no results, run `listorder` first to confirm that orders exist for that phone number.
+
 Examples:
 * `findorder p/98765432` displays all orders made by the customer with phone number `98765432`.
 
@@ -359,6 +377,9 @@ Finds all orders whose customer's region matches the given region.
 
 Format: `findorder r/REGION`
 
+Tip: Use short region codes only (`N`, `NE`, `W`, `E`, `C`).
+Warning: Do not combine `r/` and `p/` in the same `findorder` command.
+
 Examples:
 * `findorder r/N` lists active orders for customers in the `N` region.
 
@@ -367,6 +388,9 @@ Examples:
 Clears all orders from the order list.
 
 Format: `clearorder`
+
+Warning: `clearorder` removes all currently stored orders in one step.
+Tip: If this was accidental, run `undo` immediately to restore them.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -411,6 +435,9 @@ Examples:
 Clears all entries from the address book.
 
 Format: `clear`
+
+Warning: `clear` wipes both customers and orders from the app view.
+Tip: If run by mistake, use `undo` right away before making other changes.
 
 #### Exiting the program: `exit`
 
