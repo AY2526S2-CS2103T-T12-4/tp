@@ -366,6 +366,8 @@ Format: `completeregion r/REGION`
 
 * Marks all orders made by customers in the specified `REGION` as completed.
 * This will not affect orders that are already completed.
+* After the command runs, the displayed order list is automatically filtered to show only the orders that were just marked as completed for that region.
+* To return to the full order list view (including other regions), run `listorder`.
 
 Examples:
 * `completeregion r/E` marks all orders made by customers who live in the East region as completed.
@@ -494,7 +496,7 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 | **Edit Order**                     | `editorder ORDER_INDEX o/MENU_ITEM QUANTITY [o/MENU_ITEM QUANTITY]…​` <br> e.g. `editorder 1 o/1 1 o/2 4`                                                     |
 | **Mark Order as Completed**        | `complete ORDER_INDEX` <br> e.g. `complete 1`                                                                                                                 |
 | **Find Orders by Region or Phone** | `findorder [p/PHONE_NUMBER] [r/REGION]` (exactly one field must be provided; works for active and inactive orders) <br> e.g. `findorder r/N`, `findorder p/98765432`                       |
-| **Complete Orders by Region**      | `completeregion r/REGION` <br> e.g. `completeregion r/NE`                                                                                                     |
+| **Complete Orders by Region**      | `completeregion r/REGION` (after execution, the displayed list is filtered to just-completed matching orders; run `listorder` to show all orders again) <br> e.g. `completeregion r/NE`                                                                                                     |
 | **Delete Orders by Phone**         | `deleteorderbyphone PHONE_NUMBER` <br> e.g. `deleteorderbyphone 98765432`                                                                                     |
 | **Clear All Orders**               | `clearorder`                                                                                                                                                  |
 | **View Help**                      | `help`                                                                                                                                                        |
