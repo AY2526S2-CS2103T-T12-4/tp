@@ -40,9 +40,7 @@ New users can start with [Command format](#command-format), then follow the [Exa
          ![Ui](images/Ui.png)
 
 7. Type a command into the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
-    
-<<<<<<< UG-fix
-=======
+
 8. If you are new to CLI apps, read [Command format](#command-format) first to understand how Food Bridge commands are structured.
 
 9. Refer to the [Example Workflow](#example-workflow) for a quick introduction to the commands.
@@ -50,7 +48,6 @@ New users can start with [Command format](#command-format), then follow the [Exa
 10. Refer to the [Features](#features) below for details of each command.
 
 <a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
->>>>>>> master
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -358,6 +355,14 @@ Format: `findorder [p/PHONE_NUMBER] [r/REGION]`
 If `findorder p/...` returns no results, run `listorder` first to confirm that orders exist for that phone number.
 </div>
 
+<div markdown="span" class="alert alert-info"> :bulb: **Tip:**
+Use short region codes only (`N`, `NE`, `W`, `E`, `C`).
+</div>
+
+<div markdown="span" class="alert alert-warning"> :exclamation: **Warning:**
+Do not combine `r/` and `p/` in the same `findorder` command.
+</div>
+
 Examples:
 * `findorder p/98765432` displays all orders (active and inactive) made by the customer with phone number `98765432`.
 * `findorder r/N` displays all orders (active and inactive) made by customers in region `N`.
@@ -430,21 +435,7 @@ Examples:
 
 ![Marking an order as completed by region](images/completeOrderRegionExample.png)
 *Figure: Completing all orders for customers in the specified region marks the matching orders as completed in the order list.*
-
-<<<<<<< UG-fix
-<div markdown="span" class="alert alert-info"> :bulb: **Tip:**
-Use short region codes only (`N`, `NE`, `W`, `E`, `C`).
-</div>
-
-<div markdown="span" class="alert alert-warning"> :exclamation: **Warning:**
-Do not combine `r/` and `p/` in the same `findorder` command.
-</div>
-
-Examples:
-* `findorder r/N` lists active orders for customers in the `N` region.
-=======
 <a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
->>>>>>> master
 
 #### Clear Order List: `clearorder`
 
@@ -452,7 +443,6 @@ You can clear all orders from the order list.
 
 Format: `clearorder`
 
-<<<<<<< UG-fix
 <div markdown="span" class="alert alert-warning"> :exclamation: **Warning:**
 `clearorder` removes all currently stored orders in one step.
 </div>
@@ -460,9 +450,9 @@ Format: `clearorder`
 <div markdown="span" class="alert alert-info"> :bulb: **Tip:**
 If this was accidental, run `undo` immediately to restore them.
 </div>
-=======
+
 <a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
->>>>>>> master
+
 
 --------------------------------------------------------------------------------------------------------------------
 
