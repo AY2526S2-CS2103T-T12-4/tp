@@ -202,6 +202,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *` | user                      | delete an order by index                                 | remove wrongly-keyed orders.                                          |
 | `* *`  | user                      | delete orders by phone number                            | quickly remove all orders tied to a specific customer.                |
 | `* * *` | restaurant employee       | mark an order as completed                               | keep track of fulfilled orders.                                       |
+| `* *`  | restaurant employee       | mark all orders in a region as completed                 | batch-complete deliveries for the same area.                          |
+| `* *`  | restaurant employee       | clear all orders                                         | reset the order queue quickly when needed.                            |
 | `* *`  | restaurant delivery worker| find persons by region                                   | identify customers in a delivery region.                              |
 | `* *`  | restaurant delivery worker| find active orders by phone or region                    | filter orders for delivery planning.                                  |
 | `* *`  | restaurant delivery worker| list current and past orders                             | separate active orders from completed ones.                           |
@@ -374,7 +376,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all persons using the `listperson` command. Multiple persons in the list.
 
    1. Test case: `deleteperson 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. If the contact has associated orders, the status message also shows a warning that those orders were deleted. Timestamp in the status bar is updated.
 
    1. Test case: `deleteperson 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
