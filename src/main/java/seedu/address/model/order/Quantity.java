@@ -9,7 +9,9 @@ import seedu.address.commons.util.AppUtil;
  * Represents a quantity in an order.
  */
 public class Quantity {
+    private static final int maxValue = 500;
     public static final String MESSAGE_CONSTRAINTS = "Quantity should be a non-negative integer.";
+    public static final String MESSAGE_MAXIMUM = String.format("Quantity cannot exceed %d.", maxValue);
     private static final String VALIDATION_REGEX_NONNEGATIVE = "^[0-9]\\d*$";
 
     private final int value;
@@ -22,7 +24,13 @@ public class Quantity {
     public Quantity(String quantity) {
         requireNonNull(quantity);
         AppUtil.checkArgument(isValidQuantity(quantity), MESSAGE_CONSTRAINTS);
+        if (quantity.length() > 9) {
+            throw new IllegalArgumentException(MESSAGE_MAXIMUM);
+        }
         this.value = Integer.parseInt(quantity);
+        if (this.value > maxValue) {
+            throw new IllegalArgumentException(MESSAGE_MAXIMUM);
+        }
     }
 
     public int getValue() {
