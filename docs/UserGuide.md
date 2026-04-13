@@ -168,6 +168,7 @@ Format: `deleteperson CUSTOMER_INDEX`
 
 * Deletes the customer at the specified `CUSTOMER_INDEX`.
   * The index refers to the index number shown in the displayed contact list.
+* **Warning:** This is a destructive action. If the customer has any existing orders, those associated orders are deleted together with the customer.
 
 Examples:
 * `deleteperson 2` deletes the 2nd customer in the contact list.
@@ -481,7 +482,7 @@ Furthermore, certain edits may cause Food Bridge to behave in unexpected ways (e
 | Action                             | Format, Examples                                                                                                                                              |
 |------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Customer**                   | `addperson n/NAME p/PHONE_NUMBER a/POSTAL_CODE [u/UNIT_NUMBER] r/REGION [t/TAG]…​` <br> e.g. `addperson n/John Doe p/98765432 a/111111 u/#01-01 r/N t/member` |
-| **Delete Customer**                | `deleteperson CUSTOMER_INDEX` <br> e.g. `deleteperson 2`                                                                                                      |
+| **Delete Customer**                | `deleteperson CUSTOMER_INDEX` (deletes the customer and all associated orders) <br> e.g. `deleteperson 2`                                                    |
 | **List Customers**                 | `listperson`                                                                                                                                                  |
 | **Edit Customer**                  | `editperson CUSTOMER_INDEX [n/NAME] [p/PHONE_NUMBER] [a/POSTAL_CODE] [u/UNIT_NUMBER] [r/REGION] [t/TAG]…​` <br> e.g. `editperson 1 p/91234567 r/E`            |
 | **Find Customers by Region**       | `findperson REGION [MORE_REGIONS]…` <br> e.g. `findperson N`                                                                                                  |
