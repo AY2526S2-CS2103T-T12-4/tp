@@ -63,7 +63,9 @@ public class PersonCard extends UiPart<Region> {
     }
 
     private String truncateTag(String tag) {
-        if (tag.length() <= MAX_TAG_LENGTH) return tag;
+        if (tag.length() <= MAX_TAG_LENGTH) {
+            return tag;
+        }
         return tag.substring(0, MAX_TAG_LENGTH) + "...";
     }
 }
