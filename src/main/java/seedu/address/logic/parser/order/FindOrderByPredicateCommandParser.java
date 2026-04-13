@@ -57,7 +57,7 @@ public class FindOrderByPredicateCommandParser implements Parser<Command> {
         }
 
         if (hasRegion) {
-            Region region = ParserUtil.parseRegion(argMultimap.getValue(PREFIX_REGION).get());
+            Region region = ParserUtil.parseRegion(argMultimap.getValue(PREFIX_REGION).get().toUpperCase());
             return new FindOrderByRegionCommand(new RegionPredicate(region));
         }
 

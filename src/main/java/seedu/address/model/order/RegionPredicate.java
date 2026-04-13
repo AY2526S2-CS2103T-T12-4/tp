@@ -18,7 +18,7 @@ public class RegionPredicate implements Predicate<OrderMap> {
     @Override
     public boolean test(OrderMap order) {
         return order.getPerson().getRegion().equals(region)
-                && order.getStatus() == OrderStatus.PENDING;
+                && order.getStatus() != OrderStatus.CANCELLED;
     }
 
     @Override

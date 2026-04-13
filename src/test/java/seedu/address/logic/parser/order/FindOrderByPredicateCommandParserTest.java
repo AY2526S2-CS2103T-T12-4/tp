@@ -49,6 +49,7 @@ public class FindOrderByPredicateCommandParserTest {
         FindOrderByRegionCommand expectedFindCommand =
                 new FindOrderByRegionCommand(new RegionPredicate(new Region("N")));
         assertParseSuccess(parser, " r/N", expectedFindCommand);
+        assertParseSuccess(parser, " r/n", expectedFindCommand);
         assertParseSuccess(parser, " \n r/N \t", expectedFindCommand);
     }
 
