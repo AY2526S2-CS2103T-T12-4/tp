@@ -3,6 +3,8 @@ package seedu.address.model.order;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.person.Person;
@@ -29,11 +31,22 @@ public class RegionPredicateTest {
     }
 
     @Test
-    public void test_completedOrder_returnsFalse() {
+    public void test_completedOrder_returnsTrue() {
         RegionPredicate predicate = new RegionPredicate(new Region("N"));
         Person person = new PersonBuilder().withRegion("N").build();
         OrderMap completedOrder = new OrderBuilder().withPerson(person).build().markAsCompleted();
-        assertFalse(predicate.test(completedOrder));
+        assertTrue(predicate.test(completedOrder));
+    }
+
+    @Test
+    public void test_cancelledOrder_returnsFalse() {
+        RegionPredicate predicate = new RegionPredicate(new Region("N"));
+        Person person = new PersonBuilder().withRegion("N").build();
+        OrderMap cancelledOrder = new OrderMap(1, person,
+                new OrderBuilder().getDefaultOrderMap(),
+                OrderStatus.CANCELLED,
+                new OrderDateTime(LocalDateTime.now()));
+        assertFalse(predicate.test(cancelledOrder));
     }
 
     @Test
