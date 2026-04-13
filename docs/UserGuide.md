@@ -28,7 +28,7 @@ For those who can type fast, **CoursePilot** transforms student management into 
    ```
    > **Note:** Double-clicking the `.jar` file may not work on some systems. If nothing happens when you double-click, use the command above in a terminal instead.
 
-   A GUI similar to the one below should appear within a few seconds. The app will contain some sample tutorials and students to help you get started.
+   A GUI similar to the one below should appear within a few seconds. The data that you see on your CoursePilot will not match this one exactly. The app will contain some sample tutorials and students to help you get started.
 
    ![Ui](images/Ui.png)
 
