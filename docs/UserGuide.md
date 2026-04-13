@@ -78,7 +78,7 @@ Here is an example workflow for a new user getting to know Food Bridge.
 6. [**Edit an order**](#editing-an-order-editorder): The customer changes Caesar Salad (item 5) to Smoked Salmon Bagel (item 6).<br>
     Use `editorder 1 o/5 0 o/6 1` to edit the order. (`1` refers to the first order in the list.)
 
-7. [**Delete an order**](#deleting-an-order-deleteorder): Once the order is completed, use `deleteorder` to delete the order.
+7. [**Delete an order**](#deleting-an-order-deleteorder): Once the order is completed, use `deleteorder 1` to delete the order. (`1` refers to the first order in the displayed order list.)
 
 8. [**Find orders**](#finding-orders-by-phone-number-or-region-findorder): Use `findorder r/N` to list all orders (active and inactive) from the North region, or `findorder p/98765432` to list all orders (active and inactive) by phone number.
 
