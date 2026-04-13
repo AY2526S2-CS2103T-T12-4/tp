@@ -70,7 +70,7 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
-version = '1.5'
+version = '1.6'
 
 shadowJar {
     archiveFileName = "food-bridge-${project.version}.jar"
