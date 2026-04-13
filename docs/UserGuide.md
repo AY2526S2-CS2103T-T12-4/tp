@@ -373,8 +373,7 @@ Furthermore, manual edits can cause CoursePilot to behave unexpectedly if invali
 7. **Tutorial timeslot must follow the HH:MM-HH:MM format** and must be entered in 24-hour time (e.g. `13:00-14:00`). This strict format ensures unambiguous parsing and consistent display across all tutorials.
 8. **`list -tutorial` does not do anything visually** as CoursePilot does not have any commands that filter the tutorial list, meaning it will always show all tutorials. It is best used to simply refresh the tutorial details.
 9. **Searching by tag is not currently supported** and the `find` command only allows search by name, phone, email and matric number.
-10. **Tutorial timeslots does not allow crossing over to the next day** as in our reserach into typical lesson timings worldwide, there does not exists any tutorial lesson that takes place in local date time over the period of two or more days. But there is a work around in case such a niche case occurs. You can create multiple tutorial slots, appending `-1` or `-2` and so on to indicate that the tutorials are linked. Then make sure the time of those tutorial slots link up with one another.
-
+10. **Tutorial timeslots must occur within a single calendar day**. Our research into global academic scheduling indicates that tutorial sessions do not typically span across two or more days. In the rare event of a multi-day tutorial session, we recommend creating separate tutorial entries with a linked naming convention (e.g., `CS2103T-T01-1` and `CS2103T-T01-2`) and setting the timeslots to align accordingly.
 
 ## Command summary
 
