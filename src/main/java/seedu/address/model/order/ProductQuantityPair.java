@@ -25,7 +25,12 @@ public class ProductQuantityPair implements Comparable<ProductQuantityPair> {
         }
 
         String[] pair = productQuantityPair.split(" ", 2);
-        int product = Integer.parseInt(pair[0].trim());
+        int product;
+        try {
+            product = Integer.parseInt(pair[0].trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(String.format(Messages.MESSAGE_INVALID_MENU_ITEM, pair[0].trim()));
+        }
         String quantity = pair[1].trim();
 
         if (!new ProductList().isValidItem(product)) {
