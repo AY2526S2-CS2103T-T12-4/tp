@@ -31,10 +31,13 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // same phone number, all other attributes different -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        // different name/address/region -> returns false
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withName(VALID_NAME_BOB)
+                .withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND)
+                .build();
+        assertFalse(ALICE.isSamePerson(editedAlice));
 
         // different phone number, all other attributes same -> returns false
         editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();

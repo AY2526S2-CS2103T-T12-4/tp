@@ -15,6 +15,7 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    private static final int MAX_TAG_LENGTH = 30;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -55,6 +56,16 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().toString());
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(truncateTag(tag.tagName));
+                    tags.getChildren().add(tagLabel);
+                });
+    }
+
+    private String truncateTag(String tag) {
+        if (tag.length() <= MAX_TAG_LENGTH) {
+            return tag;
+        }
+        return tag.substring(0, MAX_TAG_LENGTH) + "...";
     }
 }

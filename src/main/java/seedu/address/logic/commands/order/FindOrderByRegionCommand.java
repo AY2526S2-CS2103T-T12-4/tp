@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.order.RegionPredicate;
 
 /**
- * Finds and lists all active orders in address book whose customer's region matches the given region.
+ * Finds and lists all non-cancelled orders in address book whose customer's region matches the given region.
  */
 public class FindOrderByRegionCommand extends Command {
 
@@ -18,7 +18,7 @@ public class FindOrderByRegionCommand extends Command {
     private final RegionPredicate predicate;
 
     /**
-     * Creates a command to find active orders by customer region.
+     * Creates a command to find orders by customer region.
      */
     public FindOrderByRegionCommand(RegionPredicate predicate) {
         requireNonNull(predicate);

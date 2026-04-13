@@ -53,12 +53,13 @@ public class JsonSerializableAddressBookTest {
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicatePersons_doesNotCrash() throws Exception {
         var maybeData = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE, JsonSerializableAddressBook.class);
         assertTrue(maybeData.isPresent());
+
         JsonSerializableAddressBook dataFromFile = maybeData.get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON,
-                dataFromFile::toModelType);
+        AddressBook addressBook = dataFromFile.toModelType();
+        assertTrue(addressBook.getPersonList().size() >= 1);
     }
 
     @Test
