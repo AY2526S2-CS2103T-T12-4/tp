@@ -52,7 +52,7 @@ By using simple typed commands, you can manage everything faster than traditiona
 
 Here is an example workflow for a new user getting to know Food Bridge.
 
-1. [**Clear existing data**](#clearing-all-entries--clear): Use `clear` to remove the sample data.
+1. [**Clear existing data**](#clearing-all-entries-clear): Use `clear` to remove the sample data.
 
 2. [**Add a customer**](#adding-a-customer-addperson): A new order comes from a customer:
    * Name: Jenny Tan
@@ -62,7 +62,7 @@ Here is an example workflow for a new user getting to know Food Bridge.
    * Region: North.<br>
    Use `addperson n/Jenny Tan p/98765432 a/111111 u/#01-01 r/N` to add the new customer to the contact list.
    
-3. [**Edit a customer**](#editing-a-customer--editperson): You realise the unit number is wrong. It should be #02-01.<br>
+3. [**Edit a customer**](#editing-a-customer-editperson): You realise the unit number is wrong. It should be #02-01.<br>
     Use `editperson 1 u/#02-01` to edit the contact. (`1` refers to the first customer in the list, i.e. Jenny Tan.)
 
 4. [**Add an order**](#adding-an-order-addorder): The customer orders: 
@@ -73,18 +73,18 @@ Here is an example workflow for a new user getting to know Food Bridge.
    * Cafe Latte: item 8
    Use `addorder c/1 o/5 1 o/8 2` to add the order.
    
-5. [**List all orders**](#listing-all-orders--listorder): Use `listorder` to see all orders.
+5. [**List all orders**](#listing-all-orders-listorder): Use `listorder` to see all orders.
 
-6. [**Edit an order**](#editing-an-order--editorder): The customer changes Caesar Salad (item 5) to Smoked Salmon Bagel (item 6).<br>
+6. [**Edit an order**](#editing-an-order-editorder): The customer changes Caesar Salad (item 5) to Smoked Salmon Bagel (item 6).<br>
     Use `editorder 1 o/5 0 o/6 1` to edit the order. (`1` refers to the first order in the list.)
 
-7. [**Delete an order**](#deleting-an-order--deleteorder): Once the order is completed, use `deleteorder` to delete the order.
+7. [**Delete an order**](#deleting-an-order-deleteorder): Once the order is completed, use `deleteorder` to delete the order.
 
-8. [**Find orders**](#finding-orders-by-phone-number-or-region--findorder): Use `findorder r/N` to list all orders (active and inactive) from the North region, or `findorder p/98765432` to list all orders (active and inactive) by phone number.
+8. [**Find orders**](#finding-orders-by-phone-number-or-region-findorder): Use `findorder r/N` to list all orders (active and inactive) from the North region, or `findorder p/98765432` to list all orders (active and inactive) by phone number.
 
-9. [**Complete orders by region**](#completing-all-orders-in-a-region--completeregion): Use `completeregion r/N` to mark all North region orders as completed.
+9. [**Complete orders by region**](#completing-all-orders-in-a-region-completeregion): Use `completeregion r/N` to mark all North region orders as completed.
 
-10. [**Exit**](#exiting-the-program--exit): Use `exit` to close the application.
+10. [**Exit**](#exiting-the-program-exit): Use `exit` to close the application.
 
 <a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
 
@@ -285,7 +285,7 @@ Examples:
 ![Adding an order](images/addOrderExample.png)
 *Figure: The new order appears in the order list after executing the command `addorder c/1 o/2 5`.*
 
-<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+<a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Deleting an order: `deleteorder`
 
@@ -299,7 +299,7 @@ Format: `deleteorder ORDER_INDEX`
 Examples:
 * `deleteorder 3` deletes the 3rd order in the order list.
 
-<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+<a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Listing all orders: `listorder`
 
@@ -335,7 +335,7 @@ Examples:
 * `findorder p/98765432` displays all orders (active and inactive) made by the customer with phone number `98765432`.
 * `findorder r/N` displays all orders (active and inactive) made by customers in region `N`.
 
-<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+<a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Deleting orders of a specific person: `deleteorderbyphone`
 
@@ -348,7 +348,7 @@ Format: `deleteorderbyphone PHONE_NUMBER`
 Examples:
 * `deleteorderbyphone 98765432` deletes all orders made by the customer with phone number `98765432`.
 
-<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+<a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Editing an order: `editorder`
 
@@ -369,7 +369,7 @@ Examples:
 *  `editorder 1 o/1 1 o/2 4` edits the 1st order in the list to include 1 unit of menu item 1 and 4 units of menu item 2.
 *  `editorder 2 o/3 0` edits the 2nd order to remove menu item 3 from the order.
 
-<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+<a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Mark an order as completed: `complete`
 
@@ -397,12 +397,12 @@ Format: `completeregion r/REGION`
 Examples:
 * `completeregion r/E` marks all orders made by customers who live in the East region as completed.
 
-<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+<a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 ![Marking an order as completed by region](images/completeOrderRegionExample.png)
 *Figure: Completing all orders for customers in the specified region marks the matching orders as completed in the order list.*
 
-<a href="#order" style="font-size:12px;">Refer to common parameters and required formats. </a>
+<a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Clear Order List: `clearorder`
 
