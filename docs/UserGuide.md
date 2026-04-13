@@ -3,8 +3,11 @@ layout: page
 title: User Guide
 ---
 
-Food Bridge is a desktop app that helps restaurant delivery workers keep track of customer details and orders quickly and efficiently.
-By using simple typed commands, you can manage everything faster than traditional point-and-click apps.
+Food Bridge is a desktop app for managers of restaurants that do deliveries.
+It helps you organize customer contacts, track active and past orders, and update delivery-related details from one place.
+Using fast typed commands, you can process daily delivery operations efficiently.
+
+New users can start with [Command format](#command-format), then follow the [Example Workflow](#example-workflow), and refer to [Features](#features) for full command details.
 
 <h2 id="toc">Table of Contents</h2>
 * Table of Contents
@@ -37,7 +40,7 @@ By using simple typed commands, you can manage everything faster than traditiona
          ![Ui](images/Ui.png)
 
 7. Type a command into the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.
-    
+
 8. If you are new to CLI apps, read [Command format](#command-format) first to understand how Food Bridge commands are structured.
 
 9. Refer to the [Example Workflow](#example-workflow) for a quick introduction to the commands.
@@ -91,6 +94,14 @@ Here is an example workflow for a new user getting to know Food Bridge.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+
+Food Bridge commands are grouped by what you need to manage:
+
+* **Customer management** commands to add, edit, delete, list, and find customers by region.
+* **Order management** commands to add, edit, delete, filter, complete orders, and list orders by status.
+* **General commands** for help, undo/redo, clearing data, and exiting the app.
+
+If you are new, start with [Command format](#command-format), then try the [Example Workflow](#example-workflow) before exploring individual command details below.
 
 #### Command format
 
@@ -207,6 +218,15 @@ Editing tags:
 * If you edit the customer's tags, the existing tags will be overridden.
 * You can remove all of the specified customer’s tags by using `t/` without
     specifying any tags after it.
+
+<div markdown="span" class="alert alert-info"> :bulb: **Tip:**
+If you only want to keep certain tags, include all desired tags again in the same command.
+For example, `editperson 2 t/member t/vip` replaces the current tag set with exactly `member` and `vip`.
+</div>
+
+<div markdown="span" class="alert alert-warning"> :exclamation: **Warning:**
+`t/` by itself is intentional and will clear every existing tag for that customer.
+</div>
 
 Examples:
 * `editperson 1 p/91234567 r/E` edits the phone number and region of the 1st person in the list to be `91234567` and `East` respectively.
@@ -331,6 +351,18 @@ Format: `findorder [p/PHONE_NUMBER] [r/REGION]`
 * `findorder` works for both active and inactive orders.
 * You can use `listorder` to show all orders again after filtering.
 
+<div markdown="span" class="alert alert-info"> :bulb: **Tip:**
+If `findorder p/...` returns no results, run `listorder` first to confirm that orders exist for that phone number.
+</div>
+
+<div markdown="span" class="alert alert-info"> :bulb: **Tip:**
+Use short region codes only (`N`, `NE`, `W`, `E`, `C`).
+</div>
+
+<div markdown="span" class="alert alert-warning"> :exclamation: **Warning:**
+Do not combine `r/` and `p/` in the same `findorder` command.
+</div>
+
 Examples:
 * `findorder p/98765432` displays all orders (active and inactive) made by the customer with phone number `98765432`.
 * `findorder r/N` displays all orders (active and inactive) made by customers in region `N`.
@@ -403,7 +435,6 @@ Examples:
 
 ![Marking an order as completed by region](images/completeOrderRegionExample.png)
 *Figure: Completing all orders for customers in the specified region marks the matching orders as completed in the order list.*
-
 <a href="#orders" style="font-size:12px;">Refer to common parameters and required formats. </a>
 
 #### Clear Order List: `clearorder`
@@ -412,7 +443,16 @@ You can clear all orders from the order list.
 
 Format: `clearorder`
 
+<div markdown="span" class="alert alert-warning"> :exclamation: **Warning:**
+`clearorder` removes all currently stored orders in one step.
+</div>
+
+<div markdown="span" class="alert alert-info"> :bulb: **Tip:**
+If this was accidental, run `undo` immediately to restore them.
+</div>
+
 <a href="#toc" style="font-size:10px;">Return to Table of Contents</a>
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -459,6 +499,14 @@ Examples:
 You can clear all entries from the contact list and order list.
 
 Format: `clear`
+
+<div markdown="span" class="alert alert-warning"> :exclamation: **Warning:**
+`clear` wipes both customers and orders from the app view.
+</div>
+
+<div markdown="span" class="alert alert-info"> :bulb: **Tip:**
+If run by mistake, use `undo` right away before making other changes.
+</div>
 
 #### Exiting the program: `exit`
 
