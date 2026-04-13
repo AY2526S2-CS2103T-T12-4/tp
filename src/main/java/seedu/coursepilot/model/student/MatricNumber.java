@@ -56,12 +56,12 @@ public class MatricNumber {
         }
 
         MatricNumber otherMatric = (MatricNumber) other;
-        return matricNumber.equals(otherMatric.matricNumber);
+        return matricNumber.equalsIgnoreCase(otherMatric.matricNumber);
     }
 
     @Override
     public int hashCode() {
-        return matricNumber.hashCode();
+        return matricNumber.toLowerCase().hashCode();
     }
 
 }
