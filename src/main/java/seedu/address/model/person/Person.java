@@ -73,7 +73,7 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getAddress().equals(getRegion())
+                && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getRegion().equals(getRegion());
     }
 

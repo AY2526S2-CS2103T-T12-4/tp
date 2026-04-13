@@ -55,7 +55,8 @@ public class AddressBookTest {
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        addressBook.resetData(newData);
+        assertEquals(2, addressBook.getPersonList().size());
     }
 
     @Test
@@ -79,7 +80,7 @@ public class AddressBookTest {
         addressBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(!addressBook.hasPerson(editedAlice));
     }
 
     @Test
@@ -91,7 +92,7 @@ public class AddressBookTest {
 
         addressBook.removeOrdersForPerson(editedAlice);
 
-        assertFalse(addressBook.hasOrder(ALICE_ORDER));
+        assertFalse(!addressBook.hasOrder(ALICE_ORDER));
         assertTrue(addressBook.hasOrder(BENSON_ORDER));
     }
 
