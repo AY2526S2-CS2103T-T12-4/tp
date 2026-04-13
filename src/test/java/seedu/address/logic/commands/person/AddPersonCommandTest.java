@@ -284,6 +284,11 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            return javafx.collections.FXCollections.observableArrayList();
+        }
+
+        @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }

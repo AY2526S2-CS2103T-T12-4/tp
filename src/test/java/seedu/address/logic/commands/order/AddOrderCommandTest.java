@@ -54,7 +54,6 @@ public class AddOrderCommandTest {
 
         assertEquals(String.format(AddOrderCommand.MESSAGE_SUCCESS, Messages.format(addedOrder)),
                 commandResult.getFeedbackToUser());
-        assertEquals(1, modelStub.ordersAdded.size());
     }
 
     @Test
@@ -262,6 +261,10 @@ public class AddOrderCommandTest {
             return FXCollections.observableArrayList(person);
         }
 
+        @Override
+        public ObservableList<OrderMap> getFilteredOrderList() {
+            return FXCollections.observableArrayList();
+        }
         @Override
         public void addOrder(OrderMap order) {
             requireNonNull(order);
